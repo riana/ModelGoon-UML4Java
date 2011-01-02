@@ -44,7 +44,7 @@ public class CommunicationEditPart extends AbstractConnectionEditPart implements
 		targetLabelLocator.setVDistance(10);
 		targetLabelLocator.setUDistance(10);
 		this.targetLabel = new Label();
-		FontData fd = new FontData("Arial", 11, SWT.ITALIC);
+		FontData fd = new FontData("Arial", 8, SWT.ITALIC);
 		this.targetLabel.setFont(new Font(null, fd));
 		this.targetLabel.setForegroundColor(new Color(null, 0, 0, 0));
 		polylineConnection.add(this.targetLabel, targetLabelLocator);
