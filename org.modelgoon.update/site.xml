@@ -12,5 +12,8 @@
    <feature url="features/org.modelgoon_3.0.0.jar" id="org.modelgoon" version="3.0.0">
       <category name="org.modelgoon"/>
    </feature>
+   <feature url="features/org.modelgoon_4.0.0.jar" id="org.modelgoon" version="4.0.0">
+      <category name="org.modelgoon"/>
+   </feature>
    <category-def name="org.modelgoon" label="ModelGoon"/>
 </site>
