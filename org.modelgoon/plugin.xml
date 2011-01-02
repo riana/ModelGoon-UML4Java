@@ -45,7 +45,7 @@
             class="org.modelgoon.sequencediagram.SequenceDiagramEditor"
             default="false"
             extensions="mgs"
-            icon="icons/Class_diagram.png"
+            icon="icons/sequence.png"
             id="org.modelgoon.sequencediagram.editor"
             name="Sequence Diagram">
       </editor>
