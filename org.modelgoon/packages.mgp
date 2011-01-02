@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PackageAnalysis>
+    <Package name="org.modelgoon.classdiagram.figures" x="30" y="31"/>
+    <Package name="org.modelgoon.classdiagram.command" x="438" y="79"/>
+    <Package name="org.modelgoon.classdiagram.model" x="15" y="251"/>
+    <Package name="org.modelgoon.classdiagram.editParts" x="150" y="103"/>
+    <Package name="org.modelgoon.classdiagram.editor" x="331" y="317"/>
+    <Package name="org.modelgoon.classdiagram.dialogs" x="276" y="254"/>
+    <Package name="org.modelgoon.dao" x="539" y="253"/>
+</PackageAnalysis>

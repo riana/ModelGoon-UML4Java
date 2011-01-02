@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.modelgoon.packages.editor.PackagesEditor"
+            contributorClass="org.modelgoon.packages.editor.PackagesViewContributor"
+            default="true"
+            extensions="mgpkg,mgp"
+            icon="icons/Package_diagram.png"
+            id="org.modelgoon.packages.editors.PackagesDependenciesView"
+            name="Packages Dependency View">
+      </editor>
+      <editor
+            class="org.modelgoon.classdiagram.editor.ClassDiagramEditor"
+            default="false"
+            extensions="mgc"
+            icon="icons/Class_diagram.png"
+            id="org.modelgoon.classdiagram.editor"
+            name="Class Diagram">
+      </editor>
+      <editor
+            class="org.modelgoon.classdiagram.editor.CommunicationClassDiagramEditor"
+            default="false"
+            extensions="mgi"
+            icon="icons/Communication_diagram.png"
+            id="org.modelgoon.interactiondiagram.editor"
+            name="Interaction Diagram">
+      </editor>
+      <editor
+            class="org.modelgoon.sequencediagram.SequenceDiagramEditor"
+            default="false"
+            extensions="mgs"
+            icon="icons/Class_diagram.png"
+            id="org.modelgoon.sequencediagram.editor"
+            name="Sequence Diagram">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="org.modelgoon"
+            name="ModelGoon Diagrams">
+      </category>
+      <wizard
+            category="org.modelgoon"
+            class="org.modelgoon.packages.editor.NewPackageDiagramWizard"
+            icon="icons/Package_diagram.png"
+            id="org.modelgoon.packages.wizard"
+            name="Package Dependencies Diagram"
+            project="false">
+      </wizard>
+      
+      <wizard
+            category="org.modelgoon"
+            class="org.modelgoon.classdiagram.editor.NewClassDiagramWizard"
+            icon="icons/Class_diagram.png"
+            id="org.modelgoon.wizards.class"
+            name="Class Diagram">
+      </wizard>
+      
+      <wizard
+            category="org.modelgoon"
+            class="org.modelgoon.classdiagram.editor.NewCommunicationDiagramWizard"
+            icon="icons/Communication_diagram.png"
+            id="org.modelgoon.wizards.communication"
+            name="Interaction Diagram">
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="false"
+            id="org.modelgoon.sequence"
+            objectClass="org.eclipse.jdt.core.IMethod">
+         <action
+               class="org.modelgoon.sequencediagram.CreateSequenceDiagram"
+               id="org.modelgoon.sequence.create"
+               menubarPath="additions"
+               label="Initialize Sequence Diagram">
+         </action>
+      </objectContribution>
+   </extension>
+
+</plugin>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<mapping>
+	<class name="org.modelgoon.packages.model.Package">
+		<map-to xml="Package" />
+		<field name="name" type="string">
+			<bind-xml node="attribute" />
+		</field>
+		<field name="x" type="integer">
+			<bind-xml node="attribute" />
+		</field>
+		<field name="y" type="integer">
+			<bind-xml node="attribute" />
+		</field>
+	</class>
+	<class name="org.modelgoon.packages.model.PackageAnalysis">
+		<map-to xml="PackageAnalysis" />
+		<field name="eliteskills" type="org.modelgoon.packages.model.Package"
+			get-method="getPackages" set-method="addPackage" collection="arraylist">
+			<bind-xml name="Package" node="element" />
+		</field>
+	</class>
+</mapping>

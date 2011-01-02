@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     13 nov. 2010 16:02:38                                                        
+
+     project    
+     description
+                   
+     riana                                                                
+     ====================================================================== -->
+<project name="org.modelgoon" default="default">
+	<description>
+            description
+    </description>
+	<property name="version" value="4.0.0" />
+
+
+	<!-- ================================= 
+          target: default              
+         ================================= -->
+	<target name="default" description="description">
+		<delete dir="target">
+		</delete>
+		<delete dir="dist">
+		</delete>
+		<mkdir dir="dist" />
+		<mkdir dir="target" />
+		<mkdir dir="target/jar" />
+		<copy todir="target/jar">
+			<fileset dir="bin">
+			</fileset>
+		</copy>
+		<copy todir="target/jar/libs">
+			<fileset dir="libs" />
+		</copy>
+		<copy todir="target/jar/icons">
+			<fileset dir="icons" />
+		</copy>
+		<copy file="plugin.xml" todir="target/jar" />
+		<tstamp>
+			<format property="tstamp" pattern="yyyyMMdd-HHmm" locale="en,UK" />
+		</tstamp>
+		<jar manifest="META-INF/MANIFEST.MF" destfile="dist/${ant.project.name}-${version}-${tstamp}.jar">
+			<fileset dir="target/jar">
+			</fileset>
+		</jar>
+		<delete dir="target">
+		</delete>
+	</target>
+
+</project>

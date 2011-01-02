@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<mapping>
+	<class name="org.modelgoon.classdiagram.model.ClassDiagram">
+		<map-to xml="ClassDiagram" />
+		<field name="classes" type="org.modelgoon.classdiagram.model.ClassModel"
+			get-method="getClasses" set-method="addClass" collection="arraylist">
+			<bind-xml auto-naming="deriveByClass" node="element" />
+		</field>
+	</class>
+	<class name="org.modelgoon.classdiagram.model.ClassModel"
+		verify-constructable="false">
+		<map-to/>
+	</class>
+	<class name="org.modelgoon.classdiagram.model.UmlClass" extends="org.modelgoon.classdiagram.model.ClassModel">
+		<map-to xml="Class" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="attribute" />
+		</field>
+		<field name="x" type="integer">
+			<bind-xml node="attribute" />
+		</field>
+		<field name="y" type="integer">
+			<bind-xml node="attribute" />
+		</field>
+
+		<field name="attributesDisplayFilter"
+			type="org.modelgoon.classdiagram.model.MembersDisplayFilter">
+			<bind-xml name="AttributesDisplayFilter" node="element" />
+		</field>
+
+		<field name="methodDisplayFilter"
+			type="org.modelgoon.classdiagram.model.MethodDisplayFilter">
+			<bind-xml name="MethodDisplayFilter" node="element" />
+		</field>
+	</class>
+
+	<class name="org.modelgoon.classdiagram.model.CommunicationClass"
+		extends="org.modelgoon.classdiagram.model.ClassModel">
+		<map-to xml="CommunicationClass" />
+		<field name="name" type="string">
+			<bind-xml name="name" node="attribute" />
+		</field>
+		<field name="x" type="integer">
+			<bind-xml node="attribute" />
+		</field>
+		<field name="y" type="integer">
+			<bind-xml node="attribute" />
+		</field>
+
+	</class>
+
+	<class name="org.modelgoon.classdiagram.model.MembersDisplayFilter">
+		<map-to xml="MembersFilter" />
+		<field name="publicAccepted" type="boolean">
+			<bind-xml node="attribute" />
+		</field>
+		<field name="privateAccepted" type="boolean">
+			<bind-xml node="attribute" />
+		</field>
+		<field name="protectedAccepted" type="boolean">
+			<bind-xml node="attribute" />
+		</field>
+		<field name="defaultAccepted" type="boolean">
+			<bind-xml node="attribute" />
+		</field>
+		<field name="staticAccepted" type="boolean">
+			<bind-xml node="attribute" />
+		</field>
+	</class>
+
+	<class name="org.modelgoon.classdiagram.model.MethodDisplayFilter"
+		extends="org.modelgoon.classdiagram.model.MembersDisplayFilter">
+		<map-to xml="MethodsFilter" />
+		<field name="accessorsAccepted" type="boolean">
+			<bind-xml node="attribute" />
+		</field>
+		<field name="constructorsAccepted" type="boolean">
+			<bind-xml node="attribute" />
+		</field>
+	</class>
+</mapping>
