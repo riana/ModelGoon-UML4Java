@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.modelgoon"
+      label="ModelGoon"
+      version="3.0.0"
+      provider-name="ModelGoon">
+
+   <description url="http://www.modelgoon.org">
+      ModelGoon brings visual UML Models into the Java world.
+   </description>
+
+   <copyright url="http://www.modelgoon.org">
+      .
+   </copyright>
+
+   <license url="http://www.modelgoon.org">
+      EPL V1
+   </license>
+
+   <url>
+      <discovery label="ModelGoon&apos;s Website" url="http://www.modelgoon.org"/>
+   </url>
+
+   <requires>
+      <import plugin="org.eclipse.gef"/>
+   </requires>
+
+   <plugin
+         id="org.modelgoon"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
