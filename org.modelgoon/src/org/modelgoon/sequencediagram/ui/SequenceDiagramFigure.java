@@ -56,7 +56,8 @@ public class SequenceDiagramFigure extends FragmentFigure {
 		}
 
 		updateElementsLayout();
-		setSize(x, getPreferredSize().height);
+
+		setSize(getParent().getSize().width, getPreferredSize().height);
 	}
 
 	// @Override
