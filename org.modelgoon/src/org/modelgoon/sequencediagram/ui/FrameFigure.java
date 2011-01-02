@@ -104,4 +104,16 @@ public class FrameFigure extends FragmentFigure {
 		return this.guard;
 	}
 
+	@Override
+	protected void layout() {
+
+		Dimension labelSize = calculateTextSize();
+		Dimension guardSize = TextUtilities.INSTANCE.getTextExtents(this.guard,
+				getFont());
+		int minimunWidth = labelSize.width + FrameFigure.ANGLE * 2 + 10
+				+ guardSize.width + 10;
+		setMinimumSize(new Dimension(minimunWidth, getMinimumSize().height));
+		super.layout();
+		System.out.println("FrameFigure.layout()");
+	}
 }

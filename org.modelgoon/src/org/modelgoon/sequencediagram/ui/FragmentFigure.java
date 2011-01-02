@@ -60,8 +60,10 @@ public class FragmentFigure extends Figure implements SequenceElement {
 			this.xPosition = minX - this.borderInsets;
 			int width = maxX - minX + this.borderInsets * 2;
 			this.verticalExtent = yPosition;
+			if (width < getMinimumSize().width) {
+				width = getMinimumSize().width;
+			}
 			setPreferredSize(width, this.verticalExtent);
-
 		} else {
 			setVisible(false);
 			this.xPosition = 300;
