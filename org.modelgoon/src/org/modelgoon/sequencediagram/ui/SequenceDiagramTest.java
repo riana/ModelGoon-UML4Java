@@ -87,8 +87,8 @@ public class SequenceDiagramTest {
 
 						CombinedFragmentFigure combined = new CombinedFragmentFigure();
 						combined.setGuard("[ Else ]");
-						combined.add(contents.createMessageConnection(
-								"inFrameMessageD", p4, p3));
+						// combined.add(contents.createMessageConnection(
+						// "inFrameMessageD", p4, p3));
 						frame3.add(combined);
 
 						CombinedFragmentFigure catchCombined = new CombinedFragmentFigure();

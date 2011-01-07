@@ -77,13 +77,15 @@ public class FrameFigure extends FragmentFigure {
 		for (Object child : getChildren()) {
 			if (child instanceof CombinedFragmentFigure) {
 				CombinedFragmentFigure fragment = (CombinedFragmentFigure) child;
-				Rectangle bounds = fragment.getBounds();
-				graphics.setForegroundColor(ClassFigure.borderColor);
-				graphics.drawLine(rect.x, bounds.y, rect.x + rect.width,
-						bounds.y);
-				graphics.setForegroundColor(originalColor);
-				graphics.drawString(fragment.getGuard(), maxX + 10,
-						bounds.y + 5);
+				if (!fragment.isEmpty()) {
+					Rectangle bounds = fragment.getBounds();
+					graphics.setForegroundColor(ClassFigure.borderColor);
+					graphics.drawLine(rect.x, bounds.y, rect.x + rect.width,
+							bounds.y);
+					graphics.setForegroundColor(originalColor);
+					graphics.drawString(fragment.getGuard(), maxX + 10,
+							bounds.y + 5);
+				}
 			}
 
 		}
