@@ -352,12 +352,26 @@ public class InteractionModelBuilder {
 		}
 	}
 
-	private void handleInvocation(final MethodInvocation invocation) {
+	private String handleInvocation(final MethodInvocation invocation) {
 		String receiver = null;
 		Expression expression = invocation.getExpression();
 		MessageExchange messageExchange = null;
 		if (expression != null) {
-			receiver = expression.toString();
+			if (expression instanceof MethodInvocation) {
+				MethodInvocation innerMethodInvocation = (MethodInvocation) expression;
+				handleInvocation(innerMethodInvocation);
+				IMethodBinding binding = innerMethodInvocation
+						.resolveMethodBinding();
+				if (binding != null) {
+					receiver = "tmp" + binding.getReturnType().getName();
+					if (!this.objects.containsKey(receiver)) {
+						createCollaboratingObject(receiver,
+								binding.getReturnType());
+					}
+				}
+			} else {
+				receiver = expression.toString();
+			}
 			ColloboratingObject receiverObject = this.objects.get(receiver);
 			if (receiverObject != null) {
 				messageExchange = new MessageExchange();
@@ -394,6 +408,7 @@ public class InteractionModelBuilder {
 			this.blockStack.peek().addStatement(messageExchange);
 		}
 
+		return receiver;
 	}
 
 	private void handleAssignment(final Assignment expression) {
