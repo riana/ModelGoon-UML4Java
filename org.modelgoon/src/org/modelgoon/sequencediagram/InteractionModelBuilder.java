@@ -17,6 +17,7 @@ import org.eclipse.jdt.core.dom.Assignment;
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.CatchClause;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
+import org.eclipse.jdt.core.dom.ConditionalExpression;
 import org.eclipse.jdt.core.dom.EnhancedForStatement;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.ExpressionStatement;
@@ -198,6 +199,29 @@ public class InteractionModelBuilder {
 		System.out.println("#END IF");
 	}
 
+	private void handleExpression(final ConditionalExpression expression) {
+		System.out.println("#START IF : " + expression.getExpression());
+		handleExpression(expression.getExpression());
+		StatementBlock conditionnalStatement = new StatementBlock();
+		conditionnalStatement.setExpression("[ "
+				+ expression.getExpression().toString() + " ]");
+		conditionnalStatement.setType(BlockType.IF);
+		this.blockStack.peek().addStatement(conditionnalStatement);
+		this.blockStack.push(conditionnalStatement);
+		handleExpression(expression.getThenExpression());
+		if (expression.getElseExpression() != null) {
+			System.out.println("#ELSE");
+			CombinedStatementBlock elseBlock = new CombinedStatementBlock();
+			elseBlock.setExpression("[ Else ]");
+			conditionnalStatement.addCombinedStatementBlock(elseBlock);
+			this.blockStack.push(elseBlock);
+			handleExpression(expression.getElseExpression());
+			this.blockStack.pop();
+		}
+		this.blockStack.pop();
+		System.out.println("#END IF");
+	}
+
 	protected void handleStatement(final ForStatement statement) {
 		System.out.println("#START FOR : " + statement.getExpression());
 		handleExpression(statement.getExpression());
@@ -295,8 +319,8 @@ public class InteractionModelBuilder {
 	}
 
 	private void handleExpression(final Expression expression) {
-		// System.out.println("InteractionModelBuilder.handleExpression() : "
-		// + expression.getClass());
+		System.out.println("InteractionModelBuilder.handleExpression() : "
+				+ expression.getClass());
 		switch (expression.getNodeType()) {
 		case ASTNode.ASSIGNMENT:
 			handleAssignment((Assignment) expression);
@@ -307,6 +331,8 @@ public class InteractionModelBuilder {
 		case ASTNode.INFIX_EXPRESSION:
 			handleInvocation((InfixExpression) expression);
 			break;
+		case ASTNode.CONDITIONAL_EXPRESSION:
+			handleExpression((ConditionalExpression) expression);
 		default:
 			break;
 		}
