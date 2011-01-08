@@ -83,8 +83,7 @@ public class FrameFigure extends FragmentFigure {
 					graphics.drawLine(rect.x, bounds.y, rect.x + rect.width,
 							bounds.y);
 					graphics.setForegroundColor(originalColor);
-					graphics.drawString(fragment.getGuard(), maxX + 10,
-							bounds.y + 5);
+
 				}
 			}
 

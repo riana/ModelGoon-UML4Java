@@ -15,6 +15,7 @@ import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.ArrayCreation;
 import org.eclipse.jdt.core.dom.Assignment;
 import org.eclipse.jdt.core.dom.Block;
+import org.eclipse.jdt.core.dom.BreakStatement;
 import org.eclipse.jdt.core.dom.CatchClause;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.ConditionalExpression;
@@ -29,8 +30,11 @@ import org.eclipse.jdt.core.dom.IfStatement;
 import org.eclipse.jdt.core.dom.InfixExpression;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
+import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.ReturnStatement;
 import org.eclipse.jdt.core.dom.Statement;
+import org.eclipse.jdt.core.dom.SuperMethodInvocation;
+import org.eclipse.jdt.core.dom.SwitchCase;
 import org.eclipse.jdt.core.dom.SwitchStatement;
 import org.eclipse.jdt.core.dom.TryStatement;
 import org.eclipse.jdt.core.dom.Type;
@@ -250,10 +254,40 @@ public class InteractionModelBuilder {
 		System.out.println("#START SWITCH");
 		handleExpression(statement.getExpression());
 		StatementBlock switchStatement = new StatementBlock();
+		switchStatement.setExpression(statement.getExpression().toString());
 		switchStatement.setType(BlockType.SWITCH);
 		this.blockStack.peek().addStatement(switchStatement);
 		this.blockStack.push(switchStatement);
-		findInvocations(statement);
+
+		List statements = statement.statements();
+		for (Object object : statements) {
+			if (object instanceof SwitchCase) {
+				SwitchCase switchCase = (SwitchCase) object;
+				String caseExpression = "default";
+				if (!switchCase.isDefault()) {
+					System.out.println("Case : "
+							+ switchCase.getExpression().toString() + " => "
+							+ switchCase.getExpression().getClass());
+					caseExpression = switchCase.getExpression().toString();
+				}
+				if (this.blockStack.peek() == switchStatement) {
+					CombinedStatementBlock elseBlock = new CombinedStatementBlock();
+					elseBlock.setExpression(caseExpression);
+					switchStatement.addCombinedStatementBlock(elseBlock);
+					this.blockStack.push(elseBlock);
+				} else {
+					StatementBlock block = this.blockStack.peek();
+					block.setExpression(block.getExpression() + ", "
+							+ caseExpression);
+				}
+
+			} else if (object instanceof ExpressionStatement) {
+				handleStatement((ExpressionStatement) object);
+			} else if (object instanceof BreakStatement) {
+				this.blockStack.pop();
+			}
+		}
+		// findInvocations(statement);
 		this.blockStack.pop();
 		System.out.println("#END SWITCH");
 	}
@@ -328,13 +362,29 @@ public class InteractionModelBuilder {
 		case ASTNode.METHOD_INVOCATION:
 			handleInvocation((MethodInvocation) expression);
 			break;
+		case ASTNode.SUPER_METHOD_INVOCATION:
+			handleInvocation((SuperMethodInvocation) expression);
+			break;
 		case ASTNode.INFIX_EXPRESSION:
 			handleInvocation((InfixExpression) expression);
 			break;
 		case ASTNode.CONDITIONAL_EXPRESSION:
 			handleExpression((ConditionalExpression) expression);
+		case ASTNode.CLASS_INSTANCE_CREATION:
+			handleExpression((ClassInstanceCreation) expression);
 		default:
 			break;
+		}
+
+	}
+
+	private void handleExpression(final ClassInstanceCreation expression) {
+		for (Object arg : expression.arguments()) {
+			if (arg instanceof Expression) {
+				Expression argExpression = (Expression) arg;
+				handleExpression(argExpression);
+			}
+			// System.out.print(arg.getClass() + "   ");
 		}
 
 	}
@@ -387,12 +437,22 @@ public class InteractionModelBuilder {
 				}
 			}
 			ColloboratingObject receiverObject = this.objects.get(receiver);
+			if (receiverObject == null) {
+				IMethodBinding method = invocation.resolveMethodBinding();
+				if (Modifier.isStatic(method.getModifiers())) {
+					receiver = expression.toString();
+					createCollaboratingObject(receiver,
+							method.getDeclaringClass());
+				}
+			}
+			receiverObject = this.objects.get(receiver);
 			if (receiverObject != null) {
 				messageExchange = new MessageExchange();
 				messageExchange.setSource(this.rootObject);
 				messageExchange.setDestination(receiverObject);
 				messageExchange.setMessageName(invocation.getName().toString());
 			} else {
+
 				System.out
 						.println("InteractionModelBuilder.handleInvocation() : NO RECEIVER FOUND in candidate objects");
 			}
@@ -423,6 +483,21 @@ public class InteractionModelBuilder {
 		}
 
 		return receiver;
+	}
+
+	private void handleInvocation(final SuperMethodInvocation expression) {
+		for (Object arg : expression.arguments()) {
+			if (arg instanceof Expression) {
+				Expression argExpression = (Expression) arg;
+				handleExpression(argExpression);
+			}
+		}
+		MessageExchange messageExchange = new MessageExchange();
+		messageExchange.setSource(this.rootObject);
+		messageExchange.setDestination(this.rootObject);
+		messageExchange.setMessageName("super."
+				+ expression.getName().toString());
+		this.blockStack.peek().addStatement(messageExchange);
 	}
 
 	private void handleAssignment(final Assignment expression) {
@@ -494,7 +569,9 @@ public class InteractionModelBuilder {
 
 	protected void handleStatement(final ReturnStatement statement) {
 		System.out.println("RETURN " + statement.getExpression());
-		handleExpression(statement.getExpression());
+		if (statement.getExpression() != null) {
+			handleExpression(statement.getExpression());
+		}
 	}
 
 	protected void handleStatement(final VariableDeclarationStatement statement) {
