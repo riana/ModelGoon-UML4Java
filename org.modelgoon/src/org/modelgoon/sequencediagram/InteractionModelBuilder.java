@@ -371,6 +371,20 @@ public class InteractionModelBuilder {
 				}
 			} else {
 				receiver = expression.toString();
+				if (receiver.contains("[")
+						&& !this.objects.containsKey(receiver)) {
+					String receiverContainer = receiver.substring(0,
+							receiver.lastIndexOf("["));
+					if (this.objects.containsKey(receiverContainer)) {
+						ColloboratingObject container = this.objects
+								.get(receiverContainer);
+						String containerType = container.getType();
+						createCollaboratingObject(
+								receiver,
+								containerType.substring(0,
+										containerType.lastIndexOf("[")));
+					}
+				}
 			}
 			ColloboratingObject receiverObject = this.objects.get(receiver);
 			if (receiverObject != null) {
