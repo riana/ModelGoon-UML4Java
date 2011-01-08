@@ -1,6 +1,8 @@
 package org.modelgoon.sequencediagram;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jface.action.IAction;
@@ -35,9 +37,11 @@ public class CreateSequenceDiagram implements IObjectActionDelegate {
 						.getElementName()
 						+ "#"
 						+ this.selecteMethod.getElementName();
+				IWorkspace workspace = ResourcesPlugin.getWorkspace();
+
 				IFile file = this.selecteMethod.getCompilationUnit()
 						.getResource().getProject().getFile(fileName + ".mgs");
-
+				// file.setHidden(true);
 				// if (!file.exists()) {
 				// file.create(new ByteArrayInputStream(new byte[] {}), false,
 				// null);

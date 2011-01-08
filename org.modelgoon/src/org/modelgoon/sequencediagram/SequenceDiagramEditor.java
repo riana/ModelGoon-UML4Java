@@ -129,6 +129,15 @@ public class SequenceDiagramEditor extends GraphicalEditorWithFlyoutPalette {
 
 	}
 
+	@Override
+	public void dispose() {
+		super.dispose();
+		File currentFile = new File(this.filePath);
+		if (currentFile.exists()) {
+			currentFile.delete();
+		}
+	}
+
 	public String getWorkingDirectory() {
 		File currentFile = new File(this.filePath);
 		return currentFile.getParent();
