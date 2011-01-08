@@ -345,11 +345,11 @@ public class InteractionModelBuilder {
 				+ expression.getRightOperand());
 		handleExpression(expression.getLeftOperand());
 		handleExpression(expression.getRightOperand());
-		// if (expression.hasExtendedOperands()) {
-		// for (Object ext : expression.extendedOperands()) {
-		// handleExpression((Expression) ext);
-		// }
-		// }
+		if (expression.hasExtendedOperands()) {
+			for (Object ext : expression.extendedOperands()) {
+				handleExpression((Expression) ext);
+			}
+		}
 	}
 
 	private String handleInvocation(final MethodInvocation invocation) {
