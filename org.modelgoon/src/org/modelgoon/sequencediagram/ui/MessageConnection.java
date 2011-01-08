@@ -178,7 +178,7 @@ public class MessageConnection extends PolylineConnection implements
 					: this.destAnchorLocation.x;
 		} else {
 			return this.targetLabel.getLocation().x
-					+ this.targetLabel.getSize().width;
+					+ this.targetLabel.getSize().width + this.selfOffset;
 		}
 	}
 
