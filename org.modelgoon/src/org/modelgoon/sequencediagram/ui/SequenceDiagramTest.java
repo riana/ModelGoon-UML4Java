@@ -70,7 +70,7 @@ public class SequenceDiagramTest {
 						FrameFigure frame2 = new FrameFigure();
 						frame2.setLabel("Loop");
 						frame2.setGuard("[ Expression ]");
-						// frame.add(frame2);
+						frame.add(frame2);
 
 						frame2.add(contents.createMessageConnection(
 								"inFrameMessageA", p3, p1));
@@ -91,9 +91,16 @@ public class SequenceDiagramTest {
 						// "inFrameMessageD", p4, p3));
 						frame3.add(combined);
 
+						FrameFigure frame4 = new FrameFigure();
+						frame4.setLabel("For");
+						frame.add(frame4);
+
+						frame4.add(contents.createMessageConnection(
+								"inFrameMessageC", p1, p4));
+
 						CombinedFragmentFigure catchCombined = new CombinedFragmentFigure();
 						catchCombined.setGuard("[ Catch ]");
-						catchCombined.add(frame2);
+						// catchCombined.add(frame2);
 
 						catchCombined.add(contents.createMessageConnection(
 								"handle", p4, p3));

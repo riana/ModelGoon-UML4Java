@@ -345,11 +345,11 @@ public class InteractionModelBuilder {
 				+ expression.getRightOperand());
 		handleExpression(expression.getLeftOperand());
 		handleExpression(expression.getRightOperand());
-		if (expression.hasExtendedOperands()) {
-			for (Object ext : expression.extendedOperands()) {
-				handleExpression((Expression) ext);
-			}
-		}
+		// if (expression.hasExtendedOperands()) {
+		// for (Object ext : expression.extendedOperands()) {
+		// handleExpression((Expression) ext);
+		// }
+		// }
 	}
 
 	private String handleInvocation(final MethodInvocation invocation) {
@@ -496,28 +496,30 @@ public class InteractionModelBuilder {
 			createCollaboratingObject(objectName, statement.getType());
 			Expression initializer = variableDeclarationFragment
 					.getInitializer();
-			initializer.accept(new ASTVisitor() {
+			if (initializer != null) {
+				initializer.accept(new ASTVisitor() {
 
-				@Override
-				public boolean visit(final ArrayCreation node) {
-					System.out.print(" => New Array : " + node.toString());
-					return super.visit(node);
-				}
+					@Override
+					public boolean visit(final ArrayCreation node) {
+						System.out.print(" => New Array : " + node.toString());
+						return super.visit(node);
+					}
 
-				@Override
-				public boolean visit(final ClassInstanceCreation node) {
-					System.out.print(" => New Object : " + node.toString());
-					return false;
-				}
+					@Override
+					public boolean visit(final ClassInstanceCreation node) {
+						System.out.print(" => New Object : " + node.toString());
+						return false;
+					}
 
-				@Override
-				public boolean visit(final MethodInvocation node) {
-					System.out.print(" => Returned from method : "
-							+ node.toString());
-					handleInvocation(node);
-					return false;
-				}
-			});
+					@Override
+					public boolean visit(final MethodInvocation node) {
+						System.out.print(" => Returned from method : "
+								+ node.toString());
+						handleInvocation(node);
+						return false;
+					}
+				});
+			}
 			System.out.println();
 		}
 

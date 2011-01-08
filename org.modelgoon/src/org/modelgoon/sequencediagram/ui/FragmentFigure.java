@@ -92,7 +92,7 @@ public class FragmentFigure extends Figure implements SequenceElement {
 
 	@Override
 	public final int getMaxX() {
-		return this.xPosition + getSize().width;
+		return this.xPosition + getPreferredSize().width;
 	}
 
 	@Override
