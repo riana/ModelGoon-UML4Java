@@ -31,6 +31,7 @@ public class SequenceDiagramTest {
 
 		final String p4 = ": Participant4";
 
+		contents.addLifeline("Actor");
 		contents.addLifeline(p1);
 		contents.addLifeline(p2);
 		contents.addLifeline(p3);

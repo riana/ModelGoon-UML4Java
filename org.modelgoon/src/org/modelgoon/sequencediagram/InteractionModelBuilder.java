@@ -84,6 +84,8 @@ public class InteractionModelBuilder {
 
 	ColloboratingObject rootObject;
 
+	ColloboratingObject actor;
+
 	final Map<String, ColloboratingObject> objects = new HashMap<String, ColloboratingObject>();
 
 	public InteractionModel buildInteractionModel(final IMethod iMethod) {
@@ -99,13 +101,17 @@ public class InteractionModelBuilder {
 			this.rootObject = new ColloboratingObject();
 			this.rootObject.setName(parent.getElementName());
 
+			this.actor = new ColloboratingObject();
+			this.actor.setActor(true);
+			this.actor.setName("Actor");
+			this.actor.setType("");
+
 			ASTParser parser = ASTParser.newParser(AST.JLS3);
 			parser.setSource(iMethod.getCompilationUnit());
 			parser.setResolveBindings(true);
 			ASTNode root = parser.createAST(null);
 			System.out.println("ShowMethodSequenceCommand.run() : "
 					+ root.getClass());
-
 			root.accept(new ASTVisitor() {
 
 				@Override
@@ -143,6 +149,15 @@ public class InteractionModelBuilder {
 									+ resolvedMethod.getElementName() + " => "
 									+ signature);
 
+							MessageExchange entryMessage = new MessageExchange();
+							entryMessage.setMessageName(resolvedMethod
+									.getElementName());
+							entryMessage
+									.setSource(InteractionModelBuilder.this.actor);
+							entryMessage
+									.setDestination(InteractionModelBuilder.this.rootObject);
+							interactionModel.addStatement(entryMessage);
+
 							String[] parameterNames = resolvedMethod
 									.getParameterNames();
 							int index = 0;
@@ -169,6 +184,7 @@ public class InteractionModelBuilder {
 			e.printStackTrace();
 		}
 
+		interactionModel.addObject(this.actor);
 		interactionModel.addObject(this.rootObject);
 		for (String objectKey : this.objects.keySet()) {
 			ColloboratingObject collaboratingObject = this.objects
@@ -285,9 +301,14 @@ public class InteractionModelBuilder {
 				handleStatement((ExpressionStatement) object);
 			} else if (object instanceof BreakStatement) {
 				this.blockStack.pop();
+			} else if (object instanceof ReturnStatement) {
+				handleStatement((ReturnStatement) object);
+				this.blockStack.pop();
 			}
 		}
-		// findInvocations(statement);
+		while (this.blockStack.peek() != switchStatement) {
+			this.blockStack.pop();
+		}
 		this.blockStack.pop();
 		System.out.println("#END SWITCH");
 	}
@@ -572,6 +593,12 @@ public class InteractionModelBuilder {
 		if (statement.getExpression() != null) {
 			handleExpression(statement.getExpression());
 		}
+		MessageExchange methodReturn = new MessageExchange();
+		// methodReturn.setMessageName(statement.getExpression().toString());
+		methodReturn.setSource(this.rootObject);
+		methodReturn.setDestination(this.actor);
+		methodReturn.setReturnMessage(true);
+		this.blockStack.peek().addStatement(methodReturn);
 	}
 
 	protected void handleStatement(final VariableDeclarationStatement statement) {

@@ -9,7 +9,17 @@ public class ColloboratingObject {
 
 	String type = "";
 
+	boolean actor;
+
 	List<MessageExchange> incomingMessages = new ArrayList<MessageExchange>();
+
+	public void setActor(final boolean actor) {
+		this.actor = actor;
+	}
+
+	public boolean isActor() {
+		return this.actor;
+	}
 
 	public void setName(final String name) {
 		this.name = name;

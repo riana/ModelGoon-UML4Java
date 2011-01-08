@@ -16,6 +16,7 @@ public class CollaboratingObjectEditPart extends AbstractGraphicalEditPart {
 		LifelineFigure lifelineFigure = (LifelineFigure) getFigure();
 		ColloboratingObject object = (ColloboratingObject) getModel();
 		lifelineFigure.setLabel(object.getName() + ":" + object.getType());
+		lifelineFigure.setActor(object.isActor());
 	}
 
 	@Override

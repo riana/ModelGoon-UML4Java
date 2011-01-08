@@ -13,7 +13,15 @@ public class SequenceDiagramFigure extends FragmentFigure {
 
 	public SequenceDiagramFigure() {
 		super();
-		setFirstOffset(30);
+		setFirstOffset(50);
+	}
+
+	public void addActor(final String objectName) {
+		LifelineFigure lifelineFigure = new LifelineFigure();
+		lifelineFigure.setActor(true);
+		lifelineFigure.setLabel(objectName);
+		add(lifelineFigure);
+		this.lifelinesRegistry.put(objectName, lifelineFigure);
 	}
 
 	public void addLifeline(final String objectName) {
@@ -57,11 +65,11 @@ public class SequenceDiagramFigure extends FragmentFigure {
 
 		updateElementsLayout();
 
-		int contentsWidth = getMaxX() - getMinX() + 5;
-		if (contentsWidth < x) {
-			contentsWidth = x;
+		int minimumWidth = getMaxX() - getMinX() + 5;
+		if (minimumWidth < x) {
+			minimumWidth = x;
 		}
-		setSize(contentsWidth, getPreferredSize().height);
+		setSize(minimumWidth, getPreferredSize().height);
 	}
 
 	// @Override

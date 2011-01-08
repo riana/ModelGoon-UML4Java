@@ -29,6 +29,7 @@ public class MessageExchangeEditPart extends AbstractGraphicalEditPart {
 		lifelineFigure.setSource((LifelineFigure) sourceEditPart.getFigure());
 		lifelineFigure
 				.setDestination((LifelineFigure) destEditPart.getFigure());
+		lifelineFigure.setDashed(object.isReturnMessage());
 	}
 
 	@Override

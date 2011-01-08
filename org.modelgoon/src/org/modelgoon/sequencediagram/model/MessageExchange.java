@@ -8,6 +8,8 @@ public class MessageExchange implements Statement {
 
 	String messageName;
 
+	boolean returnMessage = false;
+
 	public ColloboratingObject getSource() {
 		return this.source;
 	}
@@ -31,6 +33,14 @@ public class MessageExchange implements Statement {
 
 	public void setMessageName(final String messageName) {
 		this.messageName = messageName;
+	}
+
+	public void setReturnMessage(final boolean returnMessage) {
+		this.returnMessage = returnMessage;
+	}
+
+	public boolean isReturnMessage() {
+		return this.returnMessage;
 	}
 
 	// @Override

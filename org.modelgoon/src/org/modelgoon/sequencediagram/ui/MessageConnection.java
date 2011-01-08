@@ -72,6 +72,14 @@ public class MessageConnection extends PolylineConnection implements
 		add(this.targetLabel, this.targetLabelLocator);
 	}
 
+	public void setDashed(final boolean dashed) {
+		if (dashed) {
+			setLineStyle(SWT.LINE_DASH);
+		} else {
+			setLineStyle(SWT.LINE_SOLID);
+		}
+	}
+
 	public MessageConnection(final String message, final LifelineFigure source,
 			final LifelineFigure destination) {
 		this();

@@ -107,7 +107,6 @@ public class FrameFigure extends FragmentFigure {
 
 	@Override
 	protected void layout() {
-
 		Dimension labelSize = calculateTextSize();
 		Dimension guardSize = TextUtilities.INSTANCE.getTextExtents(this.guard,
 				getFont());
@@ -115,6 +114,5 @@ public class FrameFigure extends FragmentFigure {
 				+ guardSize.width + 10;
 		setMinimumSize(new Dimension(minimunWidth, getMinimumSize().height));
 		super.layout();
-		System.out.println("FrameFigure.layout()");
 	}
 }
