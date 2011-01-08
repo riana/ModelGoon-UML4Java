@@ -122,6 +122,10 @@ public class SequenceDiagramEditor extends GraphicalEditorWithFlyoutPalette {
 		FileEditorInput fileEditorInput = (FileEditorInput) input;
 		this.filePath = fileEditorInput.getPath().toOSString();
 		setPartName(fileName.substring(0, fileName.lastIndexOf(".mgs")));
+		File currentFile = new File(this.filePath);
+		if (currentFile.exists()) {
+			currentFile.delete();
+		}
 	}
 
 	@Override
@@ -132,10 +136,6 @@ public class SequenceDiagramEditor extends GraphicalEditorWithFlyoutPalette {
 	@Override
 	public void dispose() {
 		super.dispose();
-		File currentFile = new File(this.filePath);
-		if (currentFile.exists()) {
-			currentFile.delete();
-		}
 	}
 
 	public String getWorkingDirectory() {
