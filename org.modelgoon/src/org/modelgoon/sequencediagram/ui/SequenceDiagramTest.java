@@ -40,6 +40,7 @@ public class SequenceDiagramTest {
 		lws.setContents(contents);
 
 		Thread t = new Thread() {
+
 			@Override
 			public void run() {
 
@@ -50,7 +51,7 @@ public class SequenceDiagramTest {
 					e.printStackTrace();
 				}
 				d.syncExec(new Runnable() {
-					@Override
+
 					public void run() {
 						contents.addMessage("Message1", p1, p2);
 						contents.addMessage("Message2", p1, p1);

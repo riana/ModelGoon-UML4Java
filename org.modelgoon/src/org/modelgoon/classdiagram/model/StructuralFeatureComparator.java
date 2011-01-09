@@ -2,14 +2,14 @@ package org.modelgoon.classdiagram.model;
 
 import java.util.Comparator;
 
-public class StructuralFeatureComparator implements Comparator<StructuralFeature> {
+public class StructuralFeatureComparator implements
+		Comparator<StructuralFeature> {
 
 	public final static StructuralFeatureComparator SINGLETON = new StructuralFeatureComparator();
 
 	private StructuralFeatureComparator() {
 	}
 
-	@Override
 	public int compare(final StructuralFeature o1, final StructuralFeature o2) {
 		if (o1.isStatic() == o2.isStatic()) {
 			return o1.toString().compareTo(o2.toString());

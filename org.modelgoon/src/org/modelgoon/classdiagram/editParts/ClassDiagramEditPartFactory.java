@@ -14,7 +14,6 @@ import org.modelgoon.classdiagram.model.UmlClass;
 
 public class ClassDiagramEditPartFactory implements EditPartFactory {
 
-	@Override
 	public EditPart createEditPart(final EditPart context, final Object model) {
 		EditPart editPart = null;
 		if (model instanceof ClassDiagram) {

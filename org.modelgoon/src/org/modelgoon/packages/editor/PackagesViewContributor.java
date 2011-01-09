@@ -7,19 +7,16 @@ import org.eclipse.ui.IWorkbenchPage;
 
 public class PackagesViewContributor implements IEditorActionBarContributor {
 
-	@Override
-	public void init(IActionBars bars, IWorkbenchPage page) {
+	public void init(final IActionBars bars, final IWorkbenchPage page) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
-	public void setActiveEditor(IEditorPart targetEditor) {
+	public void setActiveEditor(final IEditorPart targetEditor) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
 

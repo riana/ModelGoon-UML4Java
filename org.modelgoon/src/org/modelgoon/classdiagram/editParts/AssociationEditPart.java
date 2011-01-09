@@ -26,12 +26,11 @@ public class AssociationEditPart extends AbstractConnectionEditPart implements
 		polylineConnection.setContainment(model.isContainment());
 	}
 
-	@Override
 	public void propertyChange(final PropertyChangeEvent arg0) {
 		refreshVisuals();
 	}
 
-	// @Override
+	//
 	// public void activate() {
 	// super.activate();
 	// Relationship relationship = (Relationship) getModel();
@@ -39,7 +38,7 @@ public class AssociationEditPart extends AbstractConnectionEditPart implements
 	// relationship.getDestination().addPropertyChangeListener(this);
 	// }
 	//
-	// @Override
+	//
 	// public void deactivate() {
 	// Relationship relationship = (Relationship) getModel();
 	// relationship.getSource().removePropertyChangeListener(this);

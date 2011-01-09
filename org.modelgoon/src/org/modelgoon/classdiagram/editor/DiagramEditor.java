@@ -112,7 +112,6 @@ public abstract class DiagramEditor extends GraphicalEditorWithFlyoutPalette {
 						new ClassCreationFactory(this.classModelFactory)));
 		getCommandStack().addCommandStackListener(new CommandStackListener() {
 
-			@Override
 			public void commandStackChanged(final EventObject event) {
 				firePropertyChange(IEditorPart.PROP_DIRTY);
 			}

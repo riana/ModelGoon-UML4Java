@@ -72,12 +72,10 @@ public class FragmentFigure extends Figure implements SequenceElement {
 		}
 	}
 
-	@Override
 	public final int getVerticalExtent() {
 		return this.verticalExtent;
 	}
 
-	@Override
 	public final void setYPosition(final int yPosition) {
 		this.yPosition = yPosition;
 		updateElementsLayout();
@@ -85,12 +83,10 @@ public class FragmentFigure extends Figure implements SequenceElement {
 		setSize(getPreferredSize());
 	}
 
-	@Override
 	public final int getMinX() {
 		return this.xPosition;
 	}
 
-	@Override
 	public final int getMaxX() {
 		return this.xPosition + getPreferredSize().width;
 	}
@@ -101,7 +97,6 @@ public class FragmentFigure extends Figure implements SequenceElement {
 		updateElementsLayout();
 	}
 
-	@Override
 	public boolean isEmpty() {
 		return getChildren().isEmpty();
 	}

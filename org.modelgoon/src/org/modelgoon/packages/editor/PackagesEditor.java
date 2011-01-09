@@ -86,12 +86,14 @@ public class PackagesEditor extends EditorPart implements
 	 * This is a callback that will allow us to create the viewer and initialize
 	 * it.
 	 */
+
 	@Override
 	public void createPartControl(final Composite parent) {
 		parent.setLayout(new FillLayout());
 		this.graphViewer = new GraphViewer(parent, SWT.NONE);
 		this.graphViewer.getControl().dispose();
 		this.viewer = new PackageDependencyGraph(parent, SWT.NONE) {
+
 			@Override
 			public Point computeSize(final int hint, final int hint2,
 					final boolean changed) {
@@ -104,7 +106,6 @@ public class PackagesEditor extends EditorPart implements
 		this.viewer.setPackageAnalysis(this.packageAnalysis);
 		this.viewer.addMouseMoveListener(new MouseMoveListener() {
 
-			@Override
 			public void mouseMove(final MouseEvent e) {
 				if ((e.stateMask & SWT.BUTTON_MASK) != 0) {
 					List<PackageGraphNode> selection = PackagesEditor.this.viewer
@@ -134,7 +135,6 @@ public class PackagesEditor extends EditorPart implements
 		deleteAction.setText("Remove");
 		deleteAction.addSelectionListener(new SelectionListener() {
 
-			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				List<PackageGraphNode> selection = PackagesEditor.this.viewer
 						.getSelection();
@@ -146,7 +146,6 @@ public class PackagesEditor extends EditorPart implements
 				firePropertyChange(IEditorPart.PROP_DIRTY);
 			}
 
-			@Override
 			public void widgetDefaultSelected(final SelectionEvent e) {
 				// TODO Auto-generated method stub
 
@@ -156,13 +155,11 @@ public class PackagesEditor extends EditorPart implements
 		refreshAction.setText("Refresh");
 		refreshAction.addSelectionListener(new SelectionListener() {
 
-			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				PackagesEditor.this.packageAnalysis.update();
 				PackagesEditor.this.viewer.refresh();
 			}
 
-			@Override
 			public void widgetDefaultSelected(final SelectionEvent e) {
 				// TODO Auto-generated method stub
 
@@ -170,6 +167,7 @@ public class PackagesEditor extends EditorPart implements
 		});
 
 		final Action screenshotAction = new Action() {
+
 			@Override
 			public void run() {
 
@@ -218,12 +216,10 @@ public class PackagesEditor extends EditorPart implements
 		screenShotItem.setText(screenshotAction.getText());
 		screenShotItem.addSelectionListener(new SelectionListener() {
 
-			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				screenshotAction.run();
 			}
 
-			@Override
 			public void widgetDefaultSelected(final SelectionEvent e) {
 				// TODO Auto-generated method stub
 
@@ -233,7 +229,6 @@ public class PackagesEditor extends EditorPart implements
 		this.viewer.setMenu(menu);
 		this.viewer.addMenuDetectListener(new MenuDetectListener() {
 
-			@Override
 			public void menuDetected(final MenuDetectEvent e) {
 				fillContextMenu(menu);
 				menu.setVisible(true);
@@ -307,7 +302,6 @@ public class PackagesEditor extends EditorPart implements
 		return true;
 	}
 
-	@Override
 	public AbstractZoomableViewer getZoomableViewer() {
 		return this.graphViewer;
 	}

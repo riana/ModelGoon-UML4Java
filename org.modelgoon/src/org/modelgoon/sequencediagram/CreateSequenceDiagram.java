@@ -21,7 +21,6 @@ public class CreateSequenceDiagram implements IObjectActionDelegate {
 
 	IMethod selecteMethod;
 
-	@Override
 	public void run(final IAction action) {
 		if (this.selecteMethod != null) {
 			InteractionModelBuilder interactionModelBuilder = new InteractionModelBuilder();
@@ -62,7 +61,6 @@ public class CreateSequenceDiagram implements IObjectActionDelegate {
 		}
 	}
 
-	@Override
 	public void selectionChanged(final IAction action,
 			final ISelection selection) {
 		if (selection instanceof ITreeSelection) {
@@ -76,7 +74,6 @@ public class CreateSequenceDiagram implements IObjectActionDelegate {
 		}
 	}
 
-	@Override
 	public void setActivePart(final IAction action,
 			final IWorkbenchPart targetPart) {
 		// TODO Auto-generated method stub

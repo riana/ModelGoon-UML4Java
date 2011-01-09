@@ -4,13 +4,11 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.zest.core.viewers.IGraphEntityContentProvider;
 import org.modelgoon.packages.model.PackageAnalysis;
 
-
 public class PackagesViewContentProvider implements IGraphEntityContentProvider {
 
 	PackageAnalysis packageAnalysis;
 
-	@Override
-	public Object[] getElements(Object input) {
+	public Object[] getElements(final Object input) {
 		if (input instanceof PackageAnalysis) {
 			PackageAnalysis packageAnalysis = (PackageAnalysis) input;
 			Object[] elements = packageAnalysis.getPackages().toArray();
@@ -22,20 +20,18 @@ public class PackagesViewContentProvider implements IGraphEntityContentProvider 
 		return null;
 	}
 
-	public double getWeight(Object connection) {
+	public double getWeight(final Object connection) {
 		return 0;
 	}
 
-	@Override
 	public void dispose() {
 	}
 
-	@Override
-	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+	public void inputChanged(final Viewer viewer, final Object oldInput,
+			final Object newInput) {
 	}
 
-	@Override
-	public Object[] getConnectedTo(Object entity) {
+	public Object[] getConnectedTo(final Object entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -49,7 +49,6 @@ public class ClassDiagramEditPart extends AbstractGraphicalEditPart implements
 		super.deactivate();
 	}
 
-	@Override
 	public void propertyChange(final PropertyChangeEvent arg0) {
 		refreshChildren();
 	}

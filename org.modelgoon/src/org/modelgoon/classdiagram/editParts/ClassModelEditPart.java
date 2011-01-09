@@ -73,7 +73,6 @@ public abstract class ClassModelEditPart extends JavaModelElementEditPart
 		return ((ClassModel) getModel()).getIncomingRelationships();
 	}
 
-	@Override
 	public void propertyChange(final PropertyChangeEvent arg0) {
 		refreshVisuals();
 		refreshChildren();

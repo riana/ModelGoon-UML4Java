@@ -35,12 +35,10 @@ public class ClassCreationFactory implements CreationFactory {
 		return this.location.setLocation(point);
 	}
 
-	@Override
 	public Object getObjectType() {
 		return List.class;
 	}
 
-	@Override
 	public Object getNewObject() {
 		List<ClassModel> classes = new ArrayList<ClassModel>();
 		for (IResource javaResource : this.javaResources) {

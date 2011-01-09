@@ -10,7 +10,6 @@ import org.modelgoon.sequencediagram.model.StatementBlock;
 
 public class SequenceDiagramEditPartFactory implements EditPartFactory {
 
-	@Override
 	public EditPart createEditPart(final EditPart context, final Object model) {
 		EditPart editPart = null;
 		// System.out.print("SequenceDiagramEditPartFactory");

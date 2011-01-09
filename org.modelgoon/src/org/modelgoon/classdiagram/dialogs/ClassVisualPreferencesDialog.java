@@ -57,7 +57,6 @@ public class ClassVisualPreferencesDialog extends Dialog {
 				.isStaticAccepted());
 		attributesStaticCheck.addListener(SWT.Selection, new Listener() {
 
-			@Override
 			public void handleEvent(final Event event) {
 				ClassVisualPreferencesDialog.this.attributeDisplayFilter
 						.setStaticAccepted(attributesStaticCheck.getSelection());
@@ -71,7 +70,6 @@ public class ClassVisualPreferencesDialog extends Dialog {
 				.isPublicAccepted());
 		attributesPublicCheck.addListener(SWT.Selection, new Listener() {
 
-			@Override
 			public void handleEvent(final Event event) {
 				ClassVisualPreferencesDialog.this.attributeDisplayFilter
 						.setPublicAccepted(attributesPublicCheck.getSelection());
@@ -85,7 +83,6 @@ public class ClassVisualPreferencesDialog extends Dialog {
 				.isPrivateAccepted());
 		attributesPrivateCheck.addListener(SWT.Selection, new Listener() {
 
-			@Override
 			public void handleEvent(final Event event) {
 				ClassVisualPreferencesDialog.this.attributeDisplayFilter
 						.setPrivateAccepted(attributesPrivateCheck
@@ -100,7 +97,6 @@ public class ClassVisualPreferencesDialog extends Dialog {
 				.isProtectedAccepted());
 		attributesProtectedCheck.addListener(SWT.Selection, new Listener() {
 
-			@Override
 			public void handleEvent(final Event event) {
 				ClassVisualPreferencesDialog.this.attributeDisplayFilter
 						.setProtectedAccepted(attributesProtectedCheck
@@ -115,7 +111,6 @@ public class ClassVisualPreferencesDialog extends Dialog {
 				.isDefaultAccepted());
 		attributesDefaultCheck.addListener(SWT.Selection, new Listener() {
 
-			@Override
 			public void handleEvent(final Event event) {
 				ClassVisualPreferencesDialog.this.attributeDisplayFilter
 						.setDefaultAccepted(attributesDefaultCheck
@@ -139,7 +134,6 @@ public class ClassVisualPreferencesDialog extends Dialog {
 				.isStaticAccepted());
 		methodsStaticCheck.addListener(SWT.Selection, new Listener() {
 
-			@Override
 			public void handleEvent(final Event event) {
 				ClassVisualPreferencesDialog.this.methodDisplayFilter
 						.setStaticAccepted(methodsStaticCheck.getSelection());
@@ -152,7 +146,6 @@ public class ClassVisualPreferencesDialog extends Dialog {
 				.isPublicAccepted());
 		methodsPublicCheck.addListener(SWT.Selection, new Listener() {
 
-			@Override
 			public void handleEvent(final Event event) {
 				ClassVisualPreferencesDialog.this.methodDisplayFilter
 						.setPublicAccepted(methodsPublicCheck.getSelection());
@@ -165,7 +158,6 @@ public class ClassVisualPreferencesDialog extends Dialog {
 				.isPrivateAccepted());
 		methodsPrivateCheck.addListener(SWT.Selection, new Listener() {
 
-			@Override
 			public void handleEvent(final Event event) {
 				ClassVisualPreferencesDialog.this.methodDisplayFilter
 						.setPrivateAccepted(methodsPrivateCheck.getSelection());
@@ -178,7 +170,6 @@ public class ClassVisualPreferencesDialog extends Dialog {
 				.isProtectedAccepted());
 		methodsProtectedCheck.addListener(SWT.Selection, new Listener() {
 
-			@Override
 			public void handleEvent(final Event event) {
 				ClassVisualPreferencesDialog.this.methodDisplayFilter
 						.setProtectedAccepted(methodsProtectedCheck
@@ -192,7 +183,6 @@ public class ClassVisualPreferencesDialog extends Dialog {
 				.isDefaultAccepted());
 		methodsDefaultCheck.addListener(SWT.Selection, new Listener() {
 
-			@Override
 			public void handleEvent(final Event event) {
 				ClassVisualPreferencesDialog.this.methodDisplayFilter
 						.setDefaultAccepted(methodsDefaultCheck.getSelection());
@@ -206,7 +196,6 @@ public class ClassVisualPreferencesDialog extends Dialog {
 				.isConstructorsAccepted());
 		constructorsStaticCheck.addListener(SWT.Selection, new Listener() {
 
-			@Override
 			public void handleEvent(final Event event) {
 				ClassVisualPreferencesDialog.this.methodDisplayFilter
 						.setConstructorsAccepted(constructorsStaticCheck
@@ -221,7 +210,6 @@ public class ClassVisualPreferencesDialog extends Dialog {
 
 		accessorsStaticCheck.addListener(SWT.Selection, new Listener() {
 
-			@Override
 			public void handleEvent(final Event event) {
 				ClassVisualPreferencesDialog.this.methodDisplayFilter
 						.setAccessorsAccepted(accessorsStaticCheck

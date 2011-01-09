@@ -148,7 +148,6 @@ public class MessageConnection extends PolylineConnection implements
 
 	}
 
-	@Override
 	public int getVerticalExtent() {
 		if (this.source == this.destination) {
 			return this.selfOffset;
@@ -167,19 +166,16 @@ public class MessageConnection extends PolylineConnection implements
 		super.layout();
 	}
 
-	@Override
 	public void setYPosition(final int yPosition) {
 		this.yPosition = yPosition;
 		updatePosition();
 	}
 
-	@Override
 	public int getMinX() {
 		return this.sourceAnchorLocation.x < this.destAnchorLocation.x ? this.sourceAnchorLocation.x
 				: this.destAnchorLocation.x;
 	}
 
-	@Override
 	public int getMaxX() {
 		if (this.source != this.destination) {
 			return this.sourceAnchorLocation.x > this.destAnchorLocation.x ? this.sourceAnchorLocation.x
@@ -190,7 +186,6 @@ public class MessageConnection extends PolylineConnection implements
 		}
 	}
 
-	@Override
 	public boolean isEmpty() {
 		return false;
 	}

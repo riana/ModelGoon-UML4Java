@@ -64,7 +64,6 @@ public class CommunicationEditPart extends AbstractConnectionEditPart implements
 		this.targetLabel.setText(stringBuffer.toString());
 	}
 
-	@Override
 	public void propertyChange(final PropertyChangeEvent arg0) {
 		// TODO Auto-generated method stub
 

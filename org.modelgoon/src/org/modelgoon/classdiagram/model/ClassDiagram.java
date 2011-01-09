@@ -61,7 +61,6 @@ public class ClassDiagram extends ModelElement implements
 		firePropertyChange(ModelElement.NAME);
 	}
 
-	@Override
 	public void elementChanged(final ElementChangedEvent event) {
 		IJavaElementDelta delta = event.getDelta();
 		if (delta != null) {
