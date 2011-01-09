@@ -36,6 +36,7 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.SuperMethodInvocation;
 import org.eclipse.jdt.core.dom.SwitchCase;
 import org.eclipse.jdt.core.dom.SwitchStatement;
+import org.eclipse.jdt.core.dom.ThrowStatement;
 import org.eclipse.jdt.core.dom.TryStatement;
 import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
@@ -281,16 +282,14 @@ public class InteractionModelBuilder {
 				SwitchCase switchCase = (SwitchCase) object;
 				String caseExpression = "default";
 				if (!switchCase.isDefault()) {
-					System.out.println("Case : "
-							+ switchCase.getExpression().toString() + " => "
-							+ switchCase.getExpression().getClass());
 					caseExpression = switchCase.getExpression().toString();
 				}
+				System.out.println("#Case : " + caseExpression);
 				if (this.blockStack.peek() == switchStatement) {
-					CombinedStatementBlock elseBlock = new CombinedStatementBlock();
-					elseBlock.setExpression(caseExpression);
-					switchStatement.addCombinedStatementBlock(elseBlock);
-					this.blockStack.push(elseBlock);
+					CombinedStatementBlock caseBlock = new CombinedStatementBlock();
+					caseBlock.setExpression(caseExpression);
+					switchStatement.addCombinedStatementBlock(caseBlock);
+					this.blockStack.push(caseBlock);
 				} else {
 					StatementBlock block = this.blockStack.peek();
 					block.setExpression(block.getExpression() + ", "
@@ -303,6 +302,9 @@ public class InteractionModelBuilder {
 				this.blockStack.pop();
 			} else if (object instanceof ReturnStatement) {
 				handleStatement((ReturnStatement) object);
+				this.blockStack.pop();
+			} else if (object instanceof ThrowStatement) {
+				handleStatement((ThrowStatement) object);
 				this.blockStack.pop();
 			}
 		}
@@ -374,8 +376,6 @@ public class InteractionModelBuilder {
 	}
 
 	private void handleExpression(final Expression expression) {
-		System.out.println("InteractionModelBuilder.handleExpression() : "
-				+ expression.getClass());
 		switch (expression.getNodeType()) {
 		case ASTNode.ASSIGNMENT:
 			handleAssignment((Assignment) expression);
@@ -580,12 +580,35 @@ public class InteractionModelBuilder {
 		case ASTNode.RETURN_STATEMENT:
 			handleStatement((ReturnStatement) statement);
 			break;
+		case ASTNode.THROW_STATEMENT:
+			handleStatement((ThrowStatement) statement);
+			break;
 		default:
 			System.out.println("No processor : " + statement.getClass());
 			break;
 
 		}
 
+	}
+
+	protected void handleStatement(final ThrowStatement statement) {
+		MessageExchange methodReturn = new MessageExchange();
+		if (statement.getExpression() != null) {
+			handleExpression(statement.getExpression());
+		}
+		if (statement.getExpression() instanceof ClassInstanceCreation) {
+			ClassInstanceCreation instanceCreation = (ClassInstanceCreation) statement
+					.getExpression();
+			ITypeBinding type = instanceCreation.resolveTypeBinding();
+			if (type != null) {
+				methodReturn.setMessageName(type.getName());
+			}
+		}
+
+		methodReturn.setSource(this.rootObject);
+		methodReturn.setDestination(this.actor);
+		methodReturn.setReturnMessage(true);
+		this.blockStack.peek().addStatement(methodReturn);
 	}
 
 	protected void handleStatement(final ReturnStatement statement) {
