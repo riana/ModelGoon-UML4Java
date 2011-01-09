@@ -613,11 +613,11 @@ public class InteractionModelBuilder {
 
 	protected void handleStatement(final ReturnStatement statement) {
 		System.out.println("RETURN " + statement.getExpression());
+		MessageExchange methodReturn = new MessageExchange();
 		if (statement.getExpression() != null) {
 			handleExpression(statement.getExpression());
+			methodReturn.setMessageName(statement.getExpression().toString());
 		}
-		MessageExchange methodReturn = new MessageExchange();
-		// methodReturn.setMessageName(statement.getExpression().toString());
 		methodReturn.setSource(this.rootObject);
 		methodReturn.setDestination(this.actor);
 		methodReturn.setReturnMessage(true);
