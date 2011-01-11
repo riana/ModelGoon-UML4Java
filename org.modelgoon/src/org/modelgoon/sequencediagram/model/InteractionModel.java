@@ -12,9 +12,11 @@ public class InteractionModel extends StatementBlock {
 	private final List<ColloboratingObject> objects = new ArrayList<ColloboratingObject>();
 
 	public final void addObject(final ColloboratingObject colloboratingObject) {
-		this.objects.add(colloboratingObject);
-		this.objectsRegistry.put(colloboratingObject.getName(),
-				colloboratingObject);
+		if (!this.objects.contains(colloboratingObject)) {
+			this.objects.add(colloboratingObject);
+			this.objectsRegistry.put(colloboratingObject.getName(),
+					colloboratingObject);
+		}
 	}
 
 	public final void insertObjectAt(final int index,

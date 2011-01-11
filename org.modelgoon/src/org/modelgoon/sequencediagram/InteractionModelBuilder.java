@@ -22,6 +22,7 @@ import org.eclipse.jdt.core.dom.ConditionalExpression;
 import org.eclipse.jdt.core.dom.EnhancedForStatement;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.ExpressionStatement;
+import org.eclipse.jdt.core.dom.FieldAccess;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.ForStatement;
 import org.eclipse.jdt.core.dom.IMethodBinding;
@@ -106,6 +107,8 @@ public class InteractionModelBuilder {
 			this.actor.setActor(true);
 			this.actor.setName("Actor");
 			this.actor.setType("");
+
+			this.objects.put("this", this.rootObject);
 
 			ASTParser parser = ASTParser.newParser(AST.JLS3);
 			parser.setSource(iMethod.getCompilationUnit());
@@ -442,6 +445,10 @@ public class InteractionModelBuilder {
 				}
 			} else {
 				receiver = expression.toString();
+				if (expression instanceof FieldAccess) {
+					FieldAccess fieldAccess = (FieldAccess) expression;
+					receiver = fieldAccess.getName().toString();
+				}
 				if (receiver.contains("[")
 						&& !this.objects.containsKey(receiver)) {
 					String receiverContainer = receiver.substring(0,
