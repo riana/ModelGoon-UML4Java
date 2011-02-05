@@ -115,6 +115,8 @@ public abstract class Diagram extends GraphicalEditorWithFlyoutPalette {
 		addAction(zoomOut, GEFActionConstants.GROUP_VIEW);
 		addAction(fit, GEFActionConstants.GROUP_VIEW);
 
+		addAction(new ExportImageCommand(this), GEFActionConstants.GROUP_SAVE);
+		registerActions();
 	}
 
 	public void registerEditPart(final Class<?> modelClass,
@@ -157,9 +159,9 @@ public abstract class Diagram extends GraphicalEditorWithFlyoutPalette {
 	}
 
 	@Override
-	protected void createActions() {
+	protected final void createActions() {
 		super.createActions();
-		registerActions();
+		;
 	}
 
 	@Override

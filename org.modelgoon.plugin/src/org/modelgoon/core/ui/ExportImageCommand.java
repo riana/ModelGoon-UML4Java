@@ -12,7 +12,6 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
 import org.eclipse.swt.widgets.FileDialog;
-import org.modelgoon.dao.DataAccessLayer;
 
 public class ExportImageCommand extends WorkbenchPartAction {
 
@@ -20,8 +19,7 @@ public class ExportImageCommand extends WorkbenchPartAction {
 
 	public static final String ID = "Export Image Command";
 
-	public ExportImageCommand(final Diagram diagram,
-			final DataAccessLayer dataAccessLayer) {
+	public ExportImageCommand(final Diagram diagram) {
 		super(diagram);
 		this.diagram = diagram;
 
