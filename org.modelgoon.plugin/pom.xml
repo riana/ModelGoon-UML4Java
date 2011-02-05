@@ -4,12 +4,12 @@
 	<parent>
 		<artifactId>ModelGoon</artifactId>
 		<groupId>org.modelgoon</groupId>
-		<version>4.2.0-SNAPSHOT</version>
+		<version>4.2.0</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.modelgoon</groupId>
 	<artifactId>org.modelgoon.plugin</artifactId>
-	<version>4.2.0-SNAPSHOT</version>
+	<version>4.2.0</version>
 	<packaging>eclipse-plugin</packaging>
 
 	<build>

@@ -1,24 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.modelgoon_2.0.2.jar" id="org.modelgoon" version="2.0.2">
-      <category name="org.modelgoon"/>
-   </feature>
-   <feature url="features/org.modelgoon_2.0.3.jar" id="org.modelgoon" version="2.0.3">
-      <category name="org.modelgoon"/>
-   </feature>
-   <feature url="features/org.modelgoon_2.0.4.jar" id="org.modelgoon" version="2.0.4">
-      <category name="org.modelgoon"/>
-   </feature>
-   <feature url="features/org.modelgoon_3.0.0.jar" id="org.modelgoon" version="3.0.0">
-      <category name="org.modelgoon"/>
-   </feature>
-   <feature url="features/org.modelgoon_4.0.0.jar" id="org.modelgoon" version="4.0.0">
-      <category name="org.modelgoon"/>
-   </feature>
-   <feature url="features/org.modelgoon_4.1.0.jar" id="org.modelgoon" version="4.1.0">
-      <category name="org.modelgoon"/>
-   </feature>
-   <feature url="features/org.modelgoon_4.1.1.jar" id="org.modelgoon" version="4.1.1">
+   <feature url="features/org.modelgoon.feature_4.2.0.jar" id="org.modelgoon.feature" version="4.2.0">
       <category name="org.modelgoon"/>
    </feature>
    <category-def name="org.modelgoon" label="ModelGoon"/>
