@@ -5,6 +5,7 @@ Bundle-SymbolicName: org.modelgoon.tests
 Bundle-Version: 4.2.0
 Bundle-Activator: org.modelgoon.tests.Activator
 Require-Bundle: org.eclipse.core.runtime,
- org.modelgoon.plugin;bundle-version="4.2.0"
+ org.modelgoon.plugin;bundle-version="4.2.0",
+ org.junit4;bundle-version="4.8.1"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
