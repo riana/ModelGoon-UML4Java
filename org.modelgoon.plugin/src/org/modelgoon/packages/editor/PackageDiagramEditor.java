@@ -6,8 +6,10 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.modelgoon.core.ui.Diagram;
 import org.modelgoon.core.ui.IPersistenceEventHandler;
+import org.modelgoon.packages.editparts.DependencyEditPart;
 import org.modelgoon.packages.editparts.PackageDiagramEditPart;
 import org.modelgoon.packages.editparts.PackageEditPart;
+import org.modelgoon.packages.model.DependencyLink;
 import org.modelgoon.packages.model.PackageDiagram;
 import org.modelgoon.packages.model.PackageElement;
 
@@ -34,6 +36,8 @@ public class PackageDiagramEditor extends Diagram {
 				PackageElement pkg2 = new PackageElement();
 				pkg2.setQualifiedName("com.test.package2");
 				diagram.addPackage(pkg2);
+
+				diagram.addDependency(new DependencyLink(pkg1, pkg2));
 				return diagram;
 			}
 		});
@@ -49,6 +53,7 @@ public class PackageDiagramEditor extends Diagram {
 		});
 		registerEditPart(PackageDiagram.class, PackageDiagramEditPart.class);
 		registerEditPart(PackageElement.class, PackageEditPart.class);
+		registerEditPart(DependencyLink.class, DependencyEditPart.class);
 
 	}
 

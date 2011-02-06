@@ -18,6 +18,7 @@ import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gef.tools.SelectionTool;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.gef.ui.actions.ZoomInAction;
@@ -53,7 +54,7 @@ public abstract class Diagram extends GraphicalEditorWithFlyoutPalette {
 		super();
 		this.model = model;
 		setEditDomain(new DefaultEditDomain(this));
-		getEditDomain().setActiveTool(new DoNothingTool());
+		getEditDomain().setActiveTool(new SelectionTool());
 	}
 
 	public void setPersistenceEventHandler(
