@@ -4,7 +4,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 public interface IPersistenceEventHandler {
 
-	public void load(final String file);
+	public Object load(final String file);
 
 	public void save(IProgressMonitor monitor);
 

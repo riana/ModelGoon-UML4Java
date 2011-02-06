@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PackageAnalysis>
+    <Package name="org.modelgoon.core.ui" x="141" y="60"/>
+    <Package name="org.modelgoon.classdiagram.editor" x="82" y="200"/>
+</PackageAnalysis>

@@ -31,10 +31,6 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ResourceTransfer;
-import org.modelgoon.classdiagram.editor.ClassCreationFactory;
-import org.modelgoon.classdiagram.editor.DoNothingTool;
-import org.modelgoon.classdiagram.editor.ResourcesDropTargetListener;
-import org.modelgoon.classdiagram.model.UmlClassFactory;
 import org.modelgoon.packages.editor.ModelElementFactory;
 
 public abstract class Diagram extends GraphicalEditorWithFlyoutPalette {
@@ -89,7 +85,8 @@ public abstract class Diagram extends GraphicalEditorWithFlyoutPalette {
 		System.out.println("Diagram.configureGraphicalViewer()");
 		super.configureGraphicalViewer();
 		GraphicalViewer viewer = getGraphicalViewer();
-		this.contextMenuProvider = new DiagramContextMenuProvider(viewer);
+		this.contextMenuProvider = new DiagramContextMenuProvider(viewer,
+				getActionRegistry());
 
 		this.root = new ScalableFreeformRootEditPart();
 		viewer.setRootEditPart(this.root);
@@ -136,7 +133,7 @@ public abstract class Diagram extends GraphicalEditorWithFlyoutPalette {
 		getGraphicalViewer().addDropTargetListener(
 				(TransferDropTargetListener) new ResourcesDropTargetListener(
 						getGraphicalViewer(), ResourceTransfer.getInstance(),
-						new ClassCreationFactory(new UmlClassFactory())));
+						this.creationFactory));
 
 		getCommandStack().addCommandStackListener(new CommandStackListener() {
 
@@ -172,7 +169,7 @@ public abstract class Diagram extends GraphicalEditorWithFlyoutPalette {
 		if (this.persistenceEventHandler != null) {
 			FileEditorInput fileEditorInput = (FileEditorInput) input;
 			this.filePath = fileEditorInput.getPath().toOSString();
-			this.persistenceEventHandler.load(this.filePath);
+			this.model = this.persistenceEventHandler.load(this.filePath);
 		}
 	}
 

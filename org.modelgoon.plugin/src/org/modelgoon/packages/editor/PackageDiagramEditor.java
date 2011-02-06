@@ -4,17 +4,17 @@ import java.util.List;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.modelgoon.classdiagram.editParts.ClassDiagramEditPart;
-import org.modelgoon.classdiagram.editParts.ClassEditPart;
-import org.modelgoon.classdiagram.model.ClassDiagram;
-import org.modelgoon.classdiagram.model.UmlClass;
 import org.modelgoon.core.ui.Diagram;
 import org.modelgoon.core.ui.IPersistenceEventHandler;
+import org.modelgoon.packages.editparts.PackageDiagramEditPart;
+import org.modelgoon.packages.editparts.PackageEditPart;
+import org.modelgoon.packages.model.PackageDiagram;
+import org.modelgoon.packages.model.PackageElement;
 
 public class PackageDiagramEditor extends Diagram {
 
 	public PackageDiagramEditor() {
-		super(new ClassDiagram());
+		super(new PackageDiagram());
 		setPersistenceEventHandler(new IPersistenceEventHandler() {
 
 			public void save(final IProgressMonitor monitor) {
@@ -23,9 +23,18 @@ public class PackageDiagramEditor extends Diagram {
 
 			}
 
-			public void load(final String file) {
+			public Object load(final String file) {
 				System.out
 						.println("PackageDiagramEditor.PackageDiagramEditor().new IPersistenceEventHandler() {...}.load()");
+				PackageDiagram diagram = new PackageDiagram();
+				PackageElement pkg1 = new PackageElement();
+				pkg1.setQualifiedName("com.test.package1");
+				diagram.addPackage(pkg1);
+
+				PackageElement pkg2 = new PackageElement();
+				pkg2.setQualifiedName("com.test.package2");
+				diagram.addPackage(pkg2);
+				return diagram;
 			}
 		});
 
@@ -38,8 +47,8 @@ public class PackageDiagramEditor extends Diagram {
 				return null;
 			}
 		});
-		registerEditPart(ClassDiagram.class, ClassDiagramEditPart.class);
-		registerEditPart(UmlClass.class, ClassEditPart.class);
+		registerEditPart(PackageDiagram.class, PackageDiagramEditPart.class);
+		registerEditPart(PackageElement.class, PackageEditPart.class);
 
 	}
 
