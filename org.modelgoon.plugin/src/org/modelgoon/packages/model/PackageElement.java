@@ -3,7 +3,9 @@ package org.modelgoon.packages.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PackageElement {
+import org.modelgoon.core.ModelElement;
+
+public class PackageElement extends ModelElement {
 
 	String qualifiedName;
 
@@ -17,6 +19,7 @@ public class PackageElement {
 
 	public void setQualifiedName(final String qualifiedName) {
 		this.qualifiedName = qualifiedName;
+		propertyChanged();
 	}
 
 	public List<DependencyLink> getSourceLinks() {

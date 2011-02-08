@@ -1,5 +1,8 @@
 package org.modelgoon.core.ui;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -11,9 +14,10 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.SelectionEditPolicy;
 import org.eclipse.gef.tools.DragEditPartsTracker;
+import org.modelgoon.core.ModelElement;
 
-public abstract class AbstractComponentEditPart<T> extends
-		AbstractGraphicalEditPart implements NodeEditPart {
+public abstract class AbstractComponentEditPart<T extends ModelElement> extends
+		AbstractGraphicalEditPart implements NodeEditPart, Observer {
 
 	T model;
 
@@ -40,6 +44,7 @@ public abstract class AbstractComponentEditPart<T> extends
 	public void setModel(final Object model) {
 		super.setModel(model);
 		this.model = (T) model;
+		this.model.addObserver(this);
 	}
 
 	public T getModelElement() {
@@ -98,13 +103,28 @@ public abstract class AbstractComponentEditPart<T> extends
 		return getFigure().getBounds();
 	}
 
-	// public void modelChanged() {
-	// refreshVisuals();
-	// refreshChildren();
-	// refreshSourceConnections();
-	// refreshTargetConnections();
-	// refreshParentLayout();
-	// }
+	@Override
+	public final void activate() {
+		super.activate();
+		this.model.addObserver(this);
+	}
 
-	public abstract void handleConstraintsChange(final Rectangle newConstraint);
+	@Override
+	public final void deactivate() {
+		super.deactivate();
+		this.model.deleteObserver(this);
+	}
+
+	public final void handleConstraintsChange(final Rectangle newConstraint) {
+		this.model.setLocation(newConstraint.x, newConstraint.y);
+	}
+
+	public void update(final Observable o, final Object arg) {
+		refreshVisuals();
+		refreshChildren();
+		refreshSourceConnections();
+		refreshTargetConnections();
+		refreshParentLayout();
+
+	}
 }
