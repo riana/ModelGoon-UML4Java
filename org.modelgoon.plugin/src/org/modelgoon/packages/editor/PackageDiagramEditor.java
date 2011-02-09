@@ -16,30 +16,6 @@ public class PackageDiagramEditor extends Diagram {
 	public PackageDiagramEditor() {
 		super(new PackageDiagram());
 		PackageDiagramLoader loader = new PackageDiagramLoader();
-		// setPersistenceEventHandler(new IPersistenceEventHandler() {
-		//
-		// public void save(final IProgressMonitor monitor) {
-		// System.out
-		// .println("PackageDiagramEditor.PackageDiagramEditor().new IPersistenceEventHandler() {...}.save()");
-		//
-		// }
-		//
-		// public Object load(final String file) {
-		// System.out
-		// .println("PackageDiagramEditor.PackageDiagramEditor().new IPersistenceEventHandler() {...}.load()");
-		// PackageDiagram diagram = new PackageDiagram();
-		// PackageElement pkg1 = new PackageElement();
-		// pkg1.setQualifiedName("com.test.package1");
-		// diagram.addPackage(pkg1);
-		//
-		// PackageElement pkg2 = new PackageElement();
-		// pkg2.setQualifiedName("com.test.package2");
-		// diagram.addPackage(pkg2);
-		//
-		// diagram.addDependency(new DependencyLink(pkg1, pkg2));
-		// return diagram;
-		// }
-		// });
 		setPersistenceEventHandler(loader);
 
 		setModelElementFactory(new ModelElementFactory() {

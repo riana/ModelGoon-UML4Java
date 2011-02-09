@@ -1,6 +1,8 @@
 package org.modelgoon.core.ui;
 
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import org.eclipse.draw2d.AutomaticRouter;
 import org.eclipse.draw2d.BendpointConnectionRouter;
@@ -14,8 +16,10 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.RootComponentEditPolicy;
+import org.modelgoon.core.RootModelElement;
 
-public abstract class RootElementEditPart<T> extends AbstractGraphicalEditPart {
+public abstract class RootElementEditPart<T extends RootModelElement> extends
+		AbstractGraphicalEditPart implements Observer {
 
 	T model;
 
@@ -65,6 +69,25 @@ public abstract class RootElementEditPart<T> extends AbstractGraphicalEditPart {
 	}
 
 	@Override
+	public final void activate() {
+		super.activate();
+		this.model.addObserver(this);
+	}
+
+	@Override
+	public final void deactivate() {
+		super.deactivate();
+		this.model.deleteObserver(this);
+	}
+
+	@Override
 	protected abstract List<?> getModelChildren();
 
+	public void update(final Observable o, final Object arg) {
+		refreshVisuals();
+		refreshChildren();
+		refreshSourceConnections();
+		refreshTargetConnections();
+
+	}
 }

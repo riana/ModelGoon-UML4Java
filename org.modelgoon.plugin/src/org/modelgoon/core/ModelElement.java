@@ -22,4 +22,20 @@ public class ModelElement extends Observable {
 		setChanged();
 		notifyObservers();
 	}
+
+	public void setX(final int x) {
+		this.location.x = x;
+	}
+
+	public void setY(final int y) {
+		this.location.y = y;
+	}
+
+	public int getX() {
+		return this.location.x;
+	}
+
+	public int getY() {
+		return this.location.y;
+	}
 }

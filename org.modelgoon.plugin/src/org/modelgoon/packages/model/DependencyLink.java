@@ -15,4 +15,9 @@ public class DependencyLink {
 		destination.getDestinationLinks().add(this);
 	}
 
+	public void disconnect() {
+		this.source.getSourceLinks().remove(this);
+		this.destination.getDestinationLinks().remove(this);
+	}
+
 }
