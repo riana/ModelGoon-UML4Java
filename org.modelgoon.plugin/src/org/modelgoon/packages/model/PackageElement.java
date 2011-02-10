@@ -45,6 +45,11 @@ public class PackageElement extends ModelElement {
 		return this.sourceLinks;
 	}
 
+	public void addDestinationLink(final DependencyLink destinationLink) {
+		this.destinationLinks.add(destinationLink);
+		propertyChanged();
+	}
+
 	public List<DependencyLink> getDestinationLinks() {
 		return this.destinationLinks;
 	}
@@ -75,8 +80,8 @@ public class PackageElement extends ModelElement {
 					this.links.put(usedPackageName, link);
 				}
 			}
-
 		}
+		propertyChanged();
 	}
 
 	public List<String> getDependencies(final IPackageFragment packageFragment)

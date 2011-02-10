@@ -32,15 +32,15 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ResourceTransfer;
+import org.modelgoon.core.RootModelElement;
 import org.modelgoon.packages.editor.ModelElementFactory;
 
-public abstract class Diagram extends GraphicalEditorWithFlyoutPalette {
+public abstract class Diagram<T extends RootModelElement> extends
+		GraphicalEditorWithFlyoutPalette {
 
 	private String filePath = null;
 
 	DiagramContextMenuProvider contextMenuProvider;
-
-	IPersistenceEventHandler persistenceEventHandler;
 
 	ObjectCreationFactory creationFactory = new ObjectCreationFactory();
 
@@ -48,18 +48,17 @@ public abstract class Diagram extends GraphicalEditorWithFlyoutPalette {
 
 	ClassEditPartFactory classEditPartFactory = new ClassEditPartFactory();
 
-	Object model;
+	T model;
 
-	public Diagram(final Object model) {
+	public Diagram(final T model) {
 		super();
 		this.model = model;
 		setEditDomain(new DefaultEditDomain(this));
 		getEditDomain().setActiveTool(new SelectionTool());
 	}
 
-	public void setPersistenceEventHandler(
-			final IPersistenceEventHandler persistenceEventHandler) {
-		this.persistenceEventHandler = persistenceEventHandler;
+	public final T getModel() {
+		return this.model;
 	}
 
 	public void setModelElementFactory(
@@ -74,11 +73,8 @@ public abstract class Diagram extends GraphicalEditorWithFlyoutPalette {
 
 	@Override
 	public void doSave(final IProgressMonitor monitor) {
-		if (this.persistenceEventHandler != null) {
-			this.persistenceEventHandler.save(monitor);
-			getCommandStack().markSaveLocation();
-		}
-
+		save(this.model, this.filePath);
+		getCommandStack().markSaveLocation();
 	}
 
 	@Override
@@ -167,11 +163,9 @@ public abstract class Diagram extends GraphicalEditorWithFlyoutPalette {
 		super.setInput(input);
 
 		setPartName(input.getName());
-		if (this.persistenceEventHandler != null) {
-			FileEditorInput fileEditorInput = (FileEditorInput) input;
-			this.filePath = fileEditorInput.getPath().toOSString();
-			this.model = this.persistenceEventHandler.load(this.filePath);
-		}
+		FileEditorInput fileEditorInput = (FileEditorInput) input;
+		this.filePath = fileEditorInput.getPath().toOSString();
+		this.model = load(this.filePath);
 	}
 
 	public IFigure getPrintableFigure() {
@@ -191,5 +185,9 @@ public abstract class Diagram extends GraphicalEditorWithFlyoutPalette {
 	}
 
 	protected abstract void registerActions();
+
+	protected abstract T load(String file);
+
+	protected abstract void save(T model, final String filePath);
 
 }

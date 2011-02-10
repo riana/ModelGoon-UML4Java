@@ -38,8 +38,8 @@ public class ObjectCreationFactory implements CreationFactory {
 
 	public final Object getNewObject() {
 		if (this.modelElementFactory != null) {
-			return this.modelElementFactory
-					.createObjectFromDroppedResources(this.resources);
+			return this.modelElementFactory.createObjectFromDroppedResources(
+					this.resources, this.location);
 		} else {
 			return null;
 		}

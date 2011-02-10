@@ -12,7 +12,7 @@ public class DependencyLink {
 		this.source = source;
 		this.destination = destination;
 		source.getSourceLinks().add(this);
-		destination.getDestinationLinks().add(this);
+		destination.addDestinationLink(this);
 	}
 
 	public void disconnect() {

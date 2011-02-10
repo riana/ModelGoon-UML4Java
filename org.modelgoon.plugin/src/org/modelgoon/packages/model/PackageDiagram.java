@@ -5,12 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.JavaModelException;
+import org.modelgoon.ModelGoonActivator;
 import org.modelgoon.core.RootModelElement;
 
 public class PackageDiagram extends RootModelElement {
@@ -23,6 +27,30 @@ public class PackageDiagram extends RootModelElement {
 
 	public void setJavaProject(final IJavaProject javaProject) {
 		this.javaProject = javaProject;
+	}
+
+	public void addPackageFromResource(final IResource resource,
+			final Point location) {
+		try {
+			IPackageFragment packageFragment = this.javaProject
+					.findPackageFragment(resource.getFullPath());
+			System.out.println("Package framgment : " + packageFragment);
+			if ((packageFragment != null)
+					&& !packageFragment.getElementName().isEmpty()) {
+				PackageElement pkg = this.packagesByName.get(packageFragment
+						.getElementName());
+				if (pkg == null) {
+					PackageElement newPackage = new PackageElement();
+					newPackage.setQualifiedName(packageFragment
+							.getElementName());
+					newPackage.setLocation(location.x, location.y);
+					addPackage(newPackage);
+				}
+				System.out.println("\tpackage : " + pkg);
+			}
+		} catch (CoreException e) {
+			ModelGoonActivator.getDefault().log(e.getMessage(), e);
+		}
 	}
 
 	public void addPackage(final PackageElement pkg) {
@@ -68,6 +96,7 @@ public class PackageDiagram extends RootModelElement {
 			for (PackageElement pkg : this.packagesByName.values()) {
 				pkg.consolidate();
 			}
+			propertyChanged();
 		} catch (JavaModelException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
