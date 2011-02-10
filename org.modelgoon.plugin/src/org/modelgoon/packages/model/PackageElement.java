@@ -1,6 +1,7 @@
 package org.modelgoon.packages.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -59,19 +60,22 @@ public class PackageElement extends ModelElement {
 		IPackageFragment packageFragment = this.packageDiagram
 				.getPackageFragment(this);
 		if (packageFragment != null) {
-			List<String> deps = getDependencies(packageFragment);
-			for (String usedPackageName : deps) {
+			Map<String, PackageUsage> deps = getDependencies(packageFragment);
+
+			Iterator<Entry<String, DependencyLink>> iterator = this.links
+					.entrySet().iterator();
+			while (iterator.hasNext()) {
+				Map.Entry<String, DependencyLink> entry = iterator.next();
+				if (!deps.containsKey(entry.getKey())) {
+					iterator.remove();
+					entry.getValue().disconnect();
+				}
+			}
+
+			for (PackageUsage importedPackage : deps.values()) {
+				String usedPackageName = importedPackage.getPackageName();
 				PackageElement packageElement = this.packageDiagram
 						.getPackage(usedPackageName);
-				Iterator<Entry<String, DependencyLink>> iterator = this.links
-						.entrySet().iterator();
-				while (iterator.hasNext()) {
-					Map.Entry<String, DependencyLink> entry = iterator.next();
-					if (!deps.contains(entry.getKey())) {
-						iterator.remove();
-						entry.getValue().disconnect();
-					}
-				}
 
 				if (packageElement != null) {
 					DependencyLink link = this.links.get(usedPackageName);
@@ -79,6 +83,7 @@ public class PackageElement extends ModelElement {
 						link = new DependencyLink(this, packageElement);
 						this.links.put(usedPackageName, link);
 					}
+					link.setUsedClasses(importedPackage.getImportedClasses());
 				}
 
 			}
@@ -86,23 +91,43 @@ public class PackageElement extends ModelElement {
 		propertyChanged();
 	}
 
-	public List<String> getDependencies(final IPackageFragment packageFragment)
-			throws JavaModelException {
-		List<String> deps = new ArrayList<String>();
+	public Map<String, PackageUsage> getDependencies(
+			final IPackageFragment packageFragment) throws JavaModelException {
+		Map<String, PackageUsage> deps = new HashMap<String, PackageUsage>();
 		for (IJavaElement javaElement : packageFragment.getChildren()) {
 			if (javaElement instanceof IPackageFragment) {
 				IPackageFragment pkg = (IPackageFragment) javaElement;
 				if (pkg.hasChildren()) {
-					deps.addAll(getDependencies(pkg));
+					Collection<PackageUsage> childrenDeps = getDependencies(pkg)
+							.values();
+					for (PackageUsage childImportedPackage : childrenDeps) {
+						PackageUsage usage = deps.get(childImportedPackage
+								.getPackageName());
+						if (usage == null) {
+							deps.put(usage.getPackageName(), usage);
+						} else {
+							usage.merge(childImportedPackage);
+						}
+
+					}
+					// deps.addAll(getDependencies(pkg));
 				}
 			}
 			if (javaElement instanceof ICompilationUnit) {
 				ICompilationUnit cu = (ICompilationUnit) javaElement;
 				for (IImportDeclaration imports : cu.getImports()) {
 					String imp = imports.getElementName();
-					imp = imp.substring(0, imp.lastIndexOf("."));
-					if (!imp.equals(getQualifiedName())) {
-						deps.add(imp);
+					String importedPackage = imp.substring(0,
+							imp.lastIndexOf("."));
+					if (!importedPackage.equals(getQualifiedName())) {
+						String importedClass = imp.substring(imp
+								.lastIndexOf(".") + 1);
+						PackageUsage usage = deps.get(importedPackage);
+						if (usage == null) {
+							usage = new PackageUsage(importedPackage);
+							deps.put(importedPackage, usage);
+						}
+						usage.addImportedClass(importedClass);
 					}
 				}
 			}

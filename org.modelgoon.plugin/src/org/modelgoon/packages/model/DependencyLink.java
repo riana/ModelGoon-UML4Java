@@ -1,5 +1,7 @@
 package org.modelgoon.packages.model;
 
+import java.util.Set;
+
 import org.modelgoon.core.AbstractConnection;
 
 public class DependencyLink extends AbstractConnection {
@@ -9,6 +11,8 @@ public class DependencyLink extends AbstractConnection {
 	PackageElement destination;
 
 	boolean cyclic = false;
+
+	Set<String> importedClasses;
 
 	public DependencyLink(final PackageElement source,
 			final PackageElement destination) {
@@ -32,6 +36,15 @@ public class DependencyLink extends AbstractConnection {
 		this.cyclic = this.destination.dependsUpon(this.source);
 		System.out.println("Cyclic : " + this.cyclic);
 		propertyChanged();
+	}
+
+	public void setUsedClasses(final Set<String> importedClasses) {
+		this.importedClasses = importedClasses;
+		propertyChanged();
+	}
+
+	public Set<String> getImportedClasses() {
+		return this.importedClasses;
 	}
 
 }

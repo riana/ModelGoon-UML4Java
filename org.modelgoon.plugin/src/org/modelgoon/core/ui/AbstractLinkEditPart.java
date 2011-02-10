@@ -49,15 +49,20 @@ public abstract class AbstractLinkEditPart<T extends AbstractConnection>
 
 					@Override
 					protected void showSelection() {
-						System.out.println("Node selected : " + getModel());
+						handlerLinkSelection(true);
 					}
 
 					@Override
 					protected void hideSelection() {
-						// TODO Auto-generated method stub
+						handlerLinkSelection(false);
 
 					}
+
 				});
+
+	}
+
+	protected void handlerLinkSelection(final boolean linkSelected) {
 
 	}
 
