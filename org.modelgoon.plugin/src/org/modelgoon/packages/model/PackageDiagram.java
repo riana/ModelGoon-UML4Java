@@ -57,6 +57,7 @@ public class PackageDiagram extends RootModelElement {
 		this.packages.add(pkg);
 		pkg.setPackageDiagram(this);
 		this.packagesByName.put(pkg.getQualifiedName(), pkg);
+		propertyChanged();
 		consolidate();
 	}
 
@@ -66,6 +67,7 @@ public class PackageDiagram extends RootModelElement {
 
 	public void removePackage(final PackageElement pkg) {
 		this.packages.remove(pkg);
+		this.packagesByName.remove(pkg.getQualifiedName());
 		consolidate();
 	}
 

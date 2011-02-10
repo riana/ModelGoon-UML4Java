@@ -20,7 +20,7 @@ public class DependencyLink extends AbstractConnection {
 		super();
 		this.source = source;
 		this.destination = destination;
-		source.getSourceLinks().add(this);
+		source.addSourceLink(this);
 		destination.addDestinationLink(this);
 	}
 
@@ -28,9 +28,14 @@ public class DependencyLink extends AbstractConnection {
 		return this.cyclic;
 	}
 
-	public void disconnect() {
-		// this.source.getSourceLinks().remove(this);
+	public void disconnectSource() {
+		this.source.removeSourceLink(this);
+		propertyChanged();
+	}
+
+	public void disconnectTarget() {
 		this.destination.removeDestinationLink(this);
+		propertyChanged();
 	}
 
 	public void consolidate() {

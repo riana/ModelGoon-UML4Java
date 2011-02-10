@@ -73,7 +73,8 @@ public class PackageElement extends ModelElement {
 				Map.Entry<String, DependencyLink> entry = iterator.next();
 				if (!deps.containsKey(entry.getKey())) {
 					iterator.remove();
-					entry.getValue().disconnect();
+					this.sourceLinks.remove(entry.getValue());
+					entry.getValue().disconnectTarget();
 				}
 			}
 
@@ -146,15 +147,26 @@ public class PackageElement extends ModelElement {
 	}
 
 	public void removeFromDiagram() {
-		this.packageDiagram.removePackage(this);
 		for (DependencyLink link : this.destinationLinks) {
-			link.disconnect();
+			link.disconnectSource();
 		}
 		this.destinationLinks.clear();
 		for (DependencyLink link : this.sourceLinks) {
-			link.disconnect();
+			link.disconnectTarget();
 		}
 		this.sourceLinks.clear();
+		this.packageDiagram.removePackage(this);
+	}
+
+	public void removeSourceLink(final DependencyLink dependencyLink) {
+		this.links.remove(dependencyLink.destination.getQualifiedName());
+		this.sourceLinks.remove(dependencyLink);
+		propertyChanged();
+	}
+
+	public void addSourceLink(final DependencyLink dependencyLink) {
+		this.sourceLinks.add(dependencyLink);
+		propertyChanged();
 	}
 
 }

@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.jdt.core.IJavaProject;
 import org.modelgoon.core.ModelLoader;
 import org.modelgoon.core.ui.Diagram;
 import org.modelgoon.dao.DAOException;
+import org.modelgoon.packages.controls.UpdateDiagramCommand;
 import org.modelgoon.packages.editparts.DependencyEditPart;
 import org.modelgoon.packages.editparts.PackageDiagramEditPart;
 import org.modelgoon.packages.editparts.PackageEditPart;
@@ -35,7 +37,7 @@ public class PackageDiagramEditor extends Diagram<PackageDiagram> implements
 
 	@Override
 	protected void registerActions() {
-
+		addAction(new UpdateDiagramCommand(this), GEFActionConstants.GROUP_VIEW);
 	}
 
 	public List createObjectFromDroppedResources(
