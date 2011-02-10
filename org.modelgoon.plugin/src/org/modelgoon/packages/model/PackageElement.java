@@ -51,6 +51,11 @@ public class PackageElement extends ModelElement {
 		propertyChanged();
 	}
 
+	public void removeDestinationLink(final DependencyLink destinationLink) {
+		this.destinationLinks.remove(destinationLink);
+		propertyChanged();
+	}
+
 	public List<DependencyLink> getDestinationLinks() {
 		return this.destinationLinks;
 	}
@@ -138,6 +143,18 @@ public class PackageElement extends ModelElement {
 
 	public boolean dependsUpon(final PackageElement source) {
 		return this.links.containsKey(source.getQualifiedName());
+	}
+
+	public void removeFromDiagram() {
+		this.packageDiagram.removePackage(this);
+		for (DependencyLink link : this.destinationLinks) {
+			link.disconnect();
+		}
+		this.destinationLinks.clear();
+		for (DependencyLink link : this.sourceLinks) {
+			link.disconnect();
+		}
+		this.sourceLinks.clear();
 	}
 
 }

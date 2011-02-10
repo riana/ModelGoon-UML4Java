@@ -1,5 +1,6 @@
 package org.modelgoon.packages.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.modelgoon.core.AbstractConnection;
@@ -12,7 +13,7 @@ public class DependencyLink extends AbstractConnection {
 
 	boolean cyclic = false;
 
-	Set<String> importedClasses;
+	Set<String> importedClasses = new HashSet<String>();
 
 	public DependencyLink(final PackageElement source,
 			final PackageElement destination) {
@@ -28,8 +29,8 @@ public class DependencyLink extends AbstractConnection {
 	}
 
 	public void disconnect() {
-		this.source.getSourceLinks().remove(this);
-		this.destination.getDestinationLinks().remove(this);
+		// this.source.getSourceLinks().remove(this);
+		this.destination.removeDestinationLink(this);
 	}
 
 	public void consolidate() {

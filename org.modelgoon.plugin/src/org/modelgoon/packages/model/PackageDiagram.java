@@ -57,6 +57,7 @@ public class PackageDiagram extends RootModelElement {
 		this.packages.add(pkg);
 		pkg.setPackageDiagram(this);
 		this.packagesByName.put(pkg.getQualifiedName(), pkg);
+		consolidate();
 	}
 
 	public List<PackageElement> getPackages() {
@@ -65,6 +66,7 @@ public class PackageDiagram extends RootModelElement {
 
 	public void removePackage(final PackageElement pkg) {
 		this.packages.remove(pkg);
+		consolidate();
 	}
 
 	public IPackageFragment getPackageFragment(

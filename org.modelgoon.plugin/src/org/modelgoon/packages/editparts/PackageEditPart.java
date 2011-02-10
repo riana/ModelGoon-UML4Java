@@ -23,8 +23,7 @@ public class PackageEditPart extends AbstractComponentEditPart<PackageElement> {
 		setDeleteCommand(new Command() {
 			@Override
 			public void execute() {
-				System.out
-						.println("PackageEditPart.PackageEditPart().new Command() {...}.execute()");
+				getModelElement().removeFromDiagram();
 			}
 		});
 	}
