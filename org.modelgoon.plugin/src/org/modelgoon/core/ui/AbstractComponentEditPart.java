@@ -44,7 +44,6 @@ public abstract class AbstractComponentEditPart<T extends ModelElement> extends
 	public void setModel(final Object model) {
 		super.setModel(model);
 		this.model = (T) model;
-		this.model.addObserver(this);
 	}
 
 	public T getModelElement() {

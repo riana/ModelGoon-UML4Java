@@ -1,10 +1,14 @@
 package org.modelgoon.packages.model;
 
-public class DependencyLink {
+import org.modelgoon.core.AbstractConnection;
+
+public class DependencyLink extends AbstractConnection {
 
 	PackageElement source;
 
 	PackageElement destination;
+
+	boolean cyclic = false;
 
 	public DependencyLink(final PackageElement source,
 			final PackageElement destination) {
@@ -15,9 +19,19 @@ public class DependencyLink {
 		destination.addDestinationLink(this);
 	}
 
+	public boolean isCyclic() {
+		return this.cyclic;
+	}
+
 	public void disconnect() {
 		this.source.getSourceLinks().remove(this);
 		this.destination.getDestinationLinks().remove(this);
+	}
+
+	public void consolidate() {
+		this.cyclic = this.destination.dependsUpon(this.source);
+		System.out.println("Cyclic : " + this.cyclic);
+		propertyChanged();
 	}
 
 }

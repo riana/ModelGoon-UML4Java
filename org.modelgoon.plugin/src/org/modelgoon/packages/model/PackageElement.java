@@ -73,12 +73,14 @@ public class PackageElement extends ModelElement {
 					}
 				}
 
-				if ((packageElement != null)
-						&& !this.links.containsKey(usedPackageName)) {
-					DependencyLink link = new DependencyLink(this,
-							packageElement);
-					this.links.put(usedPackageName, link);
+				if (packageElement != null) {
+					DependencyLink link = this.links.get(usedPackageName);
+					if (link == null) {
+						link = new DependencyLink(this, packageElement);
+						this.links.put(usedPackageName, link);
+					}
 				}
+
 			}
 		}
 		propertyChanged();
@@ -107,6 +109,10 @@ public class PackageElement extends ModelElement {
 
 		}
 		return deps;
+	}
+
+	public boolean dependsUpon(final PackageElement source) {
+		return this.links.containsKey(source.getQualifiedName());
 	}
 
 }

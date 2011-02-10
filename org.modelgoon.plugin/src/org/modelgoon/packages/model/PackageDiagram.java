@@ -96,6 +96,11 @@ public class PackageDiagram extends RootModelElement {
 			for (PackageElement pkg : this.packagesByName.values()) {
 				pkg.consolidate();
 			}
+			for (PackageElement pkg : this.packagesByName.values()) {
+				for (DependencyLink link : pkg.getSourceLinks()) {
+					link.consolidate();
+				}
+			}
 			propertyChanged();
 		} catch (JavaModelException e) {
 			// TODO Auto-generated catch block

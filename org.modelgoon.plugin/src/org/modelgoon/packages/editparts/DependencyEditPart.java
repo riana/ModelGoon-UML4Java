@@ -1,5 +1,6 @@
 package org.modelgoon.packages.editparts;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.PolylineDecoration;
@@ -7,13 +8,16 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.swt.graphics.Color;
 import org.modelgoon.classdiagram.figures.ClassFigure;
 import org.modelgoon.core.ui.AbstractLinkEditPart;
+import org.modelgoon.packages.model.DependencyLink;
 
-public class DependencyEditPart extends AbstractLinkEditPart {
+public class DependencyEditPart extends AbstractLinkEditPart<DependencyLink> {
+
+	PolylineConnection polylineConnection = new PolylineConnection();
 
 	@Override
 	protected IFigure createFigure() {
 
-		PolylineConnection polylineConnection = new PolylineConnection();
+		this.polylineConnection = new PolylineConnection();
 
 		PolylineDecoration decoration = new PolylineDecoration();
 		PointList decorationPointList = new PointList();
@@ -23,16 +27,25 @@ public class DependencyEditPart extends AbstractLinkEditPart {
 
 		decoration.setTemplate(decorationPointList);
 		decoration.setBackgroundColor(new Color(null, 255, 255, 255));
-		polylineConnection.setTargetDecoration(decoration);
+		this.polylineConnection.setTargetDecoration(decoration);
 
-		polylineConnection.setForegroundColor(ClassFigure.borderColor);
+		this.polylineConnection.setForegroundColor(ClassFigure.borderColor);
 
-		return polylineConnection;
+		return this.polylineConnection;
 	}
 
 	@Override
 	protected void createEditPolicies() {
 		super.createEditPolicies();
+	}
+
+	@Override
+	protected void doRefreshVisuals(final DependencyLink model) {
+		if (model.isCyclic()) {
+			this.polylineConnection.setForegroundColor(ColorConstants.red);
+		} else {
+			this.polylineConnection.setForegroundColor(ClassFigure.borderColor);
+		}
 	}
 
 }
