@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.modelgoon.feature"
+      id="org.modelgoon"
       label="ModelGoon"
       version="4.2.0"
       provider-name="ModelGoon">

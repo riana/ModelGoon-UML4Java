@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.modelgoon.feature_0.0.0.jar" id="org.modelgoon.feature" version="0.0.0">
+   <feature url="features/org.modelgoon.feature_0.0.0.jar" id="org.modelgoon" version="0.0.0">
       <category name="org.modelgoon"/>
    </feature>
    <category-def name="org.modelgoon" label="ModelGoon"/>
