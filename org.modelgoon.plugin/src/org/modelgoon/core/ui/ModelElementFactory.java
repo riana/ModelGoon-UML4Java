@@ -1,4 +1,4 @@
-package org.modelgoon.packages.editor;
+package org.modelgoon.core.ui;
 
 import java.util.List;
 

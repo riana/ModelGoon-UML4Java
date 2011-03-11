@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PackageAnalysis>
-    <Package name="org.modelgoon.core.ui" x="141" y="60"/>
-    <Package name="org.modelgoon.classdiagram.editor" x="82" y="200"/>
+    <Package name="org.modelgoon.core.ui" x="284" y="84"/>
+    <Package name="org.modelgoon.packages.editor" x="427" y="223"/>
+    <Package name="org.modelgoon.packages.editparts" x="82" y="222"/>
+    <Package name="org.modelgoon.packages.figures" x="21" y="142"/>
+    <Package name="org.modelgoon.packages.model" x="273" y="332"/>
 </PackageAnalysis>

@@ -1,7 +1,6 @@
-package org.modelgoon.packages.controls;
+package org.modelgoon.packages.editor;
 
 import org.eclipse.gef.ui.actions.WorkbenchPartAction;
-import org.modelgoon.packages.editor.PackageDiagramEditor;
 import org.modelgoon.packages.model.PackageDiagram;
 
 public class UpdateDiagramCommand extends WorkbenchPartAction {

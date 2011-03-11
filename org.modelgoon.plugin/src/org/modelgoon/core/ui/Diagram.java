@@ -33,7 +33,6 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ResourceTransfer;
 import org.modelgoon.core.RootModelElement;
-import org.modelgoon.packages.editor.ModelElementFactory;
 
 public abstract class Diagram<T extends RootModelElement> extends
 		GraphicalEditorWithFlyoutPalette {

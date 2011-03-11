@@ -5,7 +5,6 @@ import java.util.List;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.requests.CreationFactory;
-import org.modelgoon.packages.editor.ModelElementFactory;
 
 public class ObjectCreationFactory implements CreationFactory {
 
