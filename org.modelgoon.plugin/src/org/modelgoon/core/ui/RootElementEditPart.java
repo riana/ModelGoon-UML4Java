@@ -1,6 +1,8 @@
 package org.modelgoon.core.ui;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -16,6 +18,9 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.RootComponentEditPolicy;
+import org.modelgoon.core.CreateNoteCommand;
+import org.modelgoon.core.ModelElement;
+import org.modelgoon.core.Note;
 import org.modelgoon.core.RootModelElement;
 
 public abstract class RootElementEditPart<T extends RootModelElement> extends
@@ -24,6 +29,28 @@ public abstract class RootElementEditPart<T extends RootModelElement> extends
 	T model;
 
 	private AutomaticRouter router;
+
+	private final Map<Class<?>, CreationCommand> creationCommands = new HashMap<Class<?>, CreationCommand>();
+
+	public RootElementEditPart() {
+		addCreationCommand(Note.class, new CreateNoteCommand(this));
+	}
+
+	protected void addCreationCommand(
+			final Class<? extends ModelElement> elementClass,
+			final CreationCommand creationCommand) {
+		this.creationCommands.put(elementClass, creationCommand);
+	}
+
+	public CreationCommand getCreationCommand(final ModelElement newObject) {
+		Class<?> newObjectType = newObject.getClass();
+		CreationCommand creationCommand = this.creationCommands
+				.get(newObjectType);
+		if (creationCommand != null) {
+			creationCommand.setNewElement(newObject);
+		}
+		return creationCommand;
+	}
 
 	@Override
 	public void setModel(final Object model) {

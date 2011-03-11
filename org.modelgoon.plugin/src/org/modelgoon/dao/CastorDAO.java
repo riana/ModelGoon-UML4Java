@@ -46,6 +46,7 @@ public class CastorDAO implements DAO {
 		try {
 			Unmarshaller unmarshaller = this.context.createUnmarshaller();
 			unmarshaller.setValidation(false);
+			unmarshaller.setWhitespacePreserve(true);
 			return (T) unmarshaller.unmarshal(new FileReader(name));
 
 		} catch (Exception e) {

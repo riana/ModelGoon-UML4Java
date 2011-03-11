@@ -4,9 +4,16 @@ import java.util.List;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.SharedImages;
+import org.eclipse.gef.palette.CreationToolEntry;
+import org.eclipse.gef.palette.PaletteGroup;
+import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gef.requests.SimpleFactory;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.jdt.core.IJavaProject;
 import org.modelgoon.core.ModelLoader;
+import org.modelgoon.core.Note;
+import org.modelgoon.core.editparts.NoteEditPart;
 import org.modelgoon.core.ui.Diagram;
 import org.modelgoon.core.ui.ModelElementFactory;
 import org.modelgoon.dao.DAOException;
@@ -30,9 +37,22 @@ public class PackageDiagramEditor extends Diagram<PackageDiagram> implements
 		setModelElementFactory(this);
 
 		registerEditPart(PackageDiagram.class, PackageDiagramEditPart.class);
+		registerEditPart(Note.class, NoteEditPart.class);
 		registerEditPart(PackageElement.class, PackageEditPart.class);
 		registerEditPart(DependencyLink.class, DependencyEditPart.class);
 
+	}
+
+	@Override
+	protected PaletteRoot getPaletteRoot() {
+		PaletteRoot paletteRoot = new PaletteRoot();
+		PaletteGroup group = new PaletteGroup("Creation tools");
+		group.add(new CreationToolEntry("Note", "Insert a new Note in ",
+				new SimpleFactory(Note.class),
+				SharedImages.DESC_SELECTION_TOOL_16,
+				SharedImages.DESC_SELECTION_TOOL_16));
+		paletteRoot.add(group);
+		return paletteRoot;
 	}
 
 	@Override

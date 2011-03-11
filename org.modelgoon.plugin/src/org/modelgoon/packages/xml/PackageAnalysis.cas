@@ -12,8 +12,28 @@
 			<bind-xml node="attribute" />
 		</field>
 	</class>
+	
+	<class name="org.modelgoon.core.Note">
+		<map-to xml="Package" />
+		<field name="content" type="string">
+			<bind-xml name="Content" node="text" />
+		</field>
+		<field name="x" type="integer">
+			<bind-xml node="attribute" />
+		</field>
+		<field name="y" type="integer">
+			<bind-xml node="attribute" />
+		</field>
+	</class>
+	
 	<class name="org.modelgoon.packages.model.PackageDiagram">
 		<map-to xml="PackageAnalysis" />
+		
+		<field name="notes" type="org.modelgoon.core.Note"
+			get-method="getNotes" set-method="addNote" collection="arraylist">
+			<bind-xml name="Note" node="element" />
+		</field>
+		
 		<field name="packages" type="org.modelgoon.packages.model.PackageElement"
 			get-method="getPackages" set-method="addPackage" collection="arraylist">
 			<bind-xml name="Package" node="element" />

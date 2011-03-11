@@ -10,6 +10,7 @@ import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.editpolicies.XYLayoutEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gef.requests.GroupRequest;
+import org.modelgoon.core.ModelElement;
 
 public class RootElementEditPolicy extends XYLayoutEditPolicy {
 
@@ -30,19 +31,28 @@ public class RootElementEditPolicy extends XYLayoutEditPolicy {
 
 	@Override
 	protected Command getCreateCommand(final CreateRequest request) {
-		Command createCommand = new Command() {
-			@Override
-			public void execute() {
-				// ClassDiagram classDiagram = (ClassDiagram)
-				// ClassDiagramEditPolicies.this.editPart
-				// .getModel();
-				// List<ClassModel> classes = (List<ClassModel>) request
-				// .getNewObject();
-				// for (ClassModel umlClass : classes) {
-				// classDiagram.addClass(umlClass);
-				// }
-			}
-		};
+		ModelElement modelElement = (ModelElement) request.getNewObject();
+		modelElement.setLocation(request.getLocation().x,
+				request.getLocation().y);
+		Command createCommand = this.editPart.getCreationCommand(modelElement);
+
+		// Command createCommand = new Command() {
+		// @Override
+		// public void execute() {
+		//
+		// System.out
+		// .println("RootElementEditPolicy.getCreateCommand(...).new Command() {...}.execute() "
+		// + request.getNewObjectType());
+		// // ClassDiagram classDiagram = (ClassDiagram)
+		// // ClassDiagramEditPolicies.this.editPart
+		// // .getModel();
+		// // List<ClassModel> classes = (List<ClassModel>) request
+		// // .getNewObject();
+		// // for (ClassModel umlClass : classes) {
+		// // classDiagram.addClass(umlClass);
+		// // }
+		// }
+		// };
 		return createCommand;
 	}
 
