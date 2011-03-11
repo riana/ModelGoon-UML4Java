@@ -20,7 +20,6 @@ public class Note extends ModelElement {
 
 	public void setContent(final String content) {
 		this.content = content;
-		System.out.println("Note.setContent() " + content);
 		propertyChanged();
 	}
 

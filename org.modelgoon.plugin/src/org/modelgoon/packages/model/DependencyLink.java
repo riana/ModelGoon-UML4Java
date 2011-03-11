@@ -40,7 +40,6 @@ public class DependencyLink extends AbstractConnection {
 
 	public void consolidate() {
 		this.cyclic = this.destination.dependsUpon(this.source);
-		System.out.println("Cyclic : " + this.cyclic);
 		propertyChanged();
 	}
 
