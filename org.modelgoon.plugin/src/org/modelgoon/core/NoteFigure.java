@@ -35,6 +35,7 @@ public class NoteFigure extends Figure {
 
 	public void setContent(final String content) {
 		this.label.setText(content);
+		setSize(getPreferredSize());
 	}
 
 	@Override

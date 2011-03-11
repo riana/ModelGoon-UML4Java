@@ -25,6 +25,7 @@ final public class LabelCellEditorLocator implements CellEditorLocator {
 	}
 
 	public void relocate(final CellEditor celleditor) {
+
 		Text text = (Text) celleditor.getControl();
 		Rectangle rect = this.stickyNote.getClientArea();
 		this.stickyNote.translateToAbsolute(rect);

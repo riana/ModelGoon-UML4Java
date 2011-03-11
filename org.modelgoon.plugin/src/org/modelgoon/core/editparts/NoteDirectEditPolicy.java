@@ -20,7 +20,6 @@ public class NoteDirectEditPolicy extends DirectEditPolicy {
 	protected void showCurrentEditValue(final DirectEditRequest request) {
 		String value = (String) request.getCellEditor().getValue();
 		((NoteFigure) getHostFigure()).setContent(value);
-		System.out.println("NoteDirectEditPolicy.showCurrentEditValue()");
 		// hack to prevent async layout from placing the cell editor twice.
 		getHostFigure().getUpdateManager().performUpdate();
 	}
