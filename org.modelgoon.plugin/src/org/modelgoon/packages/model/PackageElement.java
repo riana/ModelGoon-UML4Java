@@ -21,8 +21,6 @@ public class PackageElement extends ModelElement {
 
 	String qualifiedName;
 
-	List<DependencyLink> sourceLinks = new ArrayList<DependencyLink>();
-
 	List<DependencyLink> destinationLinks = new ArrayList<DependencyLink>();
 
 	List<String> requiredPackages = new ArrayList<String>();
@@ -42,8 +40,8 @@ public class PackageElement extends ModelElement {
 		propertyChanged();
 	}
 
-	public List<DependencyLink> getSourceLinks() {
-		return this.sourceLinks;
+	public Collection<DependencyLink> getSourceLinks() {
+		return this.links.values();
 	}
 
 	public void addDestinationLink(final DependencyLink destinationLink) {
@@ -73,7 +71,6 @@ public class PackageElement extends ModelElement {
 				Map.Entry<String, DependencyLink> entry = iterator.next();
 				if (!deps.containsKey(entry.getKey())) {
 					iterator.remove();
-					this.sourceLinks.remove(entry.getValue());
 					entry.getValue().disconnectTarget();
 				}
 			}
@@ -151,21 +148,25 @@ public class PackageElement extends ModelElement {
 			link.disconnectSource();
 		}
 		this.destinationLinks.clear();
-		for (DependencyLink link : this.sourceLinks) {
+		for (DependencyLink link : getSourceLinks()) {
 			link.disconnectTarget();
 		}
-		this.sourceLinks.clear();
+		this.links.clear();
 		this.packageDiagram.removePackage(this);
 	}
 
 	public void removeSourceLink(final DependencyLink dependencyLink) {
 		this.links.remove(dependencyLink.destination.getQualifiedName());
-		this.sourceLinks.remove(dependencyLink);
 		propertyChanged();
 	}
 
 	public void addSourceLink(final DependencyLink dependencyLink) {
-		this.sourceLinks.add(dependencyLink);
+		if (dependencyLink.source == null) {
+			dependencyLink.source = this;
+		}
+		this.links.put(dependencyLink.destination.getQualifiedName(),
+				dependencyLink);
+		// dependencyLink.connect();
 		propertyChanged();
 	}
 

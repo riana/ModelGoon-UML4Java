@@ -1,5 +1,6 @@
 package org.modelgoon.packages.editparts;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.ChopboxAnchor;
@@ -45,7 +46,9 @@ public class PackageEditPart extends AbstractComponentEditPart<PackageElement> {
 
 	@Override
 	public List getModelSourceConnections() {
-		return getModelElement().getSourceLinks();
+		List<Object> sources = new ArrayList<Object>();
+		sources.addAll(getModelElement().getSourceLinks());
+		return sources;
 	}
 
 	@Override
