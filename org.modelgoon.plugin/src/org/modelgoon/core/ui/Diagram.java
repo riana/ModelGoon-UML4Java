@@ -78,7 +78,6 @@ public abstract class Diagram<T extends RootModelElement> extends
 
 	@Override
 	protected void configureGraphicalViewer() {
-		System.out.println("Diagram.configureGraphicalViewer()");
 		super.configureGraphicalViewer();
 		GraphicalViewer viewer = getGraphicalViewer();
 		this.contextMenuProvider = new DiagramContextMenuProvider(viewer,
@@ -120,7 +119,6 @@ public abstract class Diagram<T extends RootModelElement> extends
 	@Override
 	protected void initializeGraphicalViewer() {
 		super.initializeGraphicalViewer();
-		System.out.println("Diagram.initializeGraphicalViewer()");
 		// getGraphicalViewer().addDropTargetListener(
 		// (TransferDropTargetListener) new ResourcesDropTargetListener(
 		// getGraphicalViewer(), ResourceTransfer.getInstance(),
