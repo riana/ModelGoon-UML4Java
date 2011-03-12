@@ -12,7 +12,6 @@ import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
-import org.eclipse.gef.editpolicies.SelectionEditPolicy;
 import org.eclipse.gef.tools.DragEditPartsTracker;
 import org.modelgoon.core.ModelElement;
 
@@ -56,20 +55,20 @@ public abstract class AbstractComponentEditPart<T extends ModelElement> extends
 				new AbstractComponentEditPolicy());
 		installEditPolicy(EditPolicy.NODE_ROLE,
 				new GraphicalNodeEditPolicyImpl(this));
-		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE,
-				new SelectionEditPolicy() {
-
-					@Override
-					protected void showSelection() {
-						System.out.println("EditPart selected : " + getModel());
-					}
-
-					@Override
-					protected void hideSelection() {
-						// TODO Auto-generated method stub
-
-					}
-				});
+		// installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE,
+		// new SelectionEditPolicy() {
+		//
+		// @Override
+		// protected void showSelection() {
+		// System.out.println("EditPart selected : " + getModel());
+		// }
+		//
+		// @Override
+		// protected void hideSelection() {
+		// // TODO Auto-generated method stub
+		//
+		// }
+		// });
 
 		doCreateEditPolicies();
 	}

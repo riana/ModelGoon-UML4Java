@@ -18,7 +18,6 @@ public class DependencyLink extends AbstractConnection {
 	Set<String> importedClasses = new HashSet<String>();
 
 	public DependencyLink() {
-		System.out.println("DependencyLink.DependencyLink()");
 	}
 
 	public DependencyLink(final PackageElement source,
