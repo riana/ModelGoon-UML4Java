@@ -31,28 +31,14 @@ public class RootElementEditPolicy extends XYLayoutEditPolicy {
 
 	@Override
 	protected Command getCreateCommand(final CreateRequest request) {
-		ModelElement modelElement = (ModelElement) request.getNewObject();
-		modelElement.setLocation(request.getLocation().x,
-				request.getLocation().y);
-		Command createCommand = this.editPart.getCreationCommand(modelElement);
+		Command createCommand = null;
 
-		// Command createCommand = new Command() {
-		// @Override
-		// public void execute() {
-		//
-		// System.out
-		// .println("RootElementEditPolicy.getCreateCommand(...).new Command() {...}.execute() "
-		// + request.getNewObjectType());
-		// // ClassDiagram classDiagram = (ClassDiagram)
-		// // ClassDiagramEditPolicies.this.editPart
-		// // .getModel();
-		// // List<ClassModel> classes = (List<ClassModel>) request
-		// // .getNewObject();
-		// // for (ClassModel umlClass : classes) {
-		// // classDiagram.addClass(umlClass);
-		// // }
-		// }
-		// };
+		ModelElement modelElement = (ModelElement) request.getNewObject();
+		if (modelElement != null) {
+			modelElement.setLocation(request.getLocation().x,
+					request.getLocation().y);
+			createCommand = this.editPart.getCreationCommand(modelElement);
+		}
 		return createCommand;
 	}
 
