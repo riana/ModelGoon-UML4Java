@@ -5,6 +5,7 @@ import java.util.Observer;
 
 import org.eclipse.draw2d.AbsoluteBendpoint;
 import org.eclipse.draw2d.Bendpoint;
+import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
@@ -67,11 +68,11 @@ public abstract class AbstractLinkEditPart<T extends AbstractConnection>
 	}
 
 	public void addBendpoint(final Bendpoint bendpoint, final int index) {
-		System.out.println("AbstractLinkEditPart.addBendpoint()");
+		this.model.addBendpoint(bendpoint, index);
 	}
 
 	public Bendpoint removeBendpoint(final int index) {
-		return null;
+		return this.model.removeBendpoint(index);
 	}
 
 	public void removeBendpoint(final AbsoluteBendpoint bendpoint) {
@@ -79,19 +80,21 @@ public abstract class AbstractLinkEditPart<T extends AbstractConnection>
 
 	}
 
-	public AbsoluteBendpoint getBendpoint(final int index) {
-		// TODO Auto-generated method stub
-		return null;
+	public Bendpoint getBendpoint(final int index) {
+		return this.model.getBendpoint(index);
 	}
 
 	public void replaceBendpoint(final int index,
 			final AbsoluteBendpoint bendpoint) {
-		// TODO Auto-generated method stub
+		this.model.removeBendpoint(index);
+		this.model.addBendpoint(bendpoint, index);
 
 	}
 
 	@Override
 	protected final void refreshVisuals() {
+		PolylineConnection figure = (PolylineConnection) getFigure();
+		figure.setRoutingConstraint(this.model.getBendpoints());
 		doRefreshVisuals(this.model);
 		refreshChildren();
 		refreshSourceConnections();

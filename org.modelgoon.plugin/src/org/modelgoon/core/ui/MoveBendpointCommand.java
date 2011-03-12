@@ -5,10 +5,10 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.commands.Command;
 
 public class MoveBendpointCommand extends Command {
-	private Point newLocation;
+	private final Point newLocation;
 	private Point oldLocation;
-	private int index;
-	private AbstractLinkEditPart model;
+	private final int index;
+	private final AbstractLinkEditPart model;
 	private AbsoluteBendpoint bendpoint;
 
 	public MoveBendpointCommand(final AbstractLinkEditPart model,
@@ -24,6 +24,7 @@ public class MoveBendpointCommand extends Command {
 				.getBendpoint(this.index);
 		this.oldLocation = bendpoint.getLocation();
 		bendpoint = new AbsoluteBendpoint(this.newLocation);
+		// bendpoint.setLocation(this.newLocation);
 		this.model.replaceBendpoint(this.index, bendpoint);
 	}
 
