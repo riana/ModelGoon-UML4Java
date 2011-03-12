@@ -19,6 +19,8 @@ public class DependencyEditPart extends AbstractLinkEditPart<DependencyLink> {
 
 	PolylineConnection polylineConnection = new PolylineConnection();
 
+	ConnectionEndpointLocator targetLabelLocator;
+
 	Label targetLabel;
 
 	@Override
@@ -38,16 +40,15 @@ public class DependencyEditPart extends AbstractLinkEditPart<DependencyLink> {
 
 		this.polylineConnection.setForegroundColor(ClassFigure.borderColor);
 
-		ConnectionEndpointLocator targetLabelLocator = new ConnectionEndpointLocator(
+		this.targetLabelLocator = new ConnectionEndpointLocator(
 				this.polylineConnection, true);
-		targetLabelLocator.setVDistance(10);
-		targetLabelLocator.setUDistance(10);
+		this.targetLabelLocator.setVDistance(10);
+		this.targetLabelLocator.setUDistance(10);
 		this.targetLabel = new Label();
 		FontData fd = new FontData("Arial", 8, SWT.ITALIC);
 		this.targetLabel.setFont(new Font(null, fd));
 		this.targetLabel.setForegroundColor(new Color(null, 0, 0, 0));
-		this.polylineConnection.add(this.targetLabel, targetLabelLocator);
-		this.targetLabel.setVisible(false);
+
 		return this.polylineConnection;
 	}
 
@@ -72,6 +73,15 @@ public class DependencyEditPart extends AbstractLinkEditPart<DependencyLink> {
 		// TODO Auto-generated method stub
 		super.handlerLinkSelection(linkSelected);
 		this.targetLabel.setVisible(linkSelected);
+		if (linkSelected) {
+			this.polylineConnection.add(this.targetLabel,
+					this.targetLabelLocator);
+		} else {
+			if (this.polylineConnection.getChildren()
+					.contains(this.targetLabel)) {
+				this.polylineConnection.remove(this.targetLabel);
+			}
+		}
 	}
 
 }
