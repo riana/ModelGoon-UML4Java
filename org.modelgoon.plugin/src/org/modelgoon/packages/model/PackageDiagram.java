@@ -34,7 +34,7 @@ public class PackageDiagram extends RootModelElement {
 		try {
 			IPackageFragment packageFragment = this.javaProject
 					.findPackageFragment(resource.getFullPath());
-			System.out.println("Package framgment : " + packageFragment);
+			// System.out.println("Package framgment : " + packageFragment);
 			if ((packageFragment != null)
 					&& !packageFragment.getElementName().isEmpty()) {
 				PackageElement pkg = this.packagesByName.get(packageFragment
@@ -46,7 +46,7 @@ public class PackageDiagram extends RootModelElement {
 					newPackage.setLocation(location.x, location.y);
 					addPackage(newPackage);
 				}
-				System.out.println("\tpackage : " + pkg);
+				// System.out.println("\tpackage : " + pkg);
 			}
 		} catch (CoreException e) {
 			ModelGoonActivator.getDefault().log(e.getMessage(), e);
