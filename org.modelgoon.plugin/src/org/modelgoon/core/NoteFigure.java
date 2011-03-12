@@ -15,6 +15,8 @@ public class NoteFigure extends Figure {
 
 	final static Color DARK_BLUE = new Color(Display.getDefault(), 1, 70, 122);
 
+	final static Color YELLOW = new Color(Display.getDefault(), 253, 217, 41);
+
 	Label label;
 
 	private transient Rectangle tempRect = new Rectangle();
@@ -58,7 +60,7 @@ public class NoteFigure extends Figure {
 		noteContainer.addPoint(this.tempRect.x + this.tempRect.width,
 				this.tempRect.y + noteBorderSize);
 
-		graphics.setBackgroundColor(ColorConstants.yellow);
+		graphics.setBackgroundColor(NoteFigure.YELLOW);
 		graphics.fillPolygon(noteContainer);
 		graphics.drawPolygon(noteContainer);
 

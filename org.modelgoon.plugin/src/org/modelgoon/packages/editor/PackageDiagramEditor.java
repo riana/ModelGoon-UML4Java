@@ -4,13 +4,14 @@ import java.util.List;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.gef.SharedImages;
 import org.eclipse.gef.palette.CreationToolEntry;
 import org.eclipse.gef.palette.PaletteGroup;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.requests.SimpleFactory;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.modelgoon.ModelGoonActivator;
 import org.modelgoon.core.ModelLoader;
 import org.modelgoon.core.Note;
 import org.modelgoon.core.editparts.NoteEditPart;
@@ -47,10 +48,12 @@ public class PackageDiagramEditor extends Diagram<PackageDiagram> implements
 	protected PaletteRoot getPaletteRoot() {
 		PaletteRoot paletteRoot = new PaletteRoot();
 		PaletteGroup group = new PaletteGroup("Creation tools");
+
+		ImageDescriptor imgDesc = ModelGoonActivator
+				.getImageDescriptor("icons/sticky_notes-16x16.png");
+
 		group.add(new CreationToolEntry("Note", "Insert a new Note in ",
-				new SimpleFactory(Note.class),
-				SharedImages.DESC_SELECTION_TOOL_16,
-				SharedImages.DESC_SELECTION_TOOL_16));
+				new SimpleFactory(Note.class), imgDesc, imgDesc));
 		paletteRoot.add(group);
 		return paletteRoot;
 	}
