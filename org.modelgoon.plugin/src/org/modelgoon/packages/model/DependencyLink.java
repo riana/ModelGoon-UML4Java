@@ -11,11 +11,14 @@ public class DependencyLink extends AbstractConnection {
 
 	PackageElement destination;
 
+	String destinationPackageName;
+
 	boolean cyclic = false;
 
 	Set<String> importedClasses = new HashSet<String>();
 
 	public DependencyLink() {
+		System.out.println("DependencyLink.DependencyLink()");
 	}
 
 	public DependencyLink(final PackageElement source,
@@ -31,6 +34,18 @@ public class DependencyLink extends AbstractConnection {
 		return this.cyclic;
 	}
 
+	public void setDestinationPackageName(final String destinationPackageName) {
+		this.destinationPackageName = destinationPackageName;
+	}
+
+	public String getDestinationPackageName() {
+		if (this.destination != null) {
+			return this.destination.getQualifiedName();
+		} else {
+			return this.destinationPackageName;
+		}
+	}
+
 	public void disconnectSource() {
 		this.source.removeSourceLink(this);
 		propertyChanged();
@@ -42,8 +57,17 @@ public class DependencyLink extends AbstractConnection {
 	}
 
 	public void consolidate() {
-		this.cyclic = this.destination.dependsUpon(this.source);
-		propertyChanged();
+		if (this.destination == null) {
+			this.destination = this.source.getPackageDiagram().getPackage(
+					this.destinationPackageName);
+		}
+		if (this.destination != null) {
+			if (!this.destination.getDestinationLinks().contains(this)) {
+				this.destination.addDestinationLink(this);
+			}
+			this.cyclic = this.destination.dependsUpon(this.source);
+			propertyChanged();
+		}
 	}
 
 	public void setUsedClasses(final Set<String> importedClasses) {
@@ -61,15 +85,6 @@ public class DependencyLink extends AbstractConnection {
 
 	public void setDestination(final PackageElement destination) {
 		this.destination = destination;
-	}
-
-	public void connect() {
-		if (!this.source.getSourceLinks().contains(this)) {
-			this.source.addSourceLink(this);
-		}
-		if (!this.destination.getDestinationLinks().contains(this)) {
-			this.destination.addDestinationLink(this);
-		}
 	}
 
 }

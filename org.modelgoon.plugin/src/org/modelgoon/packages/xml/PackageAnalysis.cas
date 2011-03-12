@@ -11,6 +11,32 @@
 		<field name="y" type="integer">
 			<bind-xml node="attribute" />
 		</field>
+		
+		<field name="dependencies" type="org.modelgoon.packages.model.DependencyLink"
+			get-method="getSourceLinks" set-method="addSourceLink" collection="arraylist">
+			<bind-xml name="DependencyLink" node="element" />
+		</field>
+		
+	</class>
+	
+	<class name="org.eclipse.draw2d.geometry.Point">
+	<map-to xml="Point" />
+		<field name="x" type="integer" direct="true">
+			<bind-xml name="x" node="attribute"/>
+		</field>
+		<field name="y" type="integer" direct="true">
+			<bind-xml name="y" node="attribute"/>
+		</field>
+	</class>
+	<class name="org.modelgoon.packages.model.DependencyLink">
+		<map-to xml="DependencyLink" />
+		<field name="destinationPackageName" type="string">
+			<bind-xml name="destination" node="attribute"/>
+		</field>
+		<field name="points" type="org.eclipse.draw2d.geometry.Point"
+			get-method="getPoints" set-method="addPoint" collection="arraylist">
+			<bind-xml name="Point" node="element" />
+		</field>
 	</class>
 	
 	<class name="org.modelgoon.core.Note">

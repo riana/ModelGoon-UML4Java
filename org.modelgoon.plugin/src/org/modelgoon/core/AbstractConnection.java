@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
+import org.eclipse.draw2d.AbsoluteBendpoint;
 import org.eclipse.draw2d.Bendpoint;
+import org.eclipse.draw2d.geometry.Point;
 
 public class AbstractConnection extends Observable {
 
@@ -13,6 +15,19 @@ public class AbstractConnection extends Observable {
 	public void propertyChanged() {
 		setChanged();
 		notifyObservers();
+	}
+
+	public void addPoint(final Point point) {
+		AbsoluteBendpoint bp = new AbsoluteBendpoint(point);
+		this.bendpoints.add(bp);
+	}
+
+	public List<Point> getPoints() {
+		List<Point> points = new ArrayList<Point>();
+		for (Bendpoint bp : this.bendpoints) {
+			points.add(new Point(bp.getLocation()));
+		}
+		return points;
 	}
 
 	public void addBendpoint(final Bendpoint bendpoint, final int index) {

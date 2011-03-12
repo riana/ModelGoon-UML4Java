@@ -3,10 +3,12 @@ package org.modelgoon.packages.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IImportDeclaration;
@@ -21,14 +23,21 @@ public class PackageElement extends ModelElement {
 
 	String qualifiedName;
 
-	List<DependencyLink> destinationLinks = new ArrayList<DependencyLink>();
+	Set<DependencyLink> destinationLinks = new HashSet<DependencyLink>();
 
 	List<String> requiredPackages = new ArrayList<String>();
 
 	Map<String, DependencyLink> links = new HashMap<String, DependencyLink>();
 
+	public PackageElement() {
+	}
+
 	public void setPackageDiagram(final PackageDiagram packageDiagram) {
 		this.packageDiagram = packageDiagram;
+	}
+
+	public PackageDiagram getPackageDiagram() {
+		return this.packageDiagram;
 	}
 
 	public String getQualifiedName() {
@@ -55,7 +64,7 @@ public class PackageElement extends ModelElement {
 	}
 
 	public List<DependencyLink> getDestinationLinks() {
-		return this.destinationLinks;
+		return new ArrayList<DependencyLink>(this.destinationLinks);
 	}
 
 	public void consolidate() throws JavaModelException {
@@ -164,9 +173,8 @@ public class PackageElement extends ModelElement {
 		if (dependencyLink.source == null) {
 			dependencyLink.source = this;
 		}
-		this.links.put(dependencyLink.destination.getQualifiedName(),
+		this.links.put(dependencyLink.getDestinationPackageName(),
 				dependencyLink);
-		// dependencyLink.connect();
 		propertyChanged();
 	}
 
