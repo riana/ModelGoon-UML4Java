@@ -41,7 +41,7 @@ public abstract class Diagram<T extends RootModelElement> extends
 
 	DiagramContextMenuProvider contextMenuProvider;
 
-	ObjectCreationFactory creationFactory = new ObjectCreationFactory();
+	ObjectCreationFactory creationFactory;
 
 	ScalableFreeformRootEditPart root;
 
@@ -52,6 +52,7 @@ public abstract class Diagram<T extends RootModelElement> extends
 	public Diagram(final T model) {
 		super();
 		this.model = model;
+		this.creationFactory = new ObjectCreationFactory(this);
 		setEditDomain(new DefaultEditDomain(this));
 		getEditDomain().setActiveTool(new SelectionTool());
 	}
@@ -179,6 +180,10 @@ public abstract class Diagram<T extends RootModelElement> extends
 
 	public final String getCurrentFileName() {
 		return this.filePath;
+	}
+
+	public IFigure getRootFigure() {
+		return this.root.getContentPane();
 	}
 
 	protected abstract void registerActions();

@@ -14,8 +14,10 @@ public class ObjectCreationFactory implements CreationFactory {
 
 	ModelElementFactory modelElementFactory;
 
-	public ObjectCreationFactory() {
-		super();
+	Diagram<?> diagram;
+
+	public ObjectCreationFactory(final Diagram<?> diagram) {
+		this.diagram = diagram;
 	}
 
 	public void setModelElementFactory(
@@ -28,7 +30,9 @@ public class ObjectCreationFactory implements CreationFactory {
 	}
 
 	public final Point setLocation(final Point point) {
-		return this.location.setLocation(point);
+		this.location.setLocation(point);
+		this.diagram.getRootFigure().translateToRelative(this.location);
+		return this.location;
 	}
 
 	public final Object getObjectType() {
