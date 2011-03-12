@@ -28,7 +28,11 @@ public class AbstractConnection extends Observable {
 		Bendpoint b = this.bendpoints.remove(index);
 		propertyChanged();
 		return b;
+	}
 
+	public void removeBendpoint(final Bendpoint bendpoint) {
+		this.bendpoints.remove(bendpoint);
+		propertyChanged();
 	}
 
 	public List<Bendpoint> getBendpoints() {

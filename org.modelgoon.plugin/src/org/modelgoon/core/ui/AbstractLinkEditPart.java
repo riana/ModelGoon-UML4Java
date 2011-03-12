@@ -68,6 +68,7 @@ public abstract class AbstractLinkEditPart<T extends AbstractConnection>
 	}
 
 	public void addBendpoint(final Bendpoint bendpoint, final int index) {
+		getFigure().getParent().translateToRelative(bendpoint.getLocation());
 		this.model.addBendpoint(bendpoint, index);
 	}
 
@@ -76,8 +77,7 @@ public abstract class AbstractLinkEditPart<T extends AbstractConnection>
 	}
 
 	public void removeBendpoint(final AbsoluteBendpoint bendpoint) {
-		// TODO Auto-generated method stub
-
+		this.model.removeBendpoint(bendpoint);
 	}
 
 	public Bendpoint getBendpoint(final int index) {
@@ -87,6 +87,7 @@ public abstract class AbstractLinkEditPart<T extends AbstractConnection>
 	public void replaceBendpoint(final int index,
 			final AbsoluteBendpoint bendpoint) {
 		this.model.removeBendpoint(index);
+		getFigure().getParent().translateToRelative(bendpoint.getLocation());
 		this.model.addBendpoint(bendpoint, index);
 
 	}
