@@ -36,7 +36,7 @@ public class PackageDiagram extends RootModelElement {
 					.findPackageFragment(resource.getFullPath());
 			// System.out.println("Package framgment : " + packageFragment);
 			if ((packageFragment != null)
-					&& !packageFragment.getElementName().isEmpty()) {
+					&& (packageFragment.getElementName().length() != 0)) {
 				PackageElement pkg = this.packagesByName.get(packageFragment
 						.getElementName());
 				if (pkg == null) {
