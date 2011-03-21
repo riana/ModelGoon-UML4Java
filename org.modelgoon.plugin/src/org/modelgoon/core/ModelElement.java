@@ -14,6 +14,12 @@ public class ModelElement extends Observable {
 		propertyChanged();
 	}
 
+	public final void setLocation(final Point newLocation) {
+		this.location.x = newLocation.x;
+		this.location.y = newLocation.y;
+		propertyChanged();
+	}
+
 	public final Point getLocation() {
 		return this.location;
 	}

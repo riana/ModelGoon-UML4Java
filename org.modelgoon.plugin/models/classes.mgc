@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ClassDiagram>
-    <Class name="org.modelgoon.core.ModelElement" x="422" y="48">
+    <Class name="org.modelgoon.classdiagram.model.Type" x="-15" y="427">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -9,7 +9,8 @@
             default-accepted="false" static-accepted="false"
             accessors-accepted="false" constructors-accepted="false"/>
     </Class>
-    <Class name="org.modelgoon.packages.model.PackageElement" x="422" y="233">
+    <Class name="org.modelgoon.classdiagram.model.ExtensionRelationShip"
+        x="232" y="305">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -18,7 +19,7 @@
             default-accepted="false" static-accepted="false"
             accessors-accepted="false" constructors-accepted="false"/>
     </Class>
-    <Class name="org.modelgoon.packages.model.DependencyLink" x="60" y="228">
+    <Class name="org.modelgoon.classdiagram.model.Visibility" x="616" y="470">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -27,7 +28,8 @@
             default-accepted="false" static-accepted="false"
             accessors-accepted="false" constructors-accepted="false"/>
     </Class>
-    <Class name="org.modelgoon.core.AbstractConnection" x="36" y="69">
+    <Class name="org.modelgoon.classdiagram.model.StructuralFeature"
+        x="481" y="316">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -36,7 +38,9 @@
             default-accepted="false" static-accepted="false"
             accessors-accepted="false" constructors-accepted="false"/>
     </Class>
-    <Class name="org.modelgoon.core.RootModelElement" x="672" y="38">
+    <Class
+        name="org.modelgoon.classdiagram.model.AssociationRelationShip"
+        x="18" y="287">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -45,7 +49,43 @@
             default-accepted="false" static-accepted="false"
             accessors-accepted="false" constructors-accepted="false"/>
     </Class>
-    <Class name="org.modelgoon.packages.model.PackageDiagram" x="775" y="135">
+    <Class name="org.modelgoon.classdiagram.model.Field" x="307" y="482">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="org.modelgoon.classdiagram.model.UmlClass" x="682" y="325">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="org.modelgoon.classdiagram.model.ClassDiagram" x="237" y="21">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="org.modelgoon.classdiagram.model.ClassModel" x="659" y="74">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="org.modelgoon.classdiagram.model.Relationship" x="144" y="202">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>

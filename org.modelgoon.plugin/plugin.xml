@@ -49,6 +49,14 @@
             id="org.modelgoon.sequencediagram.editor"
             name="Sequence Diagram">
       </editor>
+      <editor
+            class="org.modelgoon.classes.editor.ClassDiagramEditor"
+            default="false"
+            extensions="mgc2"
+            icon="icons/Class_diagram.png"
+            id="org.modelgoon.classes.editor"
+            name="Class Diagram V2">
+      </editor>
    </extension>
    <extension
          point="org.eclipse.ui.newWizards">
