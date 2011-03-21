@@ -19,8 +19,6 @@ public class ClassElement extends ModelElement {
 
 	boolean isInterface;
 
-	Extension extension;
-
 	Map<String, Attribute> attributes = new HashMap<String, Attribute>();
 
 	List<AbstractConnection> incomingConnections = new ArrayList<AbstractConnection>();
@@ -70,11 +68,6 @@ public class ClassElement extends ModelElement {
 
 	public boolean isInternal() {
 		return this.internal;
-	}
-
-	public void setExtension(final Extension extension) {
-		this.extension = extension;
-		propertyChanged();
 	}
 
 	public void addIncomingConnection(final AbstractConnection connection) {
