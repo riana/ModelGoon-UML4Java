@@ -62,8 +62,7 @@ public class ClassElementEditPart extends
 		List<Object> structuralFeatures = new ArrayList<Object>();
 		structuralFeatures
 				.add(new ClassCompartmentModel(model.getAttributes()));
-		// structuralFeatures.add(new
-		// ClassCompartmentModel(model.getMethods()));
+		structuralFeatures.add(new ClassCompartmentModel(model.getMethods()));
 		return structuralFeatures;
 	}
 

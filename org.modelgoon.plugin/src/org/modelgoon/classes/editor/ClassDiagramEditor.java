@@ -15,11 +15,13 @@ import org.modelgoon.classes.editparts.ClassDiagramEditPart;
 import org.modelgoon.classes.editparts.ClassElementEditPart;
 import org.modelgoon.classes.editparts.ExtensionEditPart;
 import org.modelgoon.classes.editparts.ListEditPart;
+import org.modelgoon.classes.editparts.MethodEditPart;
 import org.modelgoon.classes.model.Association;
 import org.modelgoon.classes.model.Attribute;
 import org.modelgoon.classes.model.ClassDiagram;
 import org.modelgoon.classes.model.ClassElement;
 import org.modelgoon.classes.model.Extension;
+import org.modelgoon.classes.model.Method;
 import org.modelgoon.core.Note;
 import org.modelgoon.core.editparts.NoteEditPart;
 import org.modelgoon.core.ui.Diagram;
@@ -32,6 +34,7 @@ public class ClassDiagramEditor extends Diagram<ClassDiagram> {
 		registerEditPart(ClassElement.class, ClassElementEditPart.class);
 		registerEditPart(ClassCompartmentModel.class, ListEditPart.class);
 		registerEditPart(Attribute.class, AttributeEditPart.class);
+		registerEditPart(Method.class, MethodEditPart.class);
 		registerEditPart(Note.class, NoteEditPart.class);
 		registerEditPart(Extension.class, ExtensionEditPart.class);
 		registerEditPart(Association.class, AssociationEditPart.class);
@@ -71,6 +74,12 @@ public class ClassDiagramEditor extends Diagram<ClassDiagram> {
 		nameAttribute.setVisibility(Visibility.PRIVATE);
 		nameAttribute.setType("String");
 		node.addAttribute(nameAttribute);
+
+		Method method = new Method();
+		method.setName("toString");
+		method.setType("String");
+		method.setVisibility(Visibility.PUBLIC);
+		node.addMethod(method);
 
 		ClassElement folder = new ClassElement();
 		folder.setQualifiedName("Folder");

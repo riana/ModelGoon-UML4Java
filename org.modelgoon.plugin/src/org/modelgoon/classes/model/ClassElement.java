@@ -21,6 +21,8 @@ public class ClassElement extends ModelElement {
 
 	Map<String, Attribute> attributes = new HashMap<String, Attribute>();
 
+	Map<String, Method> methods = new HashMap<String, Method>();
+
 	List<AbstractConnection> incomingConnections = new ArrayList<AbstractConnection>();
 
 	List<AbstractConnection> outgoingConnections = new ArrayList<AbstractConnection>();
@@ -95,5 +97,14 @@ public class ClassElement extends ModelElement {
 
 	public void removeOutgoingConnection(final AbstractConnection connection) {
 		this.outgoingConnections.remove(connection);
+	}
+
+	public void addMethod(final Method method) {
+		this.methods.put(method.getName(), method);
+		propertyChanged();
+	}
+
+	public Collection<Method> getMethods() {
+		return this.methods.values();
 	}
 }
