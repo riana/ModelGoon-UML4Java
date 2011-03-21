@@ -79,11 +79,11 @@ public abstract class AbstractComponentEditPart<T extends ModelElement> extends
 
 	@Override
 	protected void refreshVisuals() {
-		doRefreshVisuals(this.model);
 		refreshChildren();
 		refreshSourceConnections();
 		refreshTargetConnections();
 		refreshParentLayout();
+		doRefreshVisuals(this.model);
 	}
 
 	private void refreshParentLayout() {
