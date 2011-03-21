@@ -9,8 +9,8 @@ import org.modelgoon.classdiagram.model.CommunicationRelationship;
 import org.modelgoon.classdiagram.model.ExtensionRelationShip;
 import org.modelgoon.classdiagram.model.Field;
 import org.modelgoon.classdiagram.model.Method;
-import org.modelgoon.classdiagram.model.StructuralFeatureContainer;
 import org.modelgoon.classdiagram.model.UmlClass;
+import org.modelgoon.classes.editparts.ClassCompartmentModel;
 
 public class ClassDiagramEditPartFactory implements EditPartFactory {
 
@@ -32,7 +32,7 @@ public class ClassDiagramEditPartFactory implements EditPartFactory {
 			editPart = new ExtensionEditPart();
 		} else if (model instanceof AssociationRelationShip) {
 			editPart = new AssociationEditPart();
-		} else if (model instanceof StructuralFeatureContainer) {
+		} else if (model instanceof ClassCompartmentModel) {
 			editPart = new ListEditPart();
 		}
 

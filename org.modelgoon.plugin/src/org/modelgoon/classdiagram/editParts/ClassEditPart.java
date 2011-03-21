@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
 import org.modelgoon.classdiagram.figures.ClassFigure;
-import org.modelgoon.classdiagram.model.StructuralFeatureContainer;
 import org.modelgoon.classdiagram.model.UmlClass;
+import org.modelgoon.classes.editparts.ClassCompartmentModel;
 
 public class ClassEditPart extends ClassModelEditPart {
 
@@ -18,10 +18,10 @@ public class ClassEditPart extends ClassModelEditPart {
 
 	@Override
 	protected List getModelChildren() {
-		List<StructuralFeatureContainer> structuralFeatures = new ArrayList<StructuralFeatureContainer>();
-		structuralFeatures.add(new StructuralFeatureContainer(
+		List<ClassCompartmentModel> structuralFeatures = new ArrayList<ClassCompartmentModel>();
+		structuralFeatures.add(new ClassCompartmentModel(
 				((UmlClass) getModel()).getAttributes()));
-		structuralFeatures.add(new StructuralFeatureContainer(
+		structuralFeatures.add(new ClassCompartmentModel(
 				((UmlClass) getModel()).getMethods()));
 		return structuralFeatures;
 	}

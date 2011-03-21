@@ -7,11 +7,16 @@ import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.requests.SimpleFactory;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.modelgoon.ModelGoonActivator;
+import org.modelgoon.classdiagram.model.Visibility;
 import org.modelgoon.classes.editparts.AssociationEditPart;
+import org.modelgoon.classes.editparts.AttributeEditPart;
+import org.modelgoon.classes.editparts.ClassCompartmentModel;
 import org.modelgoon.classes.editparts.ClassDiagramEditPart;
 import org.modelgoon.classes.editparts.ClassElementEditPart;
 import org.modelgoon.classes.editparts.ExtensionEditPart;
+import org.modelgoon.classes.editparts.ListEditPart;
 import org.modelgoon.classes.model.Association;
+import org.modelgoon.classes.model.Attribute;
 import org.modelgoon.classes.model.ClassDiagram;
 import org.modelgoon.classes.model.ClassElement;
 import org.modelgoon.classes.model.Extension;
@@ -25,6 +30,8 @@ public class ClassDiagramEditor extends Diagram<ClassDiagram> {
 		super(new ClassDiagram());
 		registerEditPart(ClassDiagram.class, ClassDiagramEditPart.class);
 		registerEditPart(ClassElement.class, ClassElementEditPart.class);
+		registerEditPart(ClassCompartmentModel.class, ListEditPart.class);
+		registerEditPart(Attribute.class, AttributeEditPart.class);
 		registerEditPart(Note.class, NoteEditPart.class);
 		registerEditPart(Extension.class, ExtensionEditPart.class);
 		registerEditPart(Association.class, AssociationEditPart.class);
@@ -58,6 +65,12 @@ public class ClassDiagramEditor extends Diagram<ClassDiagram> {
 		node.setAbstract(true);
 		node.setLocation(200, 50);
 		diagram.addClass(node);
+
+		Attribute nameAttribute = new Attribute();
+		nameAttribute.setName("name");
+		nameAttribute.setVisibility(Visibility.PRIVATE);
+		nameAttribute.setType("String");
+		node.addAttribute(nameAttribute);
 
 		ClassElement folder = new ClassElement();
 		folder.setQualifiedName("Folder");

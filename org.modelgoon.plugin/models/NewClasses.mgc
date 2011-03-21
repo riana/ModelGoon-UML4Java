@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ClassDiagram>
+    <Class name="org.modelgoon.classes.model.Extension" x="560" y="303">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
     <Class name="org.modelgoon.classes.model.Attribute" x="765" y="129">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
@@ -9,7 +18,7 @@
             default-accepted="false" static-accepted="false"
             accessors-accepted="false" constructors-accepted="false"/>
     </Class>
-    <Class name="org.modelgoon.classes.model.ClassDiagram" x="88" y="124">
+    <Class name="org.modelgoon.classes.model.ClassDiagram" x="78" y="127">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -18,7 +27,16 @@
             default-accepted="false" static-accepted="false"
             accessors-accepted="false" constructors-accepted="false"/>
     </Class>
-    <Class name="org.modelgoon.classes.model.ClassElement" x="444" y="125">
+    <Class name="org.modelgoon.classes.model.Association" x="49" y="256">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="org.modelgoon.classes.model.ClassElement" x="298" y="75">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>

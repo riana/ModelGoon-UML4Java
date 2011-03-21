@@ -35,4 +35,8 @@ public class FieldFigure extends Figure {
 		}
 	}
 
+	public void setTextualDescription(final String textualDescription) {
+		this.label.setText(textualDescription);
+	}
+
 }

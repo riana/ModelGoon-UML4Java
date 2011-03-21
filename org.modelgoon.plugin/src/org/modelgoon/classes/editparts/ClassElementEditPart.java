@@ -1,5 +1,6 @@
 package org.modelgoon.classes.editparts;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.ChopboxAnchor;
@@ -36,6 +37,11 @@ public class ClassElementEditPart extends
 	}
 
 	@Override
+	public IFigure getContentPane() {
+		return this.classFigure.getFeaturesCompartment();
+	}
+
+	@Override
 	protected void doRefreshVisuals(final ClassElement model) {
 		String name = model.getQualifiedName();
 		if (name.contains(".")) {
@@ -48,6 +54,17 @@ public class ClassElementEditPart extends
 		this.classFigure.setInternal(model.isInternal());
 
 		this.classFigure.setSize(this.classFigure.getPreferredSize());
+	}
+
+	@Override
+	protected List getModelChildren() {
+		ClassElement model = getModelElement();
+		List<Object> structuralFeatures = new ArrayList<Object>();
+		structuralFeatures
+				.add(new ClassCompartmentModel(model.getAttributes()));
+		// structuralFeatures.add(new
+		// ClassCompartmentModel(model.getMethods()));
+		return structuralFeatures;
 	}
 
 	@Override
