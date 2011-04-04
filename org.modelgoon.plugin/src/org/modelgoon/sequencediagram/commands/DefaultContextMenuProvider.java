@@ -6,7 +6,6 @@ import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
-import org.modelgoon.classdiagram.command.ExportImageCommand;
 
 public class DefaultContextMenuProvider extends ContextMenuProvider {
 
