@@ -14,8 +14,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
-import org.modelgoon.classdiagram.figures.ClassFigure;
-import org.modelgoon.classdiagram.model.CommunicationRelationship;
+import org.modelgoon.classes.figures.ClassFigure;
+import org.modelgoon.jdt.model.CommunicationRelationship;
 
 public class CommunicationEditPart extends AbstractConnectionEditPart implements
 		PropertyChangeListener {

@@ -9,7 +9,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
-import org.modelgoon.classdiagram.figures.ClassFigure;
+import org.modelgoon.classes.figures.ClassFigure;
 import org.modelgoon.classes.model.ClassElement;
 import org.modelgoon.core.ui.AbstractComponentEditPart;
 

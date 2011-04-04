@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PackageAnalysis>
+    <Package name="org.modelgoon.jdt.model" x="87" y="192"/>
+    <Package name="org.modelgoon.classes.model" x="511" y="186"/>
+    <Package name="org.modelgoon.core" x="326" y="268"/>
+    <Package name="org.modelgoon.classes.editparts" x="388" y="64"/>
+    <Package name="org.modelgoon.classes.figures" x="21" y="58"/>
+</PackageAnalysis>

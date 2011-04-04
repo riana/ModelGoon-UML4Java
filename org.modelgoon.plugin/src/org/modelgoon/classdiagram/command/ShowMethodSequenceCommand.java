@@ -14,7 +14,7 @@ import org.eclipse.ui.ide.IDE;
 import org.modelgoon.ModelGoonActivator;
 import org.modelgoon.classdiagram.editParts.MethodEditPart;
 import org.modelgoon.classdiagram.editor.DiagramEditor;
-import org.modelgoon.classdiagram.model.Method;
+import org.modelgoon.jdt.model.Method;
 import org.modelgoon.sequencediagram.InteractionModelBuilder;
 import org.modelgoon.sequencediagram.SequenceDiagramEditor;
 import org.modelgoon.sequencediagram.model.InteractionModel;

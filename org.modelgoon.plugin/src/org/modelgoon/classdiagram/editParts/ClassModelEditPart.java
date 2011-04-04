@@ -11,8 +11,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
-import org.modelgoon.classdiagram.figures.ClassFigure;
 import org.modelgoon.classdiagram.model.ClassModel;
+import org.modelgoon.classes.figures.ClassFigure;
 
 public abstract class ClassModelEditPart extends JavaModelElementEditPart
 		implements PropertyChangeListener {

@@ -3,11 +3,11 @@ package org.modelgoon.classdiagram.command;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.jface.window.Window;
-import org.modelgoon.classdiagram.dialogs.ClassVisualPreferencesDialog;
 import org.modelgoon.classdiagram.editParts.ClassEditPart;
 import org.modelgoon.classdiagram.editParts.ClassModelEditPart;
 import org.modelgoon.classdiagram.editor.DiagramEditor;
 import org.modelgoon.classdiagram.model.UmlClass;
+import org.modelgoon.classes.dialogs.ClassVisualPreferencesDialog;
 
 public class EditVisualPreferencesCommand extends SelectionAction {
 
@@ -37,7 +37,7 @@ public class EditVisualPreferencesCommand extends SelectionAction {
 		}
 		// and we want the model to be a Connection object.
 		ClassModelEditPart cep = (ClassModelEditPart) getSelectedObjects().get(0);
-		if (cep.getModel() instanceof UmlClass) {
+		if (cep.getModel() instanceof UMLClass) {
 			return true;
 		}
 		return false;
@@ -47,7 +47,7 @@ public class EditVisualPreferencesCommand extends SelectionAction {
 	public void run() {
 
 		ClassModelEditPart cep = (ClassModelEditPart) getSelectedObjects().get(0);
-		UmlClass umlClass = (UmlClass) cep.getModel();
+		UMLClass umlClass = (UMLClass) cep.getModel();
 		ClassVisualPreferencesDialog dialog = new ClassVisualPreferencesDialog(
 				umlClass);
 		dialog.setBlockOnOpen(true);

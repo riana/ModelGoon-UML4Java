@@ -10,8 +10,8 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
-import org.modelgoon.classdiagram.figures.ClassFigure;
-import org.modelgoon.classdiagram.model.ExtensionRelationShip;
+import org.modelgoon.classes.figures.ClassFigure;
+import org.modelgoon.jdt.model.ExtensionRelationShip;
 
 public class ExtensionEditPart extends AbstractConnectionEditPart implements
 		PropertyChangeListener {

@@ -5,7 +5,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
-import org.modelgoon.classdiagram.figures.ClassFigure;
+import org.modelgoon.classes.figures.ClassFigure;
 
 public class LifelineFigure extends Figure {
 

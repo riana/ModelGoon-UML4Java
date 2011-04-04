@@ -4,13 +4,13 @@ import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.Request;
-import org.modelgoon.classdiagram.figures.FieldFigure;
+import org.modelgoon.classes.figures.FeatureFigure;
 import org.modelgoon.classes.model.Method;
 import org.modelgoon.core.ui.AbstractComponentEditPart;
 
 public class MethodEditPart extends AbstractComponentEditPart<Method> {
 
-	FieldFigure figure;
+	FeatureFigure figure;
 
 	public ConnectionAnchor getSourceConnectionAnchor(
 			final ConnectionEditPart connection) {
@@ -53,12 +53,12 @@ public class MethodEditPart extends AbstractComponentEditPart<Method> {
 			buffer.append(":");
 			buffer.append(model.getType());
 		}
-		this.figure.setTextualDescription(buffer.toString());
+		this.figure.setFeatureSummary(buffer.toString());
 	}
 
 	@Override
 	protected IFigure createFigure() {
-		this.figure = new FieldFigure();
+		this.figure = new FeatureFigure();
 		return this.figure;
 	}
 

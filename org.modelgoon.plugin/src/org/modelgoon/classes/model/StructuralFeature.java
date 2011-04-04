@@ -1,6 +1,5 @@
 package org.modelgoon.classes.model;
 
-import org.modelgoon.classdiagram.model.Visibility;
 import org.modelgoon.core.ModelElement;
 
 public class StructuralFeature extends ModelElement {

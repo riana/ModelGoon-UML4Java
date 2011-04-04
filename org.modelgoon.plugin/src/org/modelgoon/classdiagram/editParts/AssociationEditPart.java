@@ -5,8 +5,8 @@ import java.beans.PropertyChangeListener;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
-import org.modelgoon.classdiagram.figures.AssociationConnection;
-import org.modelgoon.classdiagram.model.AssociationRelationShip;
+import org.modelgoon.classes.figures.AssociationConnection;
+import org.modelgoon.jdt.model.AssociationRelationShip;
 
 public class AssociationEditPart extends AbstractConnectionEditPart implements
 		PropertyChangeListener {

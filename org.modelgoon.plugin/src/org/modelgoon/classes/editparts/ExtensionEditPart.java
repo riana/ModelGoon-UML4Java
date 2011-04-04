@@ -8,7 +8,7 @@ import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
-import org.modelgoon.classdiagram.figures.ClassFigure;
+import org.modelgoon.classes.figures.ClassFigure;
 import org.modelgoon.classes.model.Extension;
 import org.modelgoon.core.ui.AbstractLinkEditPart;
 

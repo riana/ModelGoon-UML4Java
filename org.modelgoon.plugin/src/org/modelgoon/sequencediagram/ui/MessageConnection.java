@@ -18,7 +18,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
-import org.modelgoon.classdiagram.figures.ClassFigure;
+import org.modelgoon.classes.figures.ClassFigure;
 
 public class MessageConnection extends PolylineConnection implements
 		SequenceElement {

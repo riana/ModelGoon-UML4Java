@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
-import org.modelgoon.classdiagram.figures.CompartmentFigure;
+import org.modelgoon.classes.figures.CompartmentFigure;
 
 public class ListEditPart extends AbstractGraphicalEditPart {
 

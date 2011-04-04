@@ -6,7 +6,7 @@ import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.Request;
-import org.modelgoon.classdiagram.figures.CompartmentFigure;
+import org.modelgoon.classes.figures.CompartmentFigure;
 import org.modelgoon.core.ui.AbstractComponentEditPart;
 
 public class ListEditPart extends

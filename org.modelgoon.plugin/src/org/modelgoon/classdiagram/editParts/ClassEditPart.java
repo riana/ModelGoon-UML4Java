@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
-import org.modelgoon.classdiagram.figures.ClassFigure;
 import org.modelgoon.classdiagram.model.UmlClass;
 import org.modelgoon.classes.editparts.ClassCompartmentModel;
+import org.modelgoon.classes.figures.ClassFigure;
 
 public class ClassEditPart extends ClassModelEditPart {
 
@@ -20,9 +20,9 @@ public class ClassEditPart extends ClassModelEditPart {
 	protected List getModelChildren() {
 		List<ClassCompartmentModel> structuralFeatures = new ArrayList<ClassCompartmentModel>();
 		structuralFeatures.add(new ClassCompartmentModel(
-				((UmlClass) getModel()).getAttributes()));
+				((UMLClass) getModel()).getAttributes()));
 		structuralFeatures.add(new ClassCompartmentModel(
-				((UmlClass) getModel()).getMethods()));
+				((UMLClass) getModel()).getMethods()));
 		return structuralFeatures;
 	}
 
@@ -31,7 +31,7 @@ public class ClassEditPart extends ClassModelEditPart {
 		super.refreshVisuals();
 		ClassFigure classFigure = (ClassFigure) getFigure();
 		if (classFigure != null) {
-			UmlClass umlClass = (UmlClass) getModel();
+			UMLClass umlClass = (UMLClass) getModel();
 			classFigure.setClassName(umlClass.getName().substring(
 					umlClass.getName().lastIndexOf(".") + 1));
 			classFigure.setLocation(umlClass.getLocation());

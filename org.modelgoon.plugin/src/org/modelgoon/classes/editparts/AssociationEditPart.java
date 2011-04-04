@@ -1,7 +1,7 @@
 package org.modelgoon.classes.editparts;
 
 import org.eclipse.draw2d.IFigure;
-import org.modelgoon.classdiagram.figures.AssociationConnection;
+import org.modelgoon.classes.figures.AssociationConnection;
 import org.modelgoon.classes.model.Association;
 import org.modelgoon.core.ui.AbstractLinkEditPart;
 

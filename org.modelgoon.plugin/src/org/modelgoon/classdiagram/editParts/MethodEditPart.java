@@ -3,21 +3,21 @@ package org.modelgoon.classdiagram.editParts;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editpolicies.RootComponentEditPolicy;
-import org.modelgoon.classdiagram.figures.FieldFigure;
-import org.modelgoon.classdiagram.model.StructuralFeature;
+import org.modelgoon.classes.figures.FeatureFigure;
+import org.modelgoon.jdt.model.StructuralFeature;
 
 public class MethodEditPart extends JavaModelElementEditPart {
 
 	@Override
 	protected IFigure createFigure() {
-		FieldFigure figure = new FieldFigure();
+		FeatureFigure figure = new FeatureFigure();
 		return figure;
 	}
 
 	@Override
 	protected void refreshVisuals() {
 		super.refreshVisuals();
-		FieldFigure figure = (FieldFigure) getFigure();
+		FeatureFigure figure = (FeatureFigure) getFigure();
 		figure.setField((StructuralFeature) getModel());
 	}
 
