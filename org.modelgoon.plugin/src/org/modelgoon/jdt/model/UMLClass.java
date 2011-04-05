@@ -146,8 +146,7 @@ public class UMLClass extends NamedModelElement {
 		// Clean removed Methods
 		Iterator<Entry<String, Method>> it = this.methods.entrySet().iterator();
 		while (it.hasNext()) {
-			Map.Entry<String, org.modelgoon.jdt.model.Method> entry = it
-					.next();
+			Map.Entry<String, org.modelgoon.jdt.model.Method> entry = it.next();
 			if (!this.foundMethods.contains(entry.getKey())) {
 				it.remove();
 			}
@@ -170,8 +169,7 @@ public class UMLClass extends NamedModelElement {
 				org.eclipse.jdt.core.dom.Type superClassType = node
 						.getSuperclassType();
 				if (superClassType != null) {
-					this.superClass = UMLClass
-							.getTypeName(superClassType);
+					this.superClass = UMLClass.getTypeName(superClassType);
 				}
 
 				List superInterfaces = node.superInterfaceTypes();
@@ -317,8 +315,7 @@ public class UMLClass extends NamedModelElement {
 		String superclass = this.superClass;
 		if (superclass != null) {
 			if (!this.extensionRelationShips.containsKey(superclass)) {
-				UMLClass supertype = this.diagram
-						.resolveType(superclass);
+				UMLClass supertype = this.diagram.resolveType(superclass);
 				if (supertype != null) {
 					addExtensionRelationship(supertype);
 				}
@@ -658,6 +655,44 @@ public class UMLClass extends NamedModelElement {
 
 	public MethodDisplayFilter getMethodDisplayFilter() {
 		return this.methodDisplayFilter;
+	}
+
+	public void removeFromDiagram() {
+		for (Relationship relationship : this.associationRelationShips.values()) {
+			relationship.getDestination().removeIncomingRelationship(
+					relationship);
+		}
+
+		for (Relationship relationship : this.extensionRelationShips.values()) {
+			relationship.getDestination().removeIncomingRelationship(
+					relationship);
+		}
+
+		for (Relationship relationship : this.communicationRelationShips
+				.values()) {
+			relationship.getDestination().removeIncomingRelationship(
+					relationship);
+		}
+
+		for (Relationship relationship : this.incomingAssociationRelationShips) {
+			relationship.getSource().removOutgoingeRelationship(relationship);
+		}
+
+		for (Relationship relationship : this.incomingExtensionRelationship) {
+			relationship.getSource().removOutgoingeRelationship(relationship);
+		}
+
+		for (Relationship relationship : this.incomingCommunicationRelationships) {
+			relationship.getSource().removOutgoingeRelationship(relationship);
+		}
+
+		this.associationRelationShips.clear();
+		this.extensionRelationShips.clear();
+		this.communicationRelationShips.clear();
+		this.incomingAssociationRelationShips.clear();
+		this.incomingExtensionRelationship.clear();
+		this.incomingCommunicationRelationships.clear();
+		this.diagram.removeClass(this);
 	}
 
 }

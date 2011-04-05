@@ -24,7 +24,7 @@ public class UMLClassEditPart extends AbstractComponentEditPart<UMLClass> {
 		setDeleteCommand(new Command() {
 			@Override
 			public void execute() {
-				// getModelElement().removeFromDiagram();
+				getModelElement().removeFromDiagram();
 			}
 		});
 	}

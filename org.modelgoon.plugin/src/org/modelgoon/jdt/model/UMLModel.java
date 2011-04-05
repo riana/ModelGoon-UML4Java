@@ -32,6 +32,7 @@ public class UMLModel extends RootModelElement {
 
 	public void removeClass(final UMLClass umlClass) {
 		this.classesRegistry.remove(umlClass.getQualifiedName());
+
 		consolidateDiagram();
 		propertyChanged();
 	}
