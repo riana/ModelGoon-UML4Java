@@ -24,7 +24,6 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.SWT;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.part.FileEditorInput;
-import org.modelgoon.classdiagram.editor.DoNothingTool;
 import org.modelgoon.sequencediagram.commands.DefaultContextMenuProvider;
 import org.modelgoon.sequencediagram.commands.ExportImageCommand;
 import org.modelgoon.sequencediagram.editparts.SequenceDiagramEditPartFactory;

@@ -7,7 +7,6 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.RootComponentEditPolicy;
-import org.modelgoon.classdiagram.editParts.FieldEditPolicy;
 import org.modelgoon.sequencediagram.model.StatementBlock;
 import org.modelgoon.sequencediagram.ui.FrameFigure;
 
@@ -40,7 +39,7 @@ public class StatementBlockEditPart extends AbstractGraphicalEditPart {
 
 	@Override
 	protected void createEditPolicies() {
-		installEditPolicy(EditPolicy.COMPONENT_ROLE, new FieldEditPolicy());
+		installEditPolicy(EditPolicy.COMPONENT_ROLE, new DoNothingEditPolicy());
 		installEditPolicy(EditPolicy.COMPONENT_ROLE,
 				new RootComponentEditPolicy());
 	}
