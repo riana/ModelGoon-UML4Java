@@ -11,7 +11,7 @@ public class OpenInEditorCommand extends SelectionAction {
 
 	public static final String ID = "Open in Editor";
 
-	public OpenInEditorCommand(final JDTClassDiagramEditor classDiagramEditor) {
+	public OpenInEditorCommand(final JDTDiagramEditor classDiagramEditor) {
 		super(classDiagramEditor);
 	}
 

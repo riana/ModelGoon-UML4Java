@@ -7,9 +7,9 @@ public class UpdateDiagramCommand extends WorkbenchPartAction {
 
 	public static final String ID = "Update Diagram Command";
 
-	JDTClassDiagramEditor classDiagramEditor;
+	JDTDiagramEditor classDiagramEditor;
 
-	public UpdateDiagramCommand(final JDTClassDiagramEditor classDiagramEditor) {
+	public UpdateDiagramCommand(final JDTDiagramEditor classDiagramEditor) {
 		super(classDiagramEditor);
 		this.classDiagramEditor = classDiagramEditor;
 	}

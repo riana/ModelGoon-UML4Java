@@ -23,7 +23,7 @@ public class ShowMethodSequenceCommand extends SelectionAction {
 	public static final String ID = "Show sequence";
 
 	public ShowMethodSequenceCommand(
-			final JDTClassDiagramEditor classDiagramEditor) {
+			final JDTDiagramEditor classDiagramEditor) {
 		super(classDiagramEditor);
 	}
 

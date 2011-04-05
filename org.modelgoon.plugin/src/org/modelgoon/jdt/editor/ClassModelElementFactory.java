@@ -15,10 +15,10 @@ import org.modelgoon.jdt.model.UMLClass;
 
 public class ClassModelElementFactory implements ModelElementFactory {
 
-	JDTClassDiagramEditor jdtClassDiagramEditor;
+	JDTDiagramEditor jdtClassDiagramEditor;
 
 	public ClassModelElementFactory(
-			final JDTClassDiagramEditor jdtClassDiagramEditor) {
+			final JDTDiagramEditor jdtClassDiagramEditor) {
 		super();
 		this.jdtClassDiagramEditor = jdtClassDiagramEditor;
 	}

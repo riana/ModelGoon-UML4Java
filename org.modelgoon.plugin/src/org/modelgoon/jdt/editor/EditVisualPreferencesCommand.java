@@ -9,12 +9,12 @@ import org.modelgoon.jdt.model.UMLClass;
 
 public class EditVisualPreferencesCommand extends SelectionAction {
 
-	JDTClassDiagramEditor classDiagramEditor;
+	JDTDiagramEditor classDiagramEditor;
 
 	public static final String ID = "Filter elements";
 
 	public EditVisualPreferencesCommand(
-			final JDTClassDiagramEditor classDiagramEditor) {
+			final JDTDiagramEditor classDiagramEditor) {
 		super(classDiagramEditor);
 		this.classDiagramEditor = classDiagramEditor;
 	}
