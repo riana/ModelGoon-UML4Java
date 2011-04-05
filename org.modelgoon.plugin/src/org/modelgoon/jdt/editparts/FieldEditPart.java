@@ -4,11 +4,13 @@ import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.Request;
+import org.eclipse.jdt.core.IJavaElement;
 import org.modelgoon.classes.figures.FeatureFigure;
 import org.modelgoon.core.ui.AbstractComponentEditPart;
 import org.modelgoon.jdt.model.Field;
 
-public class FieldEditPart extends AbstractComponentEditPart<Field> {
+public class FieldEditPart extends AbstractComponentEditPart<Field> implements
+		JavaElementProvider {
 
 	FeatureFigure figure;
 
@@ -45,6 +47,10 @@ public class FieldEditPart extends AbstractComponentEditPart<Field> {
 	protected IFigure createFigure() {
 		this.figure = new FeatureFigure();
 		return this.figure;
+	}
+
+	public IJavaElement getJavaElement() {
+		return getModelElement().getJdtField();
 	}
 
 }

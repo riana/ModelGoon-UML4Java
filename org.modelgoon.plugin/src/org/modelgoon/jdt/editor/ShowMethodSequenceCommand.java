@@ -1,4 +1,4 @@
-package org.modelgoon.classdiagram.command;
+package org.modelgoon.jdt.editor;
 
 import java.io.ByteArrayInputStream;
 
@@ -12,8 +12,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.WorkbenchException;
 import org.eclipse.ui.ide.IDE;
 import org.modelgoon.ModelGoonActivator;
-import org.modelgoon.classdiagram.editParts.MethodEditPart;
-import org.modelgoon.classdiagram.editor.DiagramEditor;
+import org.modelgoon.jdt.editparts.MethodEditPart;
 import org.modelgoon.jdt.model.Method;
 import org.modelgoon.sequencediagram.InteractionModelBuilder;
 import org.modelgoon.sequencediagram.SequenceDiagramEditor;
@@ -23,7 +22,8 @@ public class ShowMethodSequenceCommand extends SelectionAction {
 
 	public static final String ID = "Show sequence";
 
-	public ShowMethodSequenceCommand(final DiagramEditor classDiagramEditor) {
+	public ShowMethodSequenceCommand(
+			final JDTClassDiagramEditor classDiagramEditor) {
 		super(classDiagramEditor);
 	}
 
@@ -52,8 +52,8 @@ public class ShowMethodSequenceCommand extends SelectionAction {
 		Object selection = getSelectedObjects().get(0);
 		if (selection instanceof MethodEditPart) {
 			MethodEditPart cep = (MethodEditPart) selection;
-			final Method method = (Method) cep.getJavaModelElement();
-			final IMethod iMethod = method.getJavaElement();
+			final Method method = cep.getModelElement();
+			final IMethod iMethod = method.getJdtMethod();
 			InteractionModelBuilder interactionModelBuilder = new InteractionModelBuilder();
 			InteractionModel interactionModel = interactionModelBuilder
 					.buildInteractionModel(iMethod);

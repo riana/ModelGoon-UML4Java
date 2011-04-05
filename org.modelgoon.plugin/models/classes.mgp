@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PackageAnalysis>
-    <Package name="org.modelgoon.jdt.model" x="87" y="192"/>
-    <Package name="org.modelgoon.classes.model" x="511" y="186"/>
+    <Package name="org.modelgoon.jdt.model" x="87" y="192">
+        <DependencyLink destination="org.modelgoon.core"/>
+    </Package>
+    <Package name="org.modelgoon.classes.model" x="511" y="186">
+        <DependencyLink destination="org.modelgoon.core"/>
+    </Package>
     <Package name="org.modelgoon.core" x="326" y="268"/>
-    <Package name="org.modelgoon.classes.editparts" x="388" y="64"/>
+    <Package name="org.modelgoon.classes.editparts" x="388" y="64">
+        <DependencyLink destination="org.modelgoon.classes.model"/>
+        <DependencyLink destination="org.modelgoon.core"/>
+        <DependencyLink destination="org.modelgoon.classes.figures"/>
+    </Package>
     <Package name="org.modelgoon.classes.figures" x="21" y="58"/>
+    <Package name="org.modelgoon.classdiagram.editParts" x="-24" y="117">
+        <DependencyLink destination="org.modelgoon.jdt.model"/>
+        <DependencyLink destination="org.modelgoon.classes.figures"/>
+        <DependencyLink destination="org.modelgoon.classes.editparts"/>
+    </Package>
 </PackageAnalysis>

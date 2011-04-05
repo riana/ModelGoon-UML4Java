@@ -1,5 +1,6 @@
 package org.modelgoon.jdt.model;
 
+import org.eclipse.jdt.core.IField;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 
 public class Field extends StructuralFeature {
@@ -13,6 +14,8 @@ public class Field extends StructuralFeature {
 	boolean literal = false;
 
 	boolean singleton = false;
+
+	IField jdtField;
 
 	public Field() {
 		super();
@@ -62,6 +65,14 @@ public class Field extends StructuralFeature {
 
 	public void setLiteral(final boolean b) {
 		this.literal = b;
+	}
+
+	public IField getJdtField() {
+		return this.jdtField;
+	}
+
+	public void setJdtField(final IField jdtField) {
+		this.jdtField = jdtField;
 	}
 
 }

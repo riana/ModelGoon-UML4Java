@@ -75,7 +75,7 @@
       
       <wizard
             category="org.modelgoon"
-            class="org.modelgoon.classdiagram.editor.NewClassDiagramWizard"
+            class="org.modelgoon.jdt.editor.NewJDTClassDiagramWizard"
             icon="icons/Class_diagram.png"
             id="org.modelgoon.wizards.class"
             name="Class Diagram">

@@ -1,22 +1,20 @@
-package org.modelgoon.classdiagram.command;
+package org.modelgoon.jdt.editor;
 
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.jface.window.Window;
-import org.modelgoon.classdiagram.editParts.ClassEditPart;
-import org.modelgoon.classdiagram.editParts.ClassModelEditPart;
-import org.modelgoon.classdiagram.editor.DiagramEditor;
-import org.modelgoon.classdiagram.model.UmlClass;
 import org.modelgoon.classes.dialogs.ClassVisualPreferencesDialog;
+import org.modelgoon.jdt.editparts.UMLClassEditPart;
+import org.modelgoon.jdt.model.UMLClass;
 
 public class EditVisualPreferencesCommand extends SelectionAction {
 
-	DiagramEditor classDiagramEditor;
+	JDTClassDiagramEditor classDiagramEditor;
 
 	public static final String ID = "Filter elements";
 
 	public EditVisualPreferencesCommand(
-			final DiagramEditor classDiagramEditor) {
+			final JDTClassDiagramEditor classDiagramEditor) {
 		super(classDiagramEditor);
 		this.classDiagramEditor = classDiagramEditor;
 	}
@@ -32,11 +30,10 @@ public class EditVisualPreferencesCommand extends SelectionAction {
 	protected boolean calculateEnabled() {
 		// we only want enabled if is single selection
 		if ((getSelectedObjects().size() != 1)
-				|| (!(getSelectedObjects().get(0) instanceof ClassEditPart))) {
+				|| (!(getSelectedObjects().get(0) instanceof UMLClassEditPart))) {
 			return false;
 		}
-		// and we want the model to be a Connection object.
-		ClassModelEditPart cep = (ClassModelEditPart) getSelectedObjects().get(0);
+		UMLClassEditPart cep = (UMLClassEditPart) getSelectedObjects().get(0);
 		if (cep.getModel() instanceof UMLClass) {
 			return true;
 		}
@@ -46,8 +43,8 @@ public class EditVisualPreferencesCommand extends SelectionAction {
 	@Override
 	public void run() {
 
-		ClassModelEditPart cep = (ClassModelEditPart) getSelectedObjects().get(0);
-		UMLClass umlClass = (UMLClass) cep.getModel();
+		UMLClassEditPart cep = (UMLClassEditPart) getSelectedObjects().get(0);
+		UMLClass umlClass = cep.getModelElement();
 		ClassVisualPreferencesDialog dialog = new ClassVisualPreferencesDialog(
 				umlClass);
 		dialog.setBlockOnOpen(true);

@@ -4,6 +4,7 @@ import org.eclipse.gef.palette.CreationToolEntry;
 import org.eclipse.gef.palette.PaletteGroup;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.requests.SimpleFactory;
+import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.modelgoon.ModelGoonActivator;
@@ -61,8 +62,13 @@ public class JDTClassDiagramEditor extends Diagram<UMLModel> {
 
 	@Override
 	protected void registerActions() {
-		// TODO Auto-generated method stub
-
+		addAction(new UpdateDiagramCommand(this), GEFActionConstants.GROUP_VIEW);
+		addSelectionAction(new EditVisualPreferencesCommand(this),
+				GEFActionConstants.GROUP_VIEW);
+		addSelectionAction(new ShowMethodSequenceCommand(this),
+				GEFActionConstants.GROUP_EDIT);
+		addSelectionAction(new OpenInEditorCommand(this),
+				GEFActionConstants.GROUP_EDIT);
 	}
 
 	@Override

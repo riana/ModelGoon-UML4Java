@@ -9,12 +9,14 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.jdt.core.IJavaElement;
 import org.modelgoon.classes.editparts.ClassCompartmentModel;
 import org.modelgoon.classes.figures.ClassFigure;
 import org.modelgoon.core.ui.AbstractComponentEditPart;
 import org.modelgoon.jdt.model.UMLClass;
 
-public class UMLClassEditPart extends AbstractComponentEditPart<UMLClass> {
+public class UMLClassEditPart extends AbstractComponentEditPart<UMLClass>
+		implements JavaElementProvider {
 
 	ClassFigure classFigure;
 
@@ -105,6 +107,10 @@ public class UMLClassEditPart extends AbstractComponentEditPart<UMLClass> {
 	public ConnectionAnchor getTargetConnectionAnchor(final Request request) {
 		// TODO Auto-generated method stub
 		return this.anchor;
+	}
+
+	public IJavaElement getJavaElement() {
+		return getModelElement().getJavaType();
 	}
 
 }

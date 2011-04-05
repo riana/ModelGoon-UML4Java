@@ -1,16 +1,15 @@
-package org.modelgoon.classdiagram.command;
+package org.modelgoon.jdt.editor;
 
 import org.eclipse.gef.ui.actions.WorkbenchPartAction;
-import org.modelgoon.classdiagram.editor.DiagramEditor;
-import org.modelgoon.classdiagram.model.ClassDiagram;
+import org.modelgoon.jdt.model.UMLModel;
 
 public class UpdateDiagramCommand extends WorkbenchPartAction {
 
 	public static final String ID = "Update Diagram Command";
 
-	DiagramEditor classDiagramEditor;
+	JDTClassDiagramEditor classDiagramEditor;
 
-	public UpdateDiagramCommand(final DiagramEditor classDiagramEditor) {
+	public UpdateDiagramCommand(final JDTClassDiagramEditor classDiagramEditor) {
 		super(classDiagramEditor);
 		this.classDiagramEditor = classDiagramEditor;
 	}
@@ -24,7 +23,7 @@ public class UpdateDiagramCommand extends WorkbenchPartAction {
 
 	@Override
 	public void run() {
-		ClassDiagram classDiagram = this.classDiagramEditor.getDiagram();
+		UMLModel classDiagram = this.classDiagramEditor.getModel();
 		classDiagram.consolidateDiagram();
 	}
 

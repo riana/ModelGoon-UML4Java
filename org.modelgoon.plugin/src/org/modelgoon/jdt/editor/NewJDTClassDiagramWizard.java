@@ -1,4 +1,4 @@
-package org.modelgoon.classdiagram.editor;
+package org.modelgoon.jdt.editor;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -10,14 +10,14 @@ import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 
-public class NewClassDiagramWizard extends BasicNewResourceWizard {
+public class NewJDTClassDiagramWizard extends BasicNewResourceWizard {
 
 	private WizardNewFileCreationPage mainPage;
 
 	/**
 	 * Creates a wizard for creating a new file resource in the workspace.
 	 */
-	public NewClassDiagramWizard() {
+	public NewJDTClassDiagramWizard() {
 		super();
 	}
 

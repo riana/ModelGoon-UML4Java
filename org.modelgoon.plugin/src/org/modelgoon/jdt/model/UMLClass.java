@@ -11,7 +11,9 @@ import java.util.Map.Entry;
 
 import org.eclipse.jdt.core.Flags;
 import org.eclipse.jdt.core.IField;
+import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IMember;
+import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.AST;
@@ -95,6 +97,10 @@ public class UMLClass extends NamedModelElement {
 			this.qualifiedName = fullyQualifiedName.replace("$", ".");
 			setQualifiedName(this.qualifiedName);
 		}
+	}
+
+	public IType getJavaType() {
+		return this.javaType;
 	}
 
 	public void setQualifiedName(final String qualifiedName) {
@@ -304,6 +310,13 @@ public class UMLClass extends NamedModelElement {
 		if (m == null) {
 			m = new Method();
 			IMethodBinding methodBinding = node.resolveBinding();
+			if (methodBinding != null) {
+				IJavaElement javaElement = methodBinding.getJavaElement();
+				if (javaElement instanceof IMethod) {
+					m.setJdtMethod((IMethod) javaElement);
+
+				}
+			}
 			m.setDeclaringClass(this);
 			this.methods.put(method, m);
 		}
@@ -366,6 +379,7 @@ public class UMLClass extends NamedModelElement {
 			structuralFeature = new Field();
 			structuralFeature.setDeclaringClass(this);
 			IField iField = this.javaType.getField(simpleName);
+			structuralFeature.setJdtField(iField);
 			this.fields.put(simpleName, structuralFeature);
 		}
 
@@ -561,6 +575,7 @@ public class UMLClass extends NamedModelElement {
 								structuralFeature.setName(literal);
 								structuralFeature.setLiteral(true);
 								structuralFeature.setDeclaringClass(this);
+								structuralFeature.setJdtField(field);
 								this.fields.put(literal, structuralFeature);
 							}
 						}

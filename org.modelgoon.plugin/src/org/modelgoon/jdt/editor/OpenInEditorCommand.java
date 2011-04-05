@@ -1,18 +1,17 @@
-package org.modelgoon.classdiagram.command;
+package org.modelgoon.jdt.editor;
 
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.ui.PartInitException;
-import org.modelgoon.classdiagram.editParts.JavaModelElementEditPart;
-import org.modelgoon.classdiagram.editor.DiagramEditor;
+import org.modelgoon.jdt.editparts.JavaElementProvider;
 
 public class OpenInEditorCommand extends SelectionAction {
 
 	public static final String ID = "Open in Editor";
 
-	public OpenInEditorCommand(final DiagramEditor classDiagramEditor) {
+	public OpenInEditorCommand(final JDTClassDiagramEditor classDiagramEditor) {
 		super(classDiagramEditor);
 	}
 
@@ -30,7 +29,7 @@ public class OpenInEditorCommand extends SelectionAction {
 			return false;
 		}
 		Object selection = getSelectedObjects().get(0);
-		if (selection instanceof JavaModelElementEditPart) {
+		if (selection instanceof JavaElementProvider) {
 			return true;
 		}
 		return false;
@@ -39,10 +38,9 @@ public class OpenInEditorCommand extends SelectionAction {
 	@Override
 	public void run() {
 		Object selection = getSelectedObjects().get(0);
-		if (selection instanceof JavaModelElementEditPart) {
-			JavaModelElementEditPart cep = (JavaModelElementEditPart) selection;
-			IJavaElement javaElement = cep.getJavaModelElement()
-					.getJavaElement();
+		if (selection instanceof JavaElementProvider) {
+			JavaElementProvider cep = (JavaElementProvider) selection;
+			IJavaElement javaElement = cep.getJavaElement();
 			if (javaElement != null) {
 				try {
 					JavaUI.openInEditor(javaElement, true, true);

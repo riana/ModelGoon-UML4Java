@@ -3,6 +3,7 @@ package org.modelgoon.jdt.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
@@ -18,8 +19,18 @@ public class Method extends StructuralFeature {
 
 	List<String> parameterTypes = new ArrayList<String>();
 
+	IMethod jdtMethod;
+
 	public Method() {
 		super();
+	}
+
+	public void setJdtMethod(final IMethod jdtMethod) {
+		this.jdtMethod = jdtMethod;
+	}
+
+	public IMethod getJdtMethod() {
+		return this.jdtMethod;
 	}
 
 	public boolean isAccessor() {
