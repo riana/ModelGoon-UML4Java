@@ -14,6 +14,7 @@ import org.modelgoon.core.ModelLoader;
 import org.modelgoon.core.Note;
 import org.modelgoon.core.editparts.NoteEditPart;
 import org.modelgoon.core.ui.Diagram;
+import org.modelgoon.dao.DAOException;
 import org.modelgoon.jdt.editparts.AssociationEditPart;
 import org.modelgoon.jdt.editparts.ExtensionEditPart;
 import org.modelgoon.jdt.editparts.FieldEditPart;
@@ -33,6 +34,7 @@ public class JDTClassDiagramEditor extends Diagram<UMLModel> {
 
 	public JDTClassDiagramEditor() {
 		super(new UMLModel());
+		this.modelLoader.addMapping("org/modelgoon/jdt/xml/ClassDiagram.cas");
 		setModelElementFactory(new ClassModelElementFactory(this));
 		registerEditPart(UMLModel.class, JDTClassDiagramEditPart.class);
 		registerEditPart(UMLClass.class, UMLClassEditPart.class);
@@ -77,6 +79,14 @@ public class JDTClassDiagramEditor extends Diagram<UMLModel> {
 		IJavaProject javaProject = this.modelLoader.getContainer(file);
 
 		UMLModel model = new UMLModel();
+		try {
+			model = this.modelLoader.loadData(file);
+
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		model.setJavaProject(javaProject);
 
 		return model;
@@ -84,8 +94,12 @@ public class JDTClassDiagramEditor extends Diagram<UMLModel> {
 
 	@Override
 	protected void save(final UMLModel model, final String filePath) {
-		// TODO Auto-generated method stub
-
+		try {
+			this.modelLoader.saveData(model, filePath);
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

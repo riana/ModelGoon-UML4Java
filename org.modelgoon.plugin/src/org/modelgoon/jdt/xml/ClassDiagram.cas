@@ -1,19 +1,15 @@
 <?xml version="1.0"?>
 <mapping>
-	<class name="org.modelgoon.classdiagram.model.ClassDiagram">
+	<class name="org.modelgoon.jdt.model.UMLModel">
 		<map-to xml="ClassDiagram" />
-		<field name="classes" type="org.modelgoon.classdiagram.model.ClassModel"
+		<field name="classes" type="org.modelgoon.jdt.model.UMLClass"
 			get-method="getClasses" set-method="addClass" collection="arraylist">
 			<bind-xml auto-naming="deriveByClass" node="element" />
 		</field>
 	</class>
-	<class name="org.modelgoon.classdiagram.model.ClassModel"
-		verify-constructable="false">
-		<map-to/>
-	</class>
-	<class name="org.modelgoon.classdiagram.model.UmlClass" extends="org.modelgoon.classdiagram.model.ClassModel">
+	<class name="org.modelgoon.jdt.model.UMLClass">
 		<map-to xml="Class" />
-		<field name="name" type="string">
+		<field name="qualifiedName" type="string">
 			<bind-xml name="name" node="attribute" />
 		</field>
 		<field name="x" type="integer">
@@ -24,32 +20,32 @@
 		</field>
 
 		<field name="attributesDisplayFilter"
-			type="org.modelgoon.classdiagram.model.MembersDisplayFilter">
+			type="org.modelgoon.jdt.model.MembersDisplayFilter">
 			<bind-xml name="AttributesDisplayFilter" node="element" />
 		</field>
 
 		<field name="methodDisplayFilter"
-			type="org.modelgoon.classdiagram.model.MethodDisplayFilter">
+			type="org.modelgoon.jdt.model.MethodDisplayFilter">
 			<bind-xml name="MethodDisplayFilter" node="element" />
 		</field>
 	</class>
 
-	<class name="org.modelgoon.classdiagram.model.CommunicationClass"
-		extends="org.modelgoon.classdiagram.model.ClassModel">
-		<map-to xml="CommunicationClass" />
-		<field name="name" type="string">
-			<bind-xml name="name" node="attribute" />
-		</field>
-		<field name="x" type="integer">
-			<bind-xml node="attribute" />
-		</field>
-		<field name="y" type="integer">
-			<bind-xml node="attribute" />
-		</field>
+<!--	<class name="org.modelgoon.jdt.model.CommunicationClass"-->
+<!--		extends="org.modelgoon.jdt.model.ClassModel">-->
+<!--		<map-to xml="CommunicationClass" />-->
+<!--		<field name="name" type="string">-->
+<!--			<bind-xml name="name" node="attribute" />-->
+<!--		</field>-->
+<!--		<field name="x" type="integer">-->
+<!--			<bind-xml node="attribute" />-->
+<!--		</field>-->
+<!--		<field name="y" type="integer">-->
+<!--			<bind-xml node="attribute" />-->
+<!--		</field>-->
+<!---->
+<!--	</class>-->
 
-	</class>
-
-	<class name="org.modelgoon.classdiagram.model.MembersDisplayFilter">
+	<class name="org.modelgoon.jdt.model.MembersDisplayFilter">
 		<map-to xml="MembersFilter" />
 		<field name="publicAccepted" type="boolean">
 			<bind-xml node="attribute" />
@@ -68,8 +64,8 @@
 		</field>
 	</class>
 
-	<class name="org.modelgoon.classdiagram.model.MethodDisplayFilter"
-		extends="org.modelgoon.classdiagram.model.MembersDisplayFilter">
+	<class name="org.modelgoon.jdt.model.MethodDisplayFilter"
+		extends="org.modelgoon.jdt.model.MembersDisplayFilter">
 		<map-to xml="MethodsFilter" />
 		<field name="accessorsAccepted" type="boolean">
 			<bind-xml node="attribute" />

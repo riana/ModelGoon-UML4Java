@@ -81,6 +81,10 @@ public class UMLClass extends NamedModelElement {
 
 	JDTClassParser jdtClassParser = new JDTClassParser();
 
+	public UMLClass() {
+		super();
+	}
+
 	public UMLClass(final String className) {
 		super();
 		this.qualifiedName = className;
