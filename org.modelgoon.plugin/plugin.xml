@@ -34,7 +34,7 @@
             name="Class Diagram">
       </editor>
       <editor
-            class="org.modelgoon.classdiagram.editor.CommunicationClassDiagramEditor"
+            class="org.modelgoon.jdt.communication.editor.JDTCommunicationDiagramEditor"
             default="false"
             extensions="mgi"
             icon="icons/Communication_diagram.png"
@@ -83,7 +83,7 @@
       
       <wizard
             category="org.modelgoon"
-            class="org.modelgoon.classdiagram.editor.NewCommunicationDiagramWizard"
+            class="org.modelgoon.jdt.communication.editor.NewCommunicationDiagramWizard"
             icon="icons/Communication_diagram.png"
             id="org.modelgoon.wizards.communication"
             name="Interaction Diagram">
