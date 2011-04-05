@@ -26,7 +26,7 @@
             name="Packages Dependency View">
       </editor>
       <editor
-            class="org.modelgoon.classdiagram.editor.ClassDiagramEditor"
+            class="org.modelgoon.jdt.editor.JDTClassDiagramEditor"
             default="false"
             extensions="mgc"
             icon="icons/Class_diagram.png"
