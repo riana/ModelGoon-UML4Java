@@ -69,12 +69,19 @@ public class UMLClassEditPart extends AbstractComponentEditPart<UMLClass> {
 	@Override
 	public List getModelSourceConnections() {
 		List outgoingConnexions = new ArrayList();
+		outgoingConnexions.addAll(getModelElement().getAssociation());
+		outgoingConnexions
+				.addAll(getModelElement().getExtensionRelationShips());
 		return outgoingConnexions;
 	}
 
 	@Override
 	public List getModelTargetConnections() {
 		List incomingConnexion = new ArrayList();
+		incomingConnexion.addAll(getModelElement()
+				.getIncomingAssociationRelationShips());
+		incomingConnexion.addAll(getModelElement()
+				.getIncomingExtensionRelationship());
 		return incomingConnexion;
 	}
 

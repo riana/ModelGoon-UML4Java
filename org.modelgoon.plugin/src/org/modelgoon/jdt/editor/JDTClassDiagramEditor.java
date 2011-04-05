@@ -13,10 +13,14 @@ import org.modelgoon.core.ModelLoader;
 import org.modelgoon.core.Note;
 import org.modelgoon.core.editparts.NoteEditPart;
 import org.modelgoon.core.ui.Diagram;
+import org.modelgoon.jdt.editparts.AssociationEditPart;
+import org.modelgoon.jdt.editparts.ExtensionEditPart;
 import org.modelgoon.jdt.editparts.FieldEditPart;
 import org.modelgoon.jdt.editparts.JDTClassDiagramEditPart;
 import org.modelgoon.jdt.editparts.MethodEditPart;
 import org.modelgoon.jdt.editparts.UMLClassEditPart;
+import org.modelgoon.jdt.model.AssociationRelationShip;
+import org.modelgoon.jdt.model.ExtensionRelationShip;
 import org.modelgoon.jdt.model.Field;
 import org.modelgoon.jdt.model.Method;
 import org.modelgoon.jdt.model.UMLClass;
@@ -34,8 +38,9 @@ public class JDTClassDiagramEditor extends Diagram<UMLModel> {
 		registerEditPart(ClassCompartmentModel.class, ListEditPart.class);
 		registerEditPart(Field.class, FieldEditPart.class);
 		registerEditPart(Method.class, MethodEditPart.class);
-		// registerEditPart(Extension.class, ExtensionEditPart.class);
-		// registerEditPart(Association.class, AssociationEditPart.class);
+		registerEditPart(ExtensionRelationShip.class, ExtensionEditPart.class);
+		registerEditPart(AssociationRelationShip.class,
+				AssociationEditPart.class);
 
 		registerEditPart(Note.class, NoteEditPart.class);
 	}
