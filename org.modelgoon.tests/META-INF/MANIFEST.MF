@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ModelGoon-Tests
 Bundle-SymbolicName: org.modelgoon.tests
-Bundle-Version: 4.3.0
+Bundle-Version: 4.4.0
 Bundle-Activator: org.modelgoon.tests.Activator
 Require-Bundle: org.eclipse.core.runtime,
  org.modelgoon.plugin;bundle-version="4.2.0",

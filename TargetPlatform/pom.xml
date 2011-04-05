@@ -4,11 +4,11 @@
 	<parent>
 		<artifactId>ModelGoon</artifactId>
 		<groupId>org.modelgoon</groupId>
-		<version>4.3.0</version>
+		<version>4.4.0</version>
 	</parent>
 	<groupId>org.modelgoon</groupId>
 	<artifactId>TargetPlatform</artifactId>
-	<version>4.3.0</version>
+	<version>4.4.0</version>
 	<packaging>pom</packaging>
 
 	<build>

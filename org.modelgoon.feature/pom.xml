@@ -6,13 +6,13 @@
 	<parent>
 		<groupId>org.modelgoon</groupId>
 		<artifactId>ModelGoon</artifactId>
-		<version>4.3.0</version>
+		<version>4.4.0</version>
 	</parent>
 	
 	<groupId>org.modelgoon</groupId>
 	<artifactId>org.modelgoon.feature</artifactId>
 	<packaging>eclipse-feature</packaging>
-	<version>4.3.0</version>
+	<version>4.4.0</version>
 
 	
 </project>
