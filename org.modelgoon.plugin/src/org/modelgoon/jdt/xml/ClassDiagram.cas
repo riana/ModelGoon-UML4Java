@@ -6,6 +6,10 @@
 			get-method="getClasses" set-method="addClass" collection="arraylist">
 			<bind-xml auto-naming="deriveByClass" node="element" />
 		</field>
+		<field name="notes" type="org.modelgoon.core.Note"
+			get-method="getNotes" set-method="addNote" collection="arraylist">
+			<bind-xml name="Note" node="element" />
+		</field>
 	</class>
 	<class name="org.modelgoon.jdt.model.UMLClass">
 		<map-to xml="Class" />
@@ -19,31 +23,27 @@
 			<bind-xml node="attribute" />
 		</field>
 
-		<field name="attributesDisplayFilter"
-			type="org.modelgoon.jdt.model.MembersDisplayFilter">
+		<field name="attributesDisplayFilter" type="org.modelgoon.jdt.model.MembersDisplayFilter">
 			<bind-xml name="AttributesDisplayFilter" node="element" />
 		</field>
 
-		<field name="methodDisplayFilter"
-			type="org.modelgoon.jdt.model.MethodDisplayFilter">
+		<field name="methodDisplayFilter" type="org.modelgoon.jdt.model.MethodDisplayFilter">
 			<bind-xml name="MethodDisplayFilter" node="element" />
 		</field>
 	</class>
 
-<!--	<class name="org.modelgoon.jdt.model.CommunicationClass"-->
-<!--		extends="org.modelgoon.jdt.model.ClassModel">-->
-<!--		<map-to xml="CommunicationClass" />-->
-<!--		<field name="name" type="string">-->
-<!--			<bind-xml name="name" node="attribute" />-->
-<!--		</field>-->
-<!--		<field name="x" type="integer">-->
-<!--			<bind-xml node="attribute" />-->
-<!--		</field>-->
-<!--		<field name="y" type="integer">-->
-<!--			<bind-xml node="attribute" />-->
-<!--		</field>-->
-<!---->
-<!--	</class>-->
+	<class name="org.modelgoon.core.Note">
+		<map-to xml="Package" />
+		<field name="content" type="string">
+			<bind-xml name="Content" node="text" />
+		</field>
+		<field name="x" type="integer">
+			<bind-xml node="attribute" />
+		</field>
+		<field name="y" type="integer">
+			<bind-xml node="attribute" />
+		</field>
+	</class>
 
 	<class name="org.modelgoon.jdt.model.MembersDisplayFilter">
 		<map-to xml="MembersFilter" />

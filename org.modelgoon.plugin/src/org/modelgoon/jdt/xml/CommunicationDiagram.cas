@@ -6,7 +6,12 @@
 			get-method="getClasses" set-method="addClass" collection="arraylist">
 			<bind-xml auto-naming="deriveByClass" node="element" />
 		</field>
+		<field name="notes" type="org.modelgoon.core.Note"
+			get-method="getNotes" set-method="addNote" collection="arraylist">
+			<bind-xml name="Note" node="element" />
+		</field>
 	</class>
+	
 	<class name="org.modelgoon.jdt.model.UMLClass">
 		<map-to xml="CommunicationClass" />
 		<field name="qualifiedName" type="string">
@@ -18,7 +23,19 @@
 		<field name="y" type="integer">
 			<bind-xml node="attribute" />
 		</field>
-
+	</class>
+	
+	<class name="org.modelgoon.core.Note">
+		<map-to xml="Package" />
+		<field name="content" type="string">
+			<bind-xml name="Content" node="text" />
+		</field>
+		<field name="x" type="integer">
+			<bind-xml node="attribute" />
+		</field>
+		<field name="y" type="integer">
+			<bind-xml node="attribute" />
+		</field>
 	</class>
 	
 </mapping>
