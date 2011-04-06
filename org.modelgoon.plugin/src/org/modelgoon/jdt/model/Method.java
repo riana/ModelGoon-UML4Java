@@ -71,8 +71,7 @@ public class Method extends StructuralFeature {
 				|| name.startsWith("is") || name.startsWith("add")
 				|| name.startsWith("remove");
 
-		this.constructor = name.startsWith(getDeclaringClass()
-				.getQualifiedName());
+		this.constructor = name.startsWith(getDeclaringClass().getName());
 
 		if (!this.constructor) {
 			Type returnType = node.getReturnType2();

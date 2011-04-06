@@ -64,7 +64,8 @@ public class UMLClassEditPart extends AbstractComponentEditPart<UMLClass>
 		List<Object> structuralFeatures = new ArrayList<Object>();
 		structuralFeatures.add(new ClassCompartmentModel(model
 				.getVisibleAttributes()));
-		structuralFeatures.add(new ClassCompartmentModel(model.getMethods()));
+		structuralFeatures.add(new ClassCompartmentModel(model
+				.getVisibleMethods()));
 		return structuralFeatures;
 	}
 
