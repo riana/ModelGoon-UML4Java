@@ -13,7 +13,7 @@ public class AssociationConnection extends PolylineConnection {
 
 	Label targetLabel;
 
-	PolygonDecoration sourceDecoration;
+	PolygonDecoration containmentDecoration;
 
 	PolylineDecoration targetDecoration;
 
@@ -33,16 +33,17 @@ public class AssociationConnection extends PolylineConnection {
 		this.targetDecoration
 				.setBackgroundColor(new Color(null, 255, 255, 255));
 
-		this.sourceDecoration = new PolygonDecoration();
+		this.containmentDecoration = new PolygonDecoration();
 		decorationPointList = new PointList();
 		decorationPointList.addPoint(0, 0);
 		decorationPointList.addPoint(-1, -1);
 		decorationPointList.addPoint(-2, 0);
 		decorationPointList.addPoint(-1, 1);
-		this.sourceDecoration.setTemplate(decorationPointList);
-		this.sourceDecoration.setBackgroundColor(ClassFigure.borderColor);
-		setSourceDecoration(this.sourceDecoration);
-		this.sourceDecoration.setVisible(false);
+		this.containmentDecoration.setTemplate(decorationPointList);
+		this.containmentDecoration.setBackgroundColor(ClassFigure.borderColor);
+		setSourceDecoration(this.containmentDecoration);
+
+		this.containmentDecoration.setVisible(false);
 
 		ConnectionEndpointLocator targetEndpointLocator = new ConnectionEndpointLocator(
 				this, true);
@@ -78,7 +79,7 @@ public class AssociationConnection extends PolylineConnection {
 	}
 
 	public void setContainment(final boolean containment) {
-		this.sourceDecoration.setVisible(containment);
+		this.containmentDecoration.setVisible(containment);
 	}
 
 	public void setTargetArrowVisible(final boolean targetArrowVisible) {

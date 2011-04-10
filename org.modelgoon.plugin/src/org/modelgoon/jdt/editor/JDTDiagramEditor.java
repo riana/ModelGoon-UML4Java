@@ -41,6 +41,8 @@ public abstract class JDTDiagramEditor extends Diagram<UMLModel> {
 		addAction(new UpdateDiagramCommand(this), GEFActionConstants.GROUP_VIEW);
 		addSelectionAction(new EditVisualPreferencesCommand(this),
 				GEFActionConstants.GROUP_VIEW);
+		addSelectionAction(new EditAssociationCommand(this),
+				GEFActionConstants.GROUP_VIEW);
 		addSelectionAction(new ShowMethodSequenceCommand(this),
 				GEFActionConstants.GROUP_EDIT);
 		addSelectionAction(new OpenInEditorCommand(this),
