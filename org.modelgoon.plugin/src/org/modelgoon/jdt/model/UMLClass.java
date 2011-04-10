@@ -428,7 +428,6 @@ public class UMLClass extends NamedModelElement {
 						.get(field.getName());
 				if (associationRelationship == null) {
 					associationRelationship = new AssociationRelationShip();
-					associationRelationship.setContainment(false);
 					associationRelationship.setSource(this);
 					this.associationRelationShips.put(field.getName(),
 							associationRelationship);

@@ -41,8 +41,8 @@
 		<field name="endpointName" type="string">
 			<bind-xml name="endpointName" node="attribute" />
 		</field>
-		<field name="containment" type="boolean">
-			<bind-xml node="attribute" />
+		<field name="associationKind" type="org.modelgoon.classes.model.AssociationKind">
+			<bind-xml name="kind" node="attribute" />
 		</field>
 	</class>
 	

@@ -22,7 +22,7 @@ public class AssociationEditPart extends
 	protected void doRefreshVisuals(final AssociationRelationShip model) {
 		this.polylineConnection.setDestinationName(model.getEndpointName());
 		this.polylineConnection.setMultiplicity(model.getMultiplicity());
-		this.polylineConnection.setContainment(model.isContainment());
+		this.polylineConnection.setKind(model.getAssociationKind());
 	}
 
 }

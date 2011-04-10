@@ -1,12 +1,14 @@
 package org.modelgoon.jdt.model;
 
+import org.modelgoon.classes.model.AssociationKind;
+
 public class AssociationRelationShip extends Relationship {
 
 	String endpointName;
 
 	String multiplicity;
 
-	boolean containment;
+	AssociationKind associationKind = AssociationKind.Simple;
 
 	public String getEndpointName() {
 		return this.endpointName;
@@ -26,12 +28,12 @@ public class AssociationRelationShip extends Relationship {
 		propertyChanged();
 	}
 
-	public boolean isContainment() {
-		return this.containment;
+	public AssociationKind getAssociationKind() {
+		return this.associationKind;
 	}
 
-	public void setContainment(final boolean containment) {
-		this.containment = containment;
+	public void setAssociationKind(final AssociationKind associationKind) {
+		this.associationKind = associationKind;
 		propertyChanged();
 	}
 

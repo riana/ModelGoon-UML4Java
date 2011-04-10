@@ -8,12 +8,15 @@ import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.PolylineDecoration;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.swt.graphics.Color;
+import org.modelgoon.classes.model.AssociationKind;
 
 public class AssociationConnection extends PolylineConnection {
 
 	Label targetLabel;
 
-	PolygonDecoration containmentDecoration;
+	PolygonDecoration compositionDecoration;
+
+	PolygonDecoration aggregationDecoration;
 
 	PolylineDecoration targetDecoration;
 
@@ -33,17 +36,24 @@ public class AssociationConnection extends PolylineConnection {
 		this.targetDecoration
 				.setBackgroundColor(new Color(null, 255, 255, 255));
 
-		this.containmentDecoration = new PolygonDecoration();
+		this.compositionDecoration = new PolygonDecoration();
 		decorationPointList = new PointList();
 		decorationPointList.addPoint(0, 0);
 		decorationPointList.addPoint(-1, -1);
 		decorationPointList.addPoint(-2, 0);
 		decorationPointList.addPoint(-1, 1);
-		this.containmentDecoration.setTemplate(decorationPointList);
-		this.containmentDecoration.setBackgroundColor(ClassFigure.borderColor);
-		setSourceDecoration(this.containmentDecoration);
+		this.compositionDecoration.setTemplate(decorationPointList);
+		this.compositionDecoration.setBackgroundColor(ClassFigure.borderColor);
 
-		this.containmentDecoration.setVisible(false);
+		this.aggregationDecoration = new PolygonDecoration();
+		// decorationPointList = new PointList();
+		// decorationPointList.addPoint(0, 0);
+		// decorationPointList.addPoint(-1, -1);
+		// decorationPointList.addPoint(-2, 0);
+		// decorationPointList.addPoint(-1, 1);
+		this.aggregationDecoration.setBackgroundColor(new Color(null, 255, 255,
+				255));
+		this.aggregationDecoration.setTemplate(decorationPointList);
 
 		ConnectionEndpointLocator targetEndpointLocator = new ConnectionEndpointLocator(
 				this, true);
@@ -79,11 +89,29 @@ public class AssociationConnection extends PolylineConnection {
 	}
 
 	public void setContainment(final boolean containment) {
-		this.containmentDecoration.setVisible(containment);
+		this.compositionDecoration.setVisible(containment);
 	}
 
 	public void setTargetArrowVisible(final boolean targetArrowVisible) {
 		this.targetDecoration.setVisible(targetArrowVisible);
+	}
+
+	public void setKind(final AssociationKind associationKind) {
+		switch (associationKind) {
+		case Simple:
+			setSourceDecoration(null);
+			break;
+		case Aggregation:
+			setSourceDecoration(this.aggregationDecoration);
+			break;
+		case Composition:
+			setSourceDecoration(this.compositionDecoration);
+			break;
+
+		default:
+			break;
+		}
+
 	}
 
 }
