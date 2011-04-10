@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<mapping>
+
+	<class name="org.modelgoon.core.Note">
+		<map-to xml="Package" />
+		<field name="content" type="string">
+			<bind-xml name="Content" node="text" />
+		</field>
+		<field name="x" type="integer">
+			<bind-xml node="attribute" />
+		</field>
+		<field name="y" type="integer">
+			<bind-xml node="attribute" />
+		</field>
+	</class>
+
+	
+	<class name="org.eclipse.draw2d.geometry.Point">
+	<map-to xml="Point" />
+		<field name="x" type="integer" direct="true">
+			<bind-xml name="x" node="attribute"/>
+		</field>
+		<field name="y" type="integer" direct="true">
+			<bind-xml name="y" node="attribute"/>
+		</field>
+	</class>
+	
+	<class name="org.modelgoon.jdt.model.Relationship" verify-constructable="false">
+		<map-to xml="Relationship" />
+		<field name="points" type="org.eclipse.draw2d.geometry.Point"
+			get-method="getPoints" set-method="addPoint" collection="arraylist">
+			<bind-xml name="Point" node="element" />
+		</field>
+		<field name="destinationClassName" type="string">
+			<bind-xml name="destinationClassName" node="attribute" />
+		</field>
+	</class>
+	
+	<class name="org.modelgoon.jdt.model.AssociationRelationShip" extends="org.modelgoon.jdt.model.Relationship">
+		<map-to xml="Association" />
+		<field name="endpointName" type="string">
+			<bind-xml name="endpointName" node="attribute" />
+		</field>
+		<field name="containment" type="boolean">
+			<bind-xml node="attribute" />
+		</field>
+	</class>
+	
+	<class name="org.modelgoon.jdt.model.ExtensionRelationShip" extends="org.modelgoon.jdt.model.Relationship">
+		<map-to xml="Extension" />
+	</class>
+	
+	<class name="org.modelgoon.jdt.model.CommunicationRelationship" extends="org.modelgoon.jdt.model.Relationship">
+		<map-to xml="Communication" />
+		
+	</class>
+	
+</mapping>
