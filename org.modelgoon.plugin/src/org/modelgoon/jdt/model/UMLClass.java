@@ -63,7 +63,7 @@ public class UMLClass extends NamedModelElement {
 
 	Map<String, Field> fields = new HashMap<String, Field>();
 
-	Map<Field, AssociationRelationShip> associationRelationShips = new HashMap<Field, AssociationRelationShip>();
+	Map<String, AssociationRelationShip> associationRelationShips = new HashMap<String, AssociationRelationShip>();
 
 	Map<String, ExtensionRelationShip> extensionRelationShips = new HashMap<String, ExtensionRelationShip>();
 
@@ -264,6 +264,7 @@ public class UMLClass extends NamedModelElement {
 				.get(destination);
 		UMLClass destClass = this.diagram.resolveType(destination);
 		if (destClass != null) {
+
 			if (communicationRelationship == null) {
 				communicationRelationship = new CommunicationRelationship();
 				communicationRelationship.setSource(this);
@@ -271,6 +272,8 @@ public class UMLClass extends NamedModelElement {
 				destClass.addIncomingRelationship(communicationRelationship);
 				this.communicationRelationShips.put(destination,
 						communicationRelationship);
+			} else {
+				communicationRelationship.getDestination();
 			}
 		} else if (communicationRelationship != null) {
 			this.communicationRelationShips.remove(destClass);
@@ -287,6 +290,7 @@ public class UMLClass extends NamedModelElement {
 					.getQualifiedName();
 			CommunicationRelationship communicationRelationship = getCommunicationRelationship(destination);
 			if (communicationRelationship != null) {
+
 				communicationRelationship.addMessage(methodBinding.getName());
 			}
 		}
@@ -361,7 +365,7 @@ public class UMLClass extends NamedModelElement {
 						.remove(supertype);
 				removedRelationShip.getDestination()
 						.removeIncomingRelationship(removedRelationShip);
-				removOutgoingeRelationship(removedRelationShip);
+				removeOutgoingRelationship(removedRelationShip);
 			}
 		}
 	}
@@ -397,48 +401,55 @@ public class UMLClass extends NamedModelElement {
 	}
 
 	public void addAssociationRelationship(final Field field) {
-		AssociationRelationShip associationRelationship = this.associationRelationShips
-				.get(field);
-		if (associationRelationship == null) {
-			Type type = field.getType();
-			if (!type.isPrimitive()) {
-				UMLClass associatedClass = this.diagram.resolveType(type
-						.getQualifiedName());
 
-				if (type.isCollection() && type.hasParameterTypes()) {
-					associatedClass = this.diagram.resolveType(type
-							.getLastEnclosedType().getQualifiedName());
-				} else if (type.isArray()) {
-					String typeName = type.getQualifiedName();
-					typeName = typeName.substring(0, typeName.lastIndexOf("["));
-					associatedClass = this.diagram.resolveType(typeName);
+		Type type = field.getType();
+		if (!type.isPrimitive()) {
 
-				}
+			UMLClass associatedClass = this.diagram.resolveType(type
+					.getQualifiedName());
 
-				field.setAssociation((associatedClass != null)
-						&& !field.isSingleton());
-				if (field.isAssociation()) {
+			if (type.isCollection() && type.hasParameterTypes()) {
+				associatedClass = this.diagram.resolveType(type
+						.getLastEnclosedType().getQualifiedName());
+			} else if (type.isArray()) {
+				String typeName = type.getQualifiedName();
+				typeName = typeName.substring(0, typeName.lastIndexOf("["));
+				associatedClass = this.diagram.resolveType(typeName);
 
-					String multiplicity = type.isCollection() | type.isArray() ? "*"
-							: "1";
+			}
+
+			field.setAssociation((associatedClass != null)
+					&& !field.isSingleton());
+
+			if (field.isAssociation()) {
+				String multiplicity = type.isCollection() | type.isArray() ? "*"
+						: "1";
+				AssociationRelationShip associationRelationship = this.associationRelationShips
+						.get(field.getName());
+				if (associationRelationship == null) {
 					associationRelationship = new AssociationRelationShip();
-					associationRelationship.setSource(this);
-					associationRelationship.setDestination(associatedClass);
-					associatedClass
-							.addIncomingRelationship(associationRelationship);
-					this.associationRelationShips.put(field,
-							associationRelationship);
-					associationRelationship.setEndpointName(field.getName());
 					associationRelationship.setContainment(false);
-					associationRelationship.setMultiplicity(multiplicity);
+					associationRelationship.setSource(this);
+					this.associationRelationShips.put(field.getName(),
+							associationRelationship);
 				}
+
+				associationRelationship.setDestination(associatedClass);
+				associatedClass
+						.addIncomingRelationship(associationRelationship);
+
+				associationRelationship.setEndpointName(field.getName());
+
+				associationRelationship.setMultiplicity(multiplicity);
+
 			}
 		}
+
 	}
 
 	public void removeAssociationRelationship(final Field field) {
 		AssociationRelationShip associationRelationship = this.associationRelationShips
-				.get(field);
+				.get(field.getName());
 		if (associationRelationship != null) {
 			this.associationRelationShips.remove(field);
 			associationRelationship.getDestination()
@@ -446,7 +457,7 @@ public class UMLClass extends NamedModelElement {
 		}
 	}
 
-	public Collection<AssociationRelationShip> getAssociation() {
+	public Collection<AssociationRelationShip> getAssociationRelationships() {
 		return this.associationRelationShips.values();
 	}
 
@@ -486,12 +497,11 @@ public class UMLClass extends NamedModelElement {
 		return this.isInternal;
 	}
 
-	public void removOutgoingeRelationship(final Relationship relationship) {
-		Iterator<Entry<Field, AssociationRelationShip>> iterator = this.associationRelationShips
+	public void removeOutgoingRelationship(final Relationship relationship) {
+		Iterator<Entry<String, AssociationRelationShip>> iterator = this.associationRelationShips
 				.entrySet().iterator();
 		while (iterator.hasNext()) {
-			Map.Entry<org.modelgoon.jdt.model.Field, org.modelgoon.jdt.model.AssociationRelationShip> entry = iterator
-					.next();
+			Map.Entry<String, AssociationRelationShip> entry = iterator.next();
 			if (entry.getValue() == relationship) {
 				iterator.remove();
 			}
@@ -502,6 +512,28 @@ public class UMLClass extends NamedModelElement {
 				.getQualifiedName());
 		this.communicationRelationShips.remove(relationship.getDestination()
 				.getQualifiedName());
+	}
+
+	public UMLClass resolveUMLClass(final String umlClassName) {
+		return this.diagram.getUmlClass(umlClassName);
+	}
+
+	public void addRelationship(final Relationship relationship) {
+		relationship.setSource(this);
+		if (relationship instanceof ExtensionRelationShip) {
+			this.extensionRelationShips.put(
+					relationship.getDestinationClassName(),
+					(ExtensionRelationShip) relationship);
+		} else if (relationship instanceof AssociationRelationShip) {
+			AssociationRelationShip associationRelationShip = (AssociationRelationShip) relationship;
+			this.associationRelationShips.put(
+					associationRelationShip.getEndpointName(),
+					associationRelationShip);
+		} else if (relationship instanceof CommunicationRelationship) {
+			this.communicationRelationShips.put(
+					relationship.getDestinationClassName(),
+					(CommunicationRelationship) relationship);
+		}
 	}
 
 	public void removeIncomingRelationship(final Relationship relationship) {
@@ -516,15 +548,22 @@ public class UMLClass extends NamedModelElement {
 
 	public void addIncomingRelationship(final Relationship relationship) {
 		if (relationship instanceof ExtensionRelationShip) {
-			this.incomingExtensionRelationship
-					.add((ExtensionRelationShip) relationship);
+			if (!this.incomingExtensionRelationship.contains(relationship)) {
+				this.incomingExtensionRelationship
+						.add((ExtensionRelationShip) relationship);
+			}
 		} else if (relationship instanceof AssociationRelationShip) {
-			this.incomingAssociationRelationShips
-					.add((AssociationRelationShip) relationship);
+			if (!this.incomingAssociationRelationShips.contains(relationship)) {
+				this.incomingAssociationRelationShips
+						.add((AssociationRelationShip) relationship);
+			}
 		} else if (relationship instanceof CommunicationRelationship) {
-			this.incomingCommunicationRelationships
-					.add((CommunicationRelationship) relationship);
+			if (!this.incomingCommunicationRelationships.contains(relationship)) {
+				this.incomingCommunicationRelationships
+						.add((CommunicationRelationship) relationship);
+			}
 		}
+		propertyChanged();
 	}
 
 	public Collection<ExtensionRelationShip> getExtensionRelationShips() {
@@ -550,14 +589,29 @@ public class UMLClass extends NamedModelElement {
 	public void consolidate() {
 		String qualifiedName = getName();
 		qualifiedName = qualifiedName.replace("$", ".");
-		// setName(qualifiedName);
+
 		if ((this.jdtClassParser != null) && (this.javaType != null)) {
 			ASTParser parser = ASTParser.newParser(AST.JLS3);
 			parser.setSource(this.javaType.getCompilationUnit());
 			parser.setResolveBindings(true);
 			ASTNode root = parser.createAST(null);
 			root.accept(this.jdtClassParser);
+
+			Iterator<Entry<String, AssociationRelationShip>> iterator = this.associationRelationShips
+					.entrySet().iterator();
+			while (iterator.hasNext()) {
+				Entry<String, AssociationRelationShip> entry = iterator.next();
+				String epName = entry.getKey();
+				if (!this.fields.containsKey(epName)) {
+					AssociationRelationShip relationship = entry.getValue();
+					relationship.getDestination().removeIncomingRelationship(
+							relationship);
+					iterator.remove();
+				}
+			}
+
 		}
+
 		propertyChanged();
 	}
 
@@ -643,6 +697,14 @@ public class UMLClass extends NamedModelElement {
 		return acceptedMethods;
 	}
 
+	public List<Relationship> getRelationships() {
+		List<Relationship> relationships = new ArrayList<Relationship>();
+		relationships.addAll(this.extensionRelationShips.values());
+		relationships.addAll(this.associationRelationShips.values());
+		relationships.addAll(this.communicationRelationShips.values());
+		return relationships;
+	}
+
 	public List<Field> getVisibleAttributes() {
 		List<Field> attributes = new ArrayList<Field>();
 		for (Field field : getFields()) {
@@ -694,15 +756,15 @@ public class UMLClass extends NamedModelElement {
 		}
 
 		for (Relationship relationship : this.incomingAssociationRelationShips) {
-			relationship.getSource().removOutgoingeRelationship(relationship);
+			relationship.getSource().removeOutgoingRelationship(relationship);
 		}
 
 		for (Relationship relationship : this.incomingExtensionRelationship) {
-			relationship.getSource().removOutgoingeRelationship(relationship);
+			relationship.getSource().removeOutgoingRelationship(relationship);
 		}
 
 		for (Relationship relationship : this.incomingCommunicationRelationships) {
-			relationship.getSource().removOutgoingeRelationship(relationship);
+			relationship.getSource().removeOutgoingRelationship(relationship);
 		}
 
 		this.associationRelationShips.clear();

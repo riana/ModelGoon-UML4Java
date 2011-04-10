@@ -12,6 +12,8 @@ public class Relationship extends AbstractConnection {
 
 	private UMLClass destination;
 
+	public String destinationClassName;
+
 	public UMLClass getSource() {
 		return this.source;
 	}
@@ -21,7 +23,28 @@ public class Relationship extends AbstractConnection {
 		propertyChanged();
 	}
 
+	public String getDestinationClassName() {
+		if (this.destination != null) {
+			return this.destination.getQualifiedName();
+		}
+		return this.destinationClassName;
+	}
+
+	public void setDestinationClassName(final String destinationClassName) {
+		this.destinationClassName = destinationClassName;
+	}
+
 	public UMLClass getDestination() {
+		if (this.destination == null) {
+			this.destination = this.source
+					.resolveUMLClass(this.destinationClassName);
+			if (this.destination != null) {
+				this.destination.addIncomingRelationship(this);
+			} else {
+				System.out.println("Unresolved Class : "
+						+ this.destinationClassName);
+			}
+		}
 		return this.destination;
 	}
 

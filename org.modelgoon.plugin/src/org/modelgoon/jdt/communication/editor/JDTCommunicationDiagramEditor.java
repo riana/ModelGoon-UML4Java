@@ -15,6 +15,7 @@ public class JDTCommunicationDiagramEditor extends JDTDiagramEditor {
 
 	public JDTCommunicationDiagramEditor() {
 		super(new UMLModel());
+		this.modelLoader.addMapping("org/modelgoon/jdt/xml/UMLModel.cas");
 		this.modelLoader
 				.addMapping("org/modelgoon/jdt/xml/CommunicationDiagram.cas");
 		setModelElementFactory(new ClassModelElementFactory(this));

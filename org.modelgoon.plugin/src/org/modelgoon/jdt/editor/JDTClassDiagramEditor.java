@@ -21,6 +21,7 @@ public class JDTClassDiagramEditor extends JDTDiagramEditor {
 
 	public JDTClassDiagramEditor() {
 		super(new UMLModel());
+		this.modelLoader.addMapping("org/modelgoon/jdt/xml/UMLModel.cas");
 		this.modelLoader.addMapping("org/modelgoon/jdt/xml/ClassDiagram.cas");
 		setModelElementFactory(new ClassModelElementFactory(this));
 		registerEditPart(UMLModel.class, JDTClassDiagramEditPart.class);
