@@ -13,6 +13,7 @@ import org.eclipse.jdt.core.IJavaElement;
 import org.modelgoon.classes.editparts.ClassCompartmentModel;
 import org.modelgoon.classes.figures.ClassFigure;
 import org.modelgoon.core.ui.AbstractComponentEditPart;
+import org.modelgoon.jdt.model.ExtensionRelationShip;
 import org.modelgoon.jdt.model.UMLClass;
 
 public class UMLClassEditPart extends AbstractComponentEditPart<UMLClass>
@@ -29,6 +30,8 @@ public class UMLClassEditPart extends AbstractComponentEditPart<UMLClass>
 				getModelElement().removeFromDiagram();
 			}
 		});
+		addLinkCreationCommand(ExtensionRelationShip.class,
+				new CreateInheritanceCommand());
 	}
 
 	@Override
@@ -72,7 +75,8 @@ public class UMLClassEditPart extends AbstractComponentEditPart<UMLClass>
 	@Override
 	public List getModelSourceConnections() {
 		List outgoingConnexions = new ArrayList();
-		outgoingConnexions.addAll(getModelElement().getAssociationRelationships());
+		outgoingConnexions.addAll(getModelElement()
+				.getAssociationRelationships());
 		outgoingConnexions
 				.addAll(getModelElement().getExtensionRelationShips());
 		return outgoingConnexions;

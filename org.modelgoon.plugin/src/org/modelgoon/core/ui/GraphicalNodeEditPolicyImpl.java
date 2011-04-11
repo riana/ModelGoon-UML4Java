@@ -7,9 +7,10 @@ import org.eclipse.gef.requests.ReconnectRequest;
 
 public class GraphicalNodeEditPolicyImpl extends GraphicalNodeEditPolicy {
 
-	AbstractComponentEditPart editPart;
+	AbstractComponentEditPart<?> editPart;
 
-	public GraphicalNodeEditPolicyImpl(final AbstractComponentEditPart editPart) {
+	public GraphicalNodeEditPolicyImpl(
+			final AbstractComponentEditPart<?> editPart) {
 		super();
 		this.editPart = editPart;
 	}
@@ -17,15 +18,29 @@ public class GraphicalNodeEditPolicyImpl extends GraphicalNodeEditPolicy {
 	@Override
 	protected Command getConnectionCompleteCommand(
 			final CreateConnectionRequest request) {
-		return new Command() {
-		};
+		Object target = getHost().getModel();
+		LinkCreationCommand command = (LinkCreationCommand) request
+				.getStartCommand();
+		if (command != null) {
+			command.setTarget(this.editPart.getModelElement());
+
+		}
+		return command;
 	}
 
 	@Override
 	protected Command getConnectionCreateCommand(
 			final CreateConnectionRequest request) {
-		return new Command() {
-		};
+
+		Object source = getHost().getModel();
+		LinkCreationCommand linkCreationCommand = this.editPart
+				.getLinkCreationCommand(request.getNewObject().getClass());
+		if (linkCreationCommand != null) {
+			request.setStartCommand(linkCreationCommand);
+			linkCreationCommand.setSource(this.editPart.getModelElement());
+		}
+
+		return linkCreationCommand;
 	}
 
 	@Override

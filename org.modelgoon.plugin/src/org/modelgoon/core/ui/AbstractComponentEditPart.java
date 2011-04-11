@@ -1,5 +1,7 @@
 package org.modelgoon.core.ui;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -13,6 +15,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.tools.DragEditPartsTracker;
+import org.modelgoon.core.AbstractConnection;
 import org.modelgoon.core.ModelElement;
 
 public abstract class AbstractComponentEditPart<T extends ModelElement> extends
@@ -21,6 +24,8 @@ public abstract class AbstractComponentEditPart<T extends ModelElement> extends
 	T model;
 
 	Command deleteCommand;
+
+	Map<Class<? extends AbstractConnection>, LinkCreationCommand> linkCreationCommands = new HashMap<Class<? extends AbstractConnection>, LinkCreationCommand>();
 
 	public AbstractComponentEditPart() {
 		// TODO Auto-generated constructor stub
@@ -124,5 +129,15 @@ public abstract class AbstractComponentEditPart<T extends ModelElement> extends
 		refreshTargetConnections();
 		refreshParentLayout();
 
+	}
+
+	public LinkCreationCommand getLinkCreationCommand(final Class<?> linkClass) {
+		return this.linkCreationCommands.get(linkClass);
+	}
+
+	public void addLinkCreationCommand(
+			final Class<? extends AbstractConnection> linkClass,
+			final LinkCreationCommand command) {
+		this.linkCreationCommands.put(linkClass, command);
 	}
 }

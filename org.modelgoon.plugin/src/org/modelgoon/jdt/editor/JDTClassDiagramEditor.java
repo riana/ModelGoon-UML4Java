@@ -1,5 +1,10 @@
 package org.modelgoon.jdt.editor;
 
+import org.eclipse.gef.SharedImages;
+import org.eclipse.gef.palette.ConnectionCreationToolEntry;
+import org.eclipse.gef.palette.PaletteGroup;
+import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gef.requests.SimpleFactory;
 import org.modelgoon.classes.editparts.ClassCompartmentModel;
 import org.modelgoon.classes.editparts.ListEditPart;
 import org.modelgoon.core.Note;
@@ -34,6 +39,17 @@ public class JDTClassDiagramEditor extends JDTDiagramEditor {
 				AssociationEditPart.class);
 
 		registerEditPart(Note.class, NoteEditPart.class);
+	}
+
+	@Override
+	protected void fillPalette(final PaletteRoot paletteRoot,
+			final PaletteGroup group) {
+		ConnectionCreationToolEntry connectionToolEntry = new ConnectionCreationToolEntry(
+				"Inheritance", "Creates inheritance", new SimpleFactory(
+						ExtensionRelationShip.class),
+				SharedImages.DESC_SELECTION_TOOL_16,
+				SharedImages.DESC_SELECTION_TOOL_16);
+		group.add(connectionToolEntry);
 	}
 
 }

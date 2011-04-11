@@ -33,7 +33,15 @@ public abstract class JDTDiagramEditor extends Diagram<UMLModel> {
 		group.add(new CreationToolEntry("Note", "Insert a new Note in ",
 				new SimpleFactory(Note.class), imgDesc, imgDesc));
 		paletteRoot.add(group);
+
+		fillPalette(paletteRoot, group);
 		return paletteRoot;
+	}
+
+	protected void fillPalette(final PaletteRoot paletteRoot,
+			final PaletteGroup group) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override

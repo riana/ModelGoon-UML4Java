@@ -8,6 +8,15 @@
             private-accepted="false" protected-accepted="false"
             default-accepted="false" static-accepted="false"
             accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="org.modelgoon.classes.model.ClassElement"
+            endpointName="child" kind="Simple"/>
+        <Association
+            destinationClassName="org.modelgoon.classes.model.ClassElement"
+            endpointName="parent" kind="Simple">
+            <Point x="675" y="219"/>
+        </Association>
+        <Communication destinationClassName="org.modelgoon.classes.model.ClassElement"/>
     </Class>
     <Class name="org.modelgoon.classes.model.Attribute" x="765" y="129">
         <AttributesDisplayFilter public-accepted="true"
@@ -26,6 +35,9 @@
             private-accepted="false" protected-accepted="false"
             default-accepted="false" static-accepted="false"
             accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="org.modelgoon.classes.model.ClassElement"
+            endpointName="classes" kind="Simple"/>
     </Class>
     <Class name="org.modelgoon.classes.model.Association" x="49" y="256">
         <AttributesDisplayFilter public-accepted="true"
@@ -35,6 +47,15 @@
             private-accepted="false" protected-accepted="false"
             default-accepted="false" static-accepted="false"
             accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="org.modelgoon.classes.model.ClassElement"
+            endpointName="child" kind="Simple"/>
+        <Association
+            destinationClassName="org.modelgoon.classes.model.ClassElement"
+            endpointName="parent" kind="Composition">
+            <Point x="128" y="203"/>
+        </Association>
+        <Communication destinationClassName="org.modelgoon.classes.model.ClassElement"/>
     </Class>
     <Class name="org.modelgoon.classes.model.ClassElement" x="298" y="75">
         <AttributesDisplayFilter public-accepted="true"
@@ -44,5 +65,11 @@
             private-accepted="false" protected-accepted="false"
             default-accepted="false" static-accepted="false"
             accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="org.modelgoon.classes.model.Attribute"
+            endpointName="attributes" kind="Simple"/>
     </Class>
+    <Note x="609" y="60">fdsgfgsdgfdgfs&#xd;
+hdfhgfhgf&#xd;
+gfdgfd</Note>
 </ClassDiagram>

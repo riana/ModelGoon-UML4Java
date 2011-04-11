@@ -12,7 +12,6 @@ public class ConnectionEditPolicyImpl extends GraphicalNodeEditPolicy {
 	@Override
 	public void activate() {
 		super.activate();
-		System.out.println("ConnectionEditPolicyImpl.activate()");
 	}
 
 	// @Override
@@ -35,14 +34,12 @@ public class ConnectionEditPolicyImpl extends GraphicalNodeEditPolicy {
 	@Override
 	protected Command getConnectionCompleteCommand(
 			final CreateConnectionRequest request) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	protected Command getConnectionCreateCommand(
 			final CreateConnectionRequest request) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
