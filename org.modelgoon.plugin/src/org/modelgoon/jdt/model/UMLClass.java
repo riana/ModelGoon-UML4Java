@@ -104,7 +104,12 @@ public class UMLClass extends NamedModelElement {
 	}
 
 	public IType getJavaType() {
+
 		return this.javaType;
+	}
+
+	public String getPackageName() {
+		return this.javaType.getPackageFragment().getElementName();
 	}
 
 	public void setQualifiedName(final String qualifiedName) {
