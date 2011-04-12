@@ -13,6 +13,7 @@ import org.eclipse.jdt.core.IJavaElement;
 import org.modelgoon.classes.editparts.ClassCompartmentModel;
 import org.modelgoon.classes.figures.ClassFigure;
 import org.modelgoon.core.ui.AbstractComponentEditPart;
+import org.modelgoon.jdt.model.AssociationRelationShip;
 import org.modelgoon.jdt.model.ExtensionRelationShip;
 import org.modelgoon.jdt.model.UMLClass;
 
@@ -32,6 +33,8 @@ public class UMLClassEditPart extends AbstractComponentEditPart<UMLClass>
 		});
 		addLinkCreationCommand(ExtensionRelationShip.class,
 				new CreateInheritanceCommand());
+		addLinkCreationCommand(AssociationRelationShip.class,
+				new CreateAssociationCommand());
 	}
 
 	@Override

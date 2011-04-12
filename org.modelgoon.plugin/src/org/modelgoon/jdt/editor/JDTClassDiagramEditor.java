@@ -49,7 +49,21 @@ public class JDTClassDiagramEditor extends JDTDiagramEditor {
 						ExtensionRelationShip.class),
 				SharedImages.DESC_SELECTION_TOOL_16,
 				SharedImages.DESC_SELECTION_TOOL_16);
+		ConnectionCreationToolEntry uniqueAssociation = new ConnectionCreationToolEntry(
+				"Simple Association", "Creates Simple Association",
+				new UniqueAssociationCreationFactory(
+						AssociationRelationShip.UNIQUE),
+				SharedImages.DESC_SELECTION_TOOL_16,
+				SharedImages.DESC_SELECTION_TOOL_16);
+		ConnectionCreationToolEntry multipleAssociation = new ConnectionCreationToolEntry(
+				"Multiple Association", "Creates Multiple Association",
+				new UniqueAssociationCreationFactory(
+						AssociationRelationShip.MULTIPLE),
+				SharedImages.DESC_SELECTION_TOOL_16,
+				SharedImages.DESC_SELECTION_TOOL_16);
 		group.add(connectionToolEntry);
+		group.add(uniqueAssociation);
+		group.add(multipleAssociation);
 	}
 
 }

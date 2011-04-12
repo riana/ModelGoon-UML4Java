@@ -4,6 +4,10 @@ import org.modelgoon.classes.model.AssociationKind;
 
 public class AssociationRelationShip extends Relationship {
 
+	public final static String UNIQUE = "1";
+
+	public final static String MULTIPLE = "*";
+
 	String endpointName;
 
 	String multiplicity;

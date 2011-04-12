@@ -9,6 +9,8 @@ public class LinkCreationCommand extends Command {
 
 	ModelElement target;
 
+	Object newObject;
+
 	public void setSource(final ModelElement source) {
 		this.source = source;
 	}
@@ -23,6 +25,14 @@ public class LinkCreationCommand extends Command {
 
 	public ModelElement getTarget() {
 		return this.target;
+	}
+
+	public void setNewObject(final Object newObject) {
+		this.newObject = newObject;
+	}
+
+	public Object getNewObject() {
+		return this.newObject;
 	}
 
 }

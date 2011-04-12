@@ -33,9 +33,11 @@ public class GraphicalNodeEditPolicyImpl extends GraphicalNodeEditPolicy {
 			final CreateConnectionRequest request) {
 
 		Object source = getHost().getModel();
+		Object newObject = request.getNewObject();
 		LinkCreationCommand linkCreationCommand = this.editPart
-				.getLinkCreationCommand(request.getNewObject().getClass());
+				.getLinkCreationCommand(newObject.getClass());
 		if (linkCreationCommand != null) {
+			linkCreationCommand.setNewObject(newObject);
 			request.setStartCommand(linkCreationCommand);
 			linkCreationCommand.setSource(this.editPart.getModelElement());
 		}
