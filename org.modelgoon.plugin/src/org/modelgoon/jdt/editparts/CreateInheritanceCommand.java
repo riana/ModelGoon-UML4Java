@@ -1,6 +1,6 @@
 package org.modelgoon.jdt.editparts;
 
-import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
@@ -9,8 +9,6 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.ImportDeclaration;
 import org.eclipse.jdt.core.dom.SimpleType;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
-import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
-import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.Document;
 import org.eclipse.text.edits.MalformedTreeException;
@@ -22,63 +20,62 @@ public class CreateInheritanceCommand extends LinkCreationCommand {
 
 	@Override
 	public void execute() {
-		UMLClass source = (UMLClass) getSource();
-		UMLClass target = (UMLClass) getTarget();
-
 		try {
+			UMLClass source = (UMLClass) getSource();
+			UMLClass target = (UMLClass) getTarget();
+			ICompilationUnit cu = source.getJavaType().getCompilationUnit()
+					.getWorkingCopy(null);
+
+			Document document = new Document(cu.getSource());
 
 			ASTParser parser = ASTParser.newParser(AST.JLS3);
-
 			parser.setSource(source.getJavaType().getCompilationUnit());
-			parser.setResolveBindings(false);
+
 			CompilationUnit astRootNode = (CompilationUnit) parser
 					.createAST(null);
+			astRootNode.recordModifications();
+
 			AST ast = astRootNode.getAST();
-
-			ASTRewrite astRewrite = ASTRewrite.create(ast);
-
-			TypeDeclaration typeDecl = (TypeDeclaration) astRootNode.types()
-					.get(0);
 
 			SimpleType parentType = ast.newSimpleType(ast.newName(target
 					.getName()));
 
+			TypeDeclaration typeDecl = CreateInheritanceCommand.getNode(
+					source.getName(), astRootNode);
 			if (target.isInterface()) {
-				ListRewrite superInterfacesRewrite = astRewrite.getListRewrite(
-						typeDecl,
-						TypeDeclaration.SUPER_INTERFACE_TYPES_PROPERTY);
-				superInterfacesRewrite.insertLast(parentType, null);
+				typeDecl.superInterfaceTypes().add(parentType);
 			} else {
-
-				astRewrite.set(typeDecl,
-						TypeDeclaration.SUPERCLASS_TYPE_PROPERTY, parentType,
-						null);
+				typeDecl.setSuperclassType(parentType);
 			}
 
-			if (!source.getPackageName().equals(target.getPackageName())) {
+			if (!source.getPackageName().equals(target.getPackageName())
+					&& (cu.getImport(target.getQualifiedName()) != null)) {
 				ImportDeclaration importDeclaration = ast
 						.newImportDeclaration();
 				importDeclaration
 						.setName(ast.newName(target.getQualifiedName()));
-
-				ListRewrite lrw = astRewrite.getListRewrite(astRootNode,
-						CompilationUnit.IMPORTS_PROPERTY);
-				lrw.insertLast(importDeclaration, null);
+				astRootNode.imports().add(importDeclaration);
 
 			}
-			TextEdit edits = astRewrite.rewriteAST();
 
-			Document document = new Document(source.getJavaType()
-					.getCompilationUnit().getSource());
+			// computation of the text edits
+			TextEdit edits = astRootNode.rewrite(document, cu.getJavaProject()
+					.getOptions(true));
+
+			// computation of the new source code
 			edits.apply(document);
-			source.getJavaType().getCompilationUnit().getBuffer()
-					.setContents(document.get());
+			String newSource = document.get();
+
+			// update of the compilation unit
+			cu.getBuffer().setContents(newSource);
+
+			cu.reconcile(ICompilationUnit.NO_AST, true, null, null);
+			cu.commitWorkingCopy(true, null);
 
 			source.consolidate();
+			target.consolidate();
+
 		} catch (JavaModelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (MalformedTreeException e) {
@@ -91,16 +88,16 @@ public class CreateInheritanceCommand extends LinkCreationCommand {
 
 	}
 
-	private AbstractTypeDeclaration getNode(final IType type) {
-		ASTParser parser = ASTParser.newParser(AST.JLS3);
+	public static TypeDeclaration getNode(final String typeName,
+			final CompilationUnit cu) {
 
-		parser.setSource(type.getCompilationUnit());
-		parser.setResolveBindings(false);
-		CompilationUnit astRootNode = (CompilationUnit) parser.createAST(null);
-		for (Object declaredType : astRootNode.types()) {
+		for (Object declaredType : cu.types()) {
 			AbstractTypeDeclaration typeDeclaration = (AbstractTypeDeclaration) declaredType;
-			if (typeDeclaration.getName().equals(type.getElementName())) {
-				return typeDeclaration;
+			if (typeDeclaration.getName().getFullyQualifiedName()
+					.equals(typeName)) {
+				if (typeDeclaration instanceof TypeDeclaration) {
+					return (TypeDeclaration) typeDeclaration;
+				}
 			}
 		}
 		return null;
