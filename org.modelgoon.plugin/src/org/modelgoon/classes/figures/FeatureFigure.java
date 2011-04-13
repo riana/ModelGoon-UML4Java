@@ -11,7 +11,16 @@ public class FeatureFigure extends Figure {
 
 	Label label;
 
+	final Font staticFont;
+
+	final Font normalFont;
+
 	public FeatureFigure() {
+		FontData nfd = new FontData("Arial", 8, SWT.ITALIC);
+		this.normalFont = new Font(null, nfd);
+		FontData fd = new FontData("Arial", 8, SWT.ITALIC);
+		this.staticFont = new Font(null, fd);
+
 		this.label = new Label();
 		setLayoutManager(new FlowLayout(true));
 		add(this.label);
@@ -19,8 +28,9 @@ public class FeatureFigure extends Figure {
 
 	public void setStatic(final boolean isStatic) {
 		if (isStatic) {
-			FontData fd = new FontData("Arial", 12, SWT.ITALIC);
-			this.label.setFont(new Font(null, fd));
+			this.label.setFont(this.staticFont);
+		} else {
+			this.label.setFont(this.normalFont);
 		}
 	}
 

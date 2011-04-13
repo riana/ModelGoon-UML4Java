@@ -38,8 +38,12 @@ public class FieldEditPart extends AbstractComponentEditPart<Field> implements
 
 	@Override
 	protected void doRefreshVisuals(final Field model) {
-		String attributeString = model.getVisibility().getVisibilityString()
-				+ model.getName() + ":" + model.getType().getName();
+		String attributeString = model.getName();
+		if (!model.isLiteral()) {
+			attributeString = model.getVisibility().getVisibilityString()
+					+ model.getName() + ":" + model.getType().getName();
+		}
+		this.figure.setStatic(model.isStatic() || model.isLiteral());
 		this.figure.setFeatureSummary(attributeString);
 	}
 
