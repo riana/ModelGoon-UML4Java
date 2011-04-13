@@ -1,7 +1,9 @@
 package org.modelgoon.jdt.editparts;
 
 import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.core.ToolFactory;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTParser;
@@ -13,7 +15,6 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
 import org.eclipse.jdt.core.formatter.CodeFormatter;
-import org.eclipse.jdt.internal.corext.util.CodeFormatterUtil;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.Document;
 import org.eclipse.text.edits.MalformedTreeException;
@@ -24,8 +25,15 @@ import org.modelgoon.jdt.model.UMLClass;
 
 public class CreateAssociationCommand extends LinkCreationCommand {
 
+	CodeFormatter formatter;
+
+	public CreateAssociationCommand() {
+		this.formatter = ToolFactory.createCodeFormatter(JavaCore.getOptions());
+	}
+
 	@Override
 	public void execute() {
+
 		UMLClass source = (UMLClass) getSource();
 		UMLClass target = (UMLClass) getTarget();
 		AssociationRelationShip associationRelationShip = (AssociationRelationShip) getNewObject();
@@ -76,6 +84,11 @@ public class CreateAssociationCommand extends LinkCreationCommand {
 			// computation of the new source code
 			edits.apply(document);
 			String newSource = document.get();
+			edits = this.formatter.format(CodeFormatter.K_COMPILATION_UNIT,
+					newSource, 0, newSource.length(), 0,
+					System.getProperty("line.separator"));
+			edits.apply(document);
+			newSource = document.get();
 
 			// update of the compilation unit
 			cu.getBuffer().setContents(newSource);
@@ -107,57 +120,25 @@ public class CreateAssociationCommand extends LinkCreationCommand {
 	private void addUniqueAssociation(final ASTRewrite astRewrite,
 			final CompilationUnit compilationUnit,
 			final TypeDeclaration typeDecl, final UMLClass target) {
+
 		String endpointName = "its" + target.getName();
-		StringBuilder builder = new StringBuilder();
-		builder.append(target.getName());
-		builder.append(" ");
-		builder.append(endpointName);
-		builder.append(";");
+
+		String fieldDeclarationString = buildFieldDeclaration(target.getName(),
+				endpointName);
+		String setterMethod = buildSetter(target, endpointName);
+		String getterMethod = buildGetter(target, endpointName);
 
 		final FieldDeclaration declaration = (FieldDeclaration) astRewrite
-				.createStringPlaceholder(builder.toString(),
+				.createStringPlaceholder(fieldDeclarationString,
 						ASTNode.FIELD_DECLARATION);
 
-		builder = new StringBuilder();
-
-		builder.append("public ");
-		builder.append(target.getName());
-		builder.append(" get");
-		builder.append(endpointName.substring(0, 1).toUpperCase());
-		builder.append(endpointName.substring(1));
-		builder.append("(){\n");
-		builder.append("return this.");
-		builder.append(endpointName);
-		builder.append(";\n}");
-
-		String getterBody = CodeFormatterUtil.format(
-				CodeFormatter.K_CLASS_BODY_DECLARATIONS, builder.toString(), 0,
-				"\n", target.getJavaType().getJavaProject());
-
-		builder = new StringBuilder();
-		builder.append("public void set");
-		builder.append(endpointName.substring(0, 1).toUpperCase());
-		builder.append(endpointName.substring(1));
-		builder.append("(");
-		builder.append(target.getName());
-		builder.append(" ");
-		builder.append(endpointName);
-		builder.append("){\n");
-		builder.append("this.");
-		builder.append(endpointName);
-		builder.append(" = ");
-		builder.append(endpointName);
-		builder.append(";\n}");
-
-		String setterBody = CodeFormatterUtil.format(
-				CodeFormatter.K_CLASS_BODY_DECLARATIONS, builder.toString(), 0,
-				"\n", target.getJavaType().getJavaProject());
-
 		final MethodDeclaration getterDeclaration = (MethodDeclaration) astRewrite
-				.createStringPlaceholder(getterBody, ASTNode.METHOD_DECLARATION);
+				.createStringPlaceholder(getterMethod,
+						ASTNode.METHOD_DECLARATION);
 
 		final MethodDeclaration setterDeclaration = (MethodDeclaration) astRewrite
-				.createStringPlaceholder(setterBody, ASTNode.METHOD_DECLARATION);
+				.createStringPlaceholder(setterMethod,
+						ASTNode.METHOD_DECLARATION);
 
 		ListRewrite bodyDeclarations = astRewrite.getListRewrite(typeDecl,
 				typeDecl.getBodyDeclarationsProperty());
@@ -168,4 +149,42 @@ public class CreateAssociationCommand extends LinkCreationCommand {
 
 	}
 
+	public String buildFieldDeclaration(final String type, final String variable) {
+		StringBuilder builder = new StringBuilder();
+		builder.append(type);
+		builder.append(" ");
+		builder.append(variable);
+		builder.append(";");
+		return builder.toString();
+	}
+
+	public String buildGetter(final UMLClass target, final String variableName) {
+
+		String setterTemplate = "public $type $methodName(){\nreturn this.$fieldName;\n}";
+
+		String methodName = "get" + variableName.substring(0, 1).toUpperCase()
+				+ variableName.substring(1);
+
+		setterTemplate = setterTemplate.replaceAll("\\$type", target.getName());
+		setterTemplate = setterTemplate
+				.replaceAll("\\$fieldName", variableName);
+		setterTemplate = setterTemplate.replaceAll("\\$methodName", methodName);
+
+		return setterTemplate;
+	}
+
+	public String buildSetter(final UMLClass target, final String variableName) {
+
+		String getterTemplate = "public void $methodName($type $fieldName){\nthis.$fieldName = $fieldName;\n}";
+
+		String methodName = "get" + variableName.substring(0, 1).toUpperCase()
+				+ variableName.substring(1);
+
+		getterTemplate = getterTemplate.replaceAll("\\$type", target.getName());
+		getterTemplate = getterTemplate
+				.replaceAll("\\$fieldName", variableName);
+		getterTemplate = getterTemplate.replaceAll("\\$methodName", methodName);
+
+		return getterTemplate;
+	}
 }
