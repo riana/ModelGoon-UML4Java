@@ -72,7 +72,6 @@ public class CreateAssociationCommand extends LinkCreationCommand {
 						.newImportDeclaration();
 				importDeclaration
 						.setName(ast.newName(target.getQualifiedName()));
-				// astRootNode.imports().add(importDeclaration);
 				ListRewrite lrw = astRewrite.getListRewrite(astRootNode,
 						CompilationUnit.IMPORTS_PROPERTY);
 				lrw.insertLast(importDeclaration, null);
@@ -84,6 +83,8 @@ public class CreateAssociationCommand extends LinkCreationCommand {
 			// computation of the new source code
 			edits.apply(document);
 			String newSource = document.get();
+
+			// formatting the new source code
 			edits = this.formatter.format(CodeFormatter.K_COMPILATION_UNIT,
 					newSource, 0, newSource.length(), 0,
 					System.getProperty("line.separator"));
@@ -177,7 +178,7 @@ public class CreateAssociationCommand extends LinkCreationCommand {
 
 		String getterTemplate = "public void $methodName($type $fieldName){\nthis.$fieldName = $fieldName;\n}";
 
-		String methodName = "get" + variableName.substring(0, 1).toUpperCase()
+		String methodName = "set" + variableName.substring(0, 1).toUpperCase()
 				+ variableName.substring(1);
 
 		getterTemplate = getterTemplate.replaceAll("\\$type", target.getName());
