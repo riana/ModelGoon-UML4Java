@@ -613,9 +613,7 @@ public class UMLClass extends NamedModelElement {
 					iterator.remove();
 				}
 			}
-
 		}
-
 		propertyChanged();
 	}
 
