@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>ModelGoon</artifactId>
 		<groupId>org.modelgoon</groupId>
-		<version>4.4.0</version>
+		<version>4.4.1</version>
 	</parent>
 	<groupId>org.modelgoon</groupId>
 	<artifactId>TargetPlatform</artifactId>
