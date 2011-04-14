@@ -30,7 +30,7 @@
 						<artifact>
 							<groupId>org.modelgoon</groupId>
 							<artifactId>TargetPlatform</artifactId>
-							<version>4.2.0-SNAPSHOT</version>
+							<version>4.4.0</version>
 							<classifier>platform</classifier>
 						</artifact>
 					</target>
