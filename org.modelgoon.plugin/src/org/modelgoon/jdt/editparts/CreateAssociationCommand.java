@@ -17,11 +17,15 @@ import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
 import org.eclipse.jdt.core.formatter.CodeFormatter;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.Document;
+import org.eclipse.jface.window.Window;
 import org.eclipse.text.edits.MalformedTreeException;
 import org.eclipse.text.edits.TextEdit;
+import org.modelgoon.ModelGoonActivator;
 import org.modelgoon.core.ui.LinkCreationCommand;
 import org.modelgoon.jdt.model.AssociationRelationShip;
 import org.modelgoon.jdt.model.UMLClass;
+import org.modelgoon.jdt.wizards.CreateSimpleAssociationWizard;
+import org.modelgoon.jdt.wizards.SimpleAssociationWizardModel;
 
 public class CreateAssociationCommand extends LinkCreationCommand {
 
@@ -122,31 +126,40 @@ public class CreateAssociationCommand extends LinkCreationCommand {
 			final CompilationUnit compilationUnit,
 			final TypeDeclaration typeDecl, final UMLClass target) {
 
-		String endpointName = "its" + target.getName();
+		SimpleAssociationWizardModel wizardModel = new SimpleAssociationWizardModel();
+		wizardModel.setName("its" + target.getName());
+		CreateSimpleAssociationWizard wizard = new CreateSimpleAssociationWizard(
+				wizardModel);
 
-		String fieldDeclarationString = buildFieldDeclaration(target.getName(),
-				endpointName);
-		String setterMethod = buildSetter(target, endpointName);
-		String getterMethod = buildGetter(target, endpointName);
+		int result = ModelGoonActivator.openWizardDialog(wizard);
 
-		final FieldDeclaration declaration = (FieldDeclaration) astRewrite
-				.createStringPlaceholder(fieldDeclarationString,
-						ASTNode.FIELD_DECLARATION);
+		if (result == Window.OK) {
+			String endpointName = wizardModel.getName();
 
-		final MethodDeclaration getterDeclaration = (MethodDeclaration) astRewrite
-				.createStringPlaceholder(getterMethod,
-						ASTNode.METHOD_DECLARATION);
+			String fieldDeclarationString = buildFieldDeclaration(
+					target.getName(), endpointName);
+			String setterMethod = buildSetter(target, endpointName);
+			String getterMethod = buildGetter(target, endpointName);
 
-		final MethodDeclaration setterDeclaration = (MethodDeclaration) astRewrite
-				.createStringPlaceholder(setterMethod,
-						ASTNode.METHOD_DECLARATION);
+			final FieldDeclaration declaration = (FieldDeclaration) astRewrite
+					.createStringPlaceholder(fieldDeclarationString,
+							ASTNode.FIELD_DECLARATION);
 
-		ListRewrite bodyDeclarations = astRewrite.getListRewrite(typeDecl,
-				typeDecl.getBodyDeclarationsProperty());
+			final MethodDeclaration getterDeclaration = (MethodDeclaration) astRewrite
+					.createStringPlaceholder(getterMethod,
+							ASTNode.METHOD_DECLARATION);
 
-		bodyDeclarations.insertAt(declaration, 0, null);
-		bodyDeclarations.insertLast(getterDeclaration, null);
-		bodyDeclarations.insertLast(setterDeclaration, null);
+			final MethodDeclaration setterDeclaration = (MethodDeclaration) astRewrite
+					.createStringPlaceholder(setterMethod,
+							ASTNode.METHOD_DECLARATION);
+
+			ListRewrite bodyDeclarations = astRewrite.getListRewrite(typeDecl,
+					typeDecl.getBodyDeclarationsProperty());
+
+			bodyDeclarations.insertAt(declaration, 0, null);
+			bodyDeclarations.insertLast(getterDeclaration, null);
+			bodyDeclarations.insertLast(setterDeclaration, null);
+		}
 
 	}
 

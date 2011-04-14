@@ -6,6 +6,8 @@ import java.util.Map;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Display;
@@ -114,6 +116,13 @@ public class ModelGoonActivator extends AbstractUIPlugin {
 	public static Font getDefaultFont(final int size, final int style) {
 		return ModelGoonActivator.getFont(ModelGoonActivator.DEFAULT_FONT_NAME,
 				size, style);
+	}
+
+	public static int openWizardDialog(final Wizard wizard) {
+		WizardDialog wizardDialog = new WizardDialog(ModelGoonActivator.plugin
+				.getWorkbench().getActiveWorkbenchWindow().getShell(), wizard);
+
+		return wizardDialog.open();
 	}
 
 }
