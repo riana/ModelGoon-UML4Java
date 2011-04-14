@@ -1,8 +1,14 @@
 package org.modelgoon;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -17,10 +23,19 @@ public class ModelGoonActivator extends AbstractUIPlugin {
 	// The shared instance
 	private static ModelGoonActivator plugin;
 
+	public final static String DEFAULT_FONT_NAME = "Segoe UI";
+
+	final Map<String, Font> fonts = new HashMap<String, Font>();
+
 	/**
 	 * The constructor
 	 */
 	public ModelGoonActivator() {
+
+	}
+
+	public static Display getDisplay() {
+		return ModelGoonActivator.plugin.getWorkbench().getDisplay();
 	}
 
 	/*
@@ -80,4 +95,25 @@ public class ModelGoonActivator extends AbstractUIPlugin {
 				new Status(IStatus.INFO, ModelGoonActivator.PLUGIN_ID,
 						IStatus.OK, msg, e));
 	}
+
+	public static Font getFont(final String name, final int size,
+			final int style) {
+		String fontId = name + "_" + size + "_" + style;
+		Font font = ModelGoonActivator.getDefault().fonts.get(fontId);
+		if (font == null) {
+			FontData fontData = new FontData(name, size, style);
+			font = new Font(ModelGoonActivator.getDisplay(), fontData);
+			// ModelGoonActivator.fontRegistry.put(fontId,
+			// new FontData[] { fontData });
+			ModelGoonActivator.getDefault().fonts.put(fontId, font);
+			// font = ModelGoonActivator.fontRegistry.getItalic(fontId);
+		}
+		return font;
+	}
+
+	public static Font getDefaultFont(final int size, final int style) {
+		return ModelGoonActivator.getFont(ModelGoonActivator.DEFAULT_FONT_NAME,
+				size, style);
+	}
+
 }

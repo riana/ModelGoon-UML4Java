@@ -14,8 +14,7 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.FontData;
+import org.modelgoon.ModelGoonActivator;
 
 public class ClassFigure extends Figure {
 
@@ -104,8 +103,8 @@ public class ClassFigure extends Figure {
 		Label stereotypeLabel = this.stereotype.get(string);
 		if (stereotypeLabel == null) {
 			stereotypeLabel = new Label("\u00AB" + string + "\u00BB");
-			FontData fd = new FontData("Arial", 8, SWT.ITALIC);
-			stereotypeLabel.setFont(new Font(null, fd));
+			stereotypeLabel.setFont(ModelGoonActivator.getDefaultFont(8,
+					SWT.ITALIC));
 			this.stereotypeFigure.add(stereotypeLabel);
 			this.stereotype.put(string, stereotypeLabel);
 		}

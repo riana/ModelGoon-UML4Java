@@ -516,6 +516,7 @@ public class UMLClass extends NamedModelElement {
 				.getQualifiedName());
 		this.communicationRelationShips.remove(relationship.getDestination()
 				.getQualifiedName());
+		propertyChanged();
 	}
 
 	public UMLClass resolveUMLClass(final String umlClassName) {
@@ -538,6 +539,7 @@ public class UMLClass extends NamedModelElement {
 					relationship.getDestinationClassName(),
 					(CommunicationRelationship) relationship);
 		}
+		propertyChanged();
 	}
 
 	public void removeIncomingRelationship(final Relationship relationship) {
@@ -548,6 +550,7 @@ public class UMLClass extends NamedModelElement {
 		} else if (relationship instanceof CommunicationRelationship) {
 			this.incomingCommunicationRelationships.remove(relationship);
 		}
+		propertyChanged();
 	}
 
 	public void addIncomingRelationship(final Relationship relationship) {
