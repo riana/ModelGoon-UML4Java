@@ -25,6 +25,7 @@ import org.modelgoon.core.ui.LinkCreationCommand;
 import org.modelgoon.jdt.model.AssociationRelationShip;
 import org.modelgoon.jdt.model.UMLClass;
 import org.modelgoon.jdt.model.Visibility;
+import org.modelgoon.jdt.wizards.CreateMultipleAssociationWizard;
 import org.modelgoon.jdt.wizards.CreateSimpleAssociationWizard;
 import org.modelgoon.jdt.wizards.SimpleAssociationWizardModel;
 
@@ -120,7 +121,12 @@ public class CreateAssociationCommand extends LinkCreationCommand {
 	private void addMultipleAssociation(final ASTRewrite astRewrite,
 			final CompilationUnit compilationUnit,
 			final TypeDeclaration typeDecl, final UMLClass target) {
+		CreateMultipleAssociationWizard wizard = new CreateMultipleAssociationWizard();
+		int result = ModelGoonActivator.openWizardDialog(wizard);
 
+		if (result == Window.OK) {
+
+		}
 	}
 
 	private void addUniqueAssociation(final ASTRewrite astRewrite,
