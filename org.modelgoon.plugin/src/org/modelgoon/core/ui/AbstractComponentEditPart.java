@@ -140,4 +140,8 @@ public abstract class AbstractComponentEditPart<T extends ModelElement> extends
 			final LinkCreationCommand command) {
 		this.linkCreationCommands.put(linkClass, command);
 	}
+
+	public boolean acceptsLinks(final Class<? extends Object> linkClass) {
+		return this.linkCreationCommands.containsKey(linkClass);
+	}
 }

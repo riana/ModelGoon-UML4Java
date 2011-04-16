@@ -18,12 +18,13 @@ public class GraphicalNodeEditPolicyImpl extends GraphicalNodeEditPolicy {
 	@Override
 	protected Command getConnectionCompleteCommand(
 			final CreateConnectionRequest request) {
-		Object target = getHost().getModel();
-		LinkCreationCommand command = (LinkCreationCommand) request
-				.getStartCommand();
-		if (command != null) {
-			command.setTarget(this.editPart.getModelElement());
-
+		LinkCreationCommand command = null;
+		Object newObject = request.getNewObject();
+		if (this.editPart.acceptsLinks(newObject.getClass())) {
+			command = (LinkCreationCommand) request.getStartCommand();
+			if (command != null) {
+				command.setTarget(this.editPart.getModelElement());
+			}
 		}
 		return command;
 	}
@@ -31,8 +32,6 @@ public class GraphicalNodeEditPolicyImpl extends GraphicalNodeEditPolicy {
 	@Override
 	protected Command getConnectionCreateCommand(
 			final CreateConnectionRequest request) {
-
-		Object source = getHost().getModel();
 		Object newObject = request.getNewObject();
 		LinkCreationCommand linkCreationCommand = this.editPart
 				.getLinkCreationCommand(newObject.getClass());
