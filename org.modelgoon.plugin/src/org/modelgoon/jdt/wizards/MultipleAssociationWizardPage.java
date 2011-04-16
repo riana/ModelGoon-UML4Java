@@ -90,23 +90,23 @@ public class MultipleAssociationWizardPage extends WizardPage {
 		Combo typeSelector = new Combo(composite, SWT.READ_ONLY);
 		typeSelector.add("Simple");
 		typeSelector.add("Ordered");
-		typeSelector.add("Type Indexed");
-		typeSelector.add("Attribute Indexed");
+		// typeSelector.add("Type Indexed");
+		// typeSelector.add("Attribute Indexed");
 		typeSelector.select(0);
 		gridData = new GridData();
 		gridData.horizontalAlignment = GridData.FILL;
 		typeSelector.setLayoutData(gridData);
 
-		Label key = new Label(composite, SWT.NONE);
-		key.setText("Key:");
-
-		Combo keySelector = new Combo(composite, SWT.READ_ONLY);
-		keySelector.add("attribute1");
-		keySelector.add("attribute2");
-		keySelector.select(0);
-		gridData = new GridData();
-		gridData.horizontalAlignment = GridData.FILL;
-		keySelector.setLayoutData(gridData);
+		// Label key = new Label(composite, SWT.NONE);
+		// key.setText("Key:");
+		//
+		// Combo keySelector = new Combo(composite, SWT.READ_ONLY);
+		// keySelector.add("attribute1");
+		// keySelector.add("attribute2");
+		// keySelector.select(0);
+		// gridData = new GridData();
+		// gridData.horizontalAlignment = GridData.FILL;
+		// keySelector.setLayoutData(gridData);
 
 		Label implementation = new Label(composite, SWT.NONE);
 		implementation.setText("Container implementation:");
@@ -169,20 +169,20 @@ public class MultipleAssociationWizardPage extends WizardPage {
 		gridData.horizontalAlignment = GridData.FILL;
 		generateAdd.setLayoutData(gridData);
 
-		new Label(composite, SWT.NONE);
-		final Button generateGetByKey = new Button(composite, SWT.CHECK);
-		generateGetByKey.setText("Generate Get(key) method");
-		generateAdd.addSelectionListener(new SelectionAdapter() {
-
-			@Override
-			public void widgetSelected(final SelectionEvent e) {
-
-			}
-
-		});
-		gridData = new GridData();
-		gridData.horizontalAlignment = GridData.FILL;
-		generateGetByKey.setLayoutData(gridData);
+		// new Label(composite, SWT.NONE);
+		// final Button generateGetByKey = new Button(composite, SWT.CHECK);
+		// generateGetByKey.setText("Generate Get(key) method");
+		// generateAdd.addSelectionListener(new SelectionAdapter() {
+		//
+		// @Override
+		// public void widgetSelected(final SelectionEvent e) {
+		//
+		// }
+		//
+		// });
+		// gridData = new GridData();
+		// gridData.horizontalAlignment = GridData.FILL;
+		// generateGetByKey.setLayoutData(gridData);
 
 		setControl(composite);
 
