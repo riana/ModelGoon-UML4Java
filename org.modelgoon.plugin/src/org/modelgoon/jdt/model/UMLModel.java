@@ -77,7 +77,10 @@ public class UMLModel extends RootModelElement {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
 
+	public IJavaProject getJavaProject() {
+		return this.javaProject;
 	}
 
 	public final IType findType(final String qualifiedName)

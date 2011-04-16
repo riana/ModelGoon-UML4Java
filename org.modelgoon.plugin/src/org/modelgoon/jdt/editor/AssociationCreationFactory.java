@@ -3,11 +3,11 @@ package org.modelgoon.jdt.editor;
 import org.eclipse.gef.requests.CreationFactory;
 import org.modelgoon.jdt.model.AssociationRelationShip;
 
-public class UniqueAssociationCreationFactory implements CreationFactory {
+public class AssociationCreationFactory implements CreationFactory {
 
 	String type;
 
-	public UniqueAssociationCreationFactory(final String type) {
+	public AssociationCreationFactory(final String type) {
 		super();
 		this.type = type;
 	}

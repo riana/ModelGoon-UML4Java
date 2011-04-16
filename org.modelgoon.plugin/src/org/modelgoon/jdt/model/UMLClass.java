@@ -90,6 +90,10 @@ public class UMLClass extends NamedModelElement {
 		this.qualifiedName = className;
 	}
 
+	public void setInterface(final boolean isInterface) {
+		this.isInterface = isInterface;
+	}
+
 	public void setDiagram(final UMLModel diagram) {
 		this.diagram = diagram;
 	}

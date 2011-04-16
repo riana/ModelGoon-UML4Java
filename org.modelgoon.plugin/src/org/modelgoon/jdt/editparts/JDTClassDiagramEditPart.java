@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.modelgoon.core.ModelElement;
 import org.modelgoon.core.ui.RootElementEditPart;
+import org.modelgoon.jdt.model.UMLClass;
 import org.modelgoon.jdt.model.UMLModel;
 
 public class JDTClassDiagramEditPart extends RootElementEditPart<UMLModel> {
@@ -12,7 +13,8 @@ public class JDTClassDiagramEditPart extends RootElementEditPart<UMLModel> {
 	List<ModelElement> children = new ArrayList<ModelElement>();
 
 	public JDTClassDiagramEditPart() {
-
+		super();
+		addCreationCommand(UMLClass.class, new CreateClassCommand(this));
 	}
 
 	@Override

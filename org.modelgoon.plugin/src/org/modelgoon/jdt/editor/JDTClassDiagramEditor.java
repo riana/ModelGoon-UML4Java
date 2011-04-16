@@ -2,6 +2,7 @@ package org.modelgoon.jdt.editor;
 
 import org.eclipse.gef.SharedImages;
 import org.eclipse.gef.palette.ConnectionCreationToolEntry;
+import org.eclipse.gef.palette.CreationToolEntry;
 import org.eclipse.gef.palette.PaletteGroup;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.requests.SimpleFactory;
@@ -51,16 +52,26 @@ public class JDTClassDiagramEditor extends JDTDiagramEditor {
 				SharedImages.DESC_SELECTION_TOOL_16);
 		ConnectionCreationToolEntry uniqueAssociation = new ConnectionCreationToolEntry(
 				"Simple Association", "Creates Simple Association",
-				new UniqueAssociationCreationFactory(
-						AssociationRelationShip.UNIQUE),
+				new AssociationCreationFactory(AssociationRelationShip.UNIQUE),
 				SharedImages.DESC_SELECTION_TOOL_16,
 				SharedImages.DESC_SELECTION_TOOL_16);
 		ConnectionCreationToolEntry multipleAssociation = new ConnectionCreationToolEntry(
-				"Multiple Association", "Creates Multiple Association",
-				new UniqueAssociationCreationFactory(
-						AssociationRelationShip.MULTIPLE),
+				"Multiple Association",
+				"Creates Multiple Association",
+				new AssociationCreationFactory(AssociationRelationShip.MULTIPLE),
 				SharedImages.DESC_SELECTION_TOOL_16,
 				SharedImages.DESC_SELECTION_TOOL_16);
+		CreationToolEntry classCreationTool = new CreationToolEntry("Class",
+				"Creates a new Class", new UMLClassCreationFactoryTool(false),
+				SharedImages.DESC_SELECTION_TOOL_16,
+				SharedImages.DESC_SELECTION_TOOL_16);
+		CreationToolEntry interfaceCreationTool = new CreationToolEntry(
+				"Interface", "Creates a new Interface",
+				new UMLClassCreationFactoryTool(true),
+				SharedImages.DESC_SELECTION_TOOL_16,
+				SharedImages.DESC_SELECTION_TOOL_16);
+		group.add(interfaceCreationTool);
+		group.add(classCreationTool);
 		group.add(connectionToolEntry);
 		group.add(uniqueAssociation);
 		group.add(multipleAssociation);
