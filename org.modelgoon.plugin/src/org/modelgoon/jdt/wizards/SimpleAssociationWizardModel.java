@@ -6,7 +6,7 @@ public class SimpleAssociationWizardModel {
 
 	String name;
 
-	Visibility visibility;
+	Visibility visibility = Visibility.PRIVATE;
 
 	boolean getterGenerationRequired;
 

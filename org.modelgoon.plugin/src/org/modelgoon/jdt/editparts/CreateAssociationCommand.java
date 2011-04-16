@@ -24,6 +24,7 @@ import org.modelgoon.ModelGoonActivator;
 import org.modelgoon.core.ui.LinkCreationCommand;
 import org.modelgoon.jdt.model.AssociationRelationShip;
 import org.modelgoon.jdt.model.UMLClass;
+import org.modelgoon.jdt.model.Visibility;
 import org.modelgoon.jdt.wizards.CreateSimpleAssociationWizard;
 import org.modelgoon.jdt.wizards.SimpleAssociationWizardModel;
 
@@ -136,35 +137,44 @@ public class CreateAssociationCommand extends LinkCreationCommand {
 		if (result == Window.OK) {
 			String endpointName = wizardModel.getName();
 
+			ListRewrite bodyDeclarations = astRewrite.getListRewrite(typeDecl,
+					typeDecl.getBodyDeclarationsProperty());
+
 			String fieldDeclarationString = buildFieldDeclaration(
-					target.getName(), endpointName);
-			String setterMethod = buildSetter(target, endpointName);
-			String getterMethod = buildGetter(target, endpointName);
+					target.getName(), endpointName, wizardModel.getVisibility());
 
 			final FieldDeclaration declaration = (FieldDeclaration) astRewrite
 					.createStringPlaceholder(fieldDeclarationString,
 							ASTNode.FIELD_DECLARATION);
-
-			final MethodDeclaration getterDeclaration = (MethodDeclaration) astRewrite
-					.createStringPlaceholder(getterMethod,
-							ASTNode.METHOD_DECLARATION);
-
-			final MethodDeclaration setterDeclaration = (MethodDeclaration) astRewrite
-					.createStringPlaceholder(setterMethod,
-							ASTNode.METHOD_DECLARATION);
-
-			ListRewrite bodyDeclarations = astRewrite.getListRewrite(typeDecl,
-					typeDecl.getBodyDeclarationsProperty());
-
 			bodyDeclarations.insertAt(declaration, 0, null);
-			bodyDeclarations.insertLast(getterDeclaration, null);
-			bodyDeclarations.insertLast(setterDeclaration, null);
+
+			if (wizardModel.isGetterGenerationRequired()) {
+				String getterMethod = buildGetter(target, endpointName);
+				final MethodDeclaration getterDeclaration = (MethodDeclaration) astRewrite
+						.createStringPlaceholder(getterMethod,
+								ASTNode.METHOD_DECLARATION);
+				bodyDeclarations.insertLast(getterDeclaration, null);
+			}
+
+			if (wizardModel.isSetterGenerationRequired()) {
+				String setterMethod = buildSetter(target, endpointName);
+				final MethodDeclaration setterDeclaration = (MethodDeclaration) astRewrite
+						.createStringPlaceholder(setterMethod,
+								ASTNode.METHOD_DECLARATION);
+				bodyDeclarations.insertLast(setterDeclaration, null);
+			}
+
 		}
 
 	}
 
-	public String buildFieldDeclaration(final String type, final String variable) {
+	public String buildFieldDeclaration(final String type,
+			final String variable, final Visibility visibility) {
 		StringBuilder builder = new StringBuilder();
+		if (visibility != Visibility.DEFAULT) {
+			builder.append(visibility.toString().toLowerCase());
+			builder.append(" ");
+		}
 		builder.append(type);
 		builder.append(" ");
 		builder.append(variable);

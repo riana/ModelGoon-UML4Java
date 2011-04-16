@@ -12,12 +12,10 @@ public class CreateSimpleAssociationWizard extends Wizard {
 			final SimpleAssociationWizardModel simpleAssociationWizardModel) {
 		super();
 		this.simpleAssociationWizardModel = simpleAssociationWizardModel;
-
 	}
 
 	@Override
 	public void addPages() {
-		// TODO Auto-generated method stub
 		super.addPages();
 		addPage(new SimpleAssociationWizardPage(
 				this.simpleAssociationWizardModel));
