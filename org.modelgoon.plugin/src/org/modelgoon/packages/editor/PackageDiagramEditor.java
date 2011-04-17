@@ -12,6 +12,7 @@ import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.modelgoon.ModelGoonActivator;
+import org.modelgoon.ModelGoonIcons;
 import org.modelgoon.core.ModelLoader;
 import org.modelgoon.core.Note;
 import org.modelgoon.core.editparts.NoteEditPart;
@@ -50,7 +51,7 @@ public class PackageDiagramEditor extends Diagram<PackageDiagram> implements
 		PaletteGroup group = new PaletteGroup("Creation tools");
 
 		ImageDescriptor imgDesc = ModelGoonActivator
-				.getImageDescriptor("icons/sticky_notes-16x16.png");
+				.getImageDescriptor(ModelGoonIcons.COMMENT_ICON);
 
 		group.add(new CreationToolEntry("Note", "Insert a new Note in ",
 				new SimpleFactory(Note.class), imgDesc, imgDesc));

@@ -1,11 +1,13 @@
 package org.modelgoon.jdt.editor;
 
-import org.eclipse.gef.SharedImages;
 import org.eclipse.gef.palette.ConnectionCreationToolEntry;
 import org.eclipse.gef.palette.CreationToolEntry;
 import org.eclipse.gef.palette.PaletteGroup;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.requests.SimpleFactory;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.modelgoon.ModelGoonActivator;
+import org.modelgoon.ModelGoonIcons;
 import org.modelgoon.classes.editparts.ClassCompartmentModel;
 import org.modelgoon.classes.editparts.ListEditPart;
 import org.modelgoon.core.Note;
@@ -45,36 +47,49 @@ public class JDTClassDiagramEditor extends JDTDiagramEditor {
 	@Override
 	protected void fillPalette(final PaletteRoot paletteRoot,
 			final PaletteGroup group) {
+
+		ImageDescriptor inheritanceImage = ModelGoonActivator
+				.getImageDescriptor(ModelGoonIcons.GENERALIZATION_ICON);
 		ConnectionCreationToolEntry connectionToolEntry = new ConnectionCreationToolEntry(
 				"Inheritance", "Creates inheritance", new SimpleFactory(
-						ExtensionRelationShip.class),
-				SharedImages.DESC_SELECTION_TOOL_16,
-				SharedImages.DESC_SELECTION_TOOL_16);
+						ExtensionRelationShip.class), inheritanceImage,
+				inheritanceImage);
+
+		ImageDescriptor associationImage = ModelGoonActivator
+				.getImageDescriptor(ModelGoonIcons.ASSOCIATION_ICON);
 		ConnectionCreationToolEntry uniqueAssociation = new ConnectionCreationToolEntry(
-				"Simple Association", "Creates Simple Association",
+				"Association", "Creates an Association",
 				new AssociationCreationFactory(AssociationRelationShip.UNIQUE),
-				SharedImages.DESC_SELECTION_TOOL_16,
-				SharedImages.DESC_SELECTION_TOOL_16);
-		ConnectionCreationToolEntry multipleAssociation = new ConnectionCreationToolEntry(
-				"Multiple Association",
-				"Creates Multiple Association",
-				new AssociationCreationFactory(AssociationRelationShip.MULTIPLE),
-				SharedImages.DESC_SELECTION_TOOL_16,
-				SharedImages.DESC_SELECTION_TOOL_16);
+				associationImage, associationImage);
+
+		// ImageDescriptor associationImage = ModelGoonActivator
+		// .getImageDescriptor(ModelGoonIcons.REALIZATION_ICON);
+		// ConnectionCreationToolEntry multipleAssociation = new
+		// ConnectionCreationToolEntry(
+		// "Multiple Association",
+		// "Creates Multiple Association",
+		// new AssociationCreationFactory(AssociationRelationShip.MULTIPLE),
+		// SharedImages.DESC_SELECTION_TOOL_16,
+		// SharedImages.DESC_SELECTION_TOOL_16);
+
+		ImageDescriptor classImage = ModelGoonActivator
+				.getImageDescriptor(ModelGoonIcons.CLASS_ICON);
 		CreationToolEntry classCreationTool = new CreationToolEntry("Class",
 				"Creates a new Class", new UMLClassCreationFactoryTool(false),
-				SharedImages.DESC_SELECTION_TOOL_16,
-				SharedImages.DESC_SELECTION_TOOL_16);
+				classImage, classImage);
+
+		ImageDescriptor interfaceImage = ModelGoonActivator
+				.getImageDescriptor(ModelGoonIcons.INTERFACE_ICON);
 		CreationToolEntry interfaceCreationTool = new CreationToolEntry(
 				"Interface", "Creates a new Interface",
-				new UMLClassCreationFactoryTool(true),
-				SharedImages.DESC_SELECTION_TOOL_16,
-				SharedImages.DESC_SELECTION_TOOL_16);
+				new UMLClassCreationFactoryTool(true), interfaceImage,
+				interfaceImage);
+
 		group.add(interfaceCreationTool);
 		group.add(classCreationTool);
 		group.add(connectionToolEntry);
 		group.add(uniqueAssociation);
-		group.add(multipleAssociation);
+		// group.add(multipleAssociation);
 	}
 
 }
