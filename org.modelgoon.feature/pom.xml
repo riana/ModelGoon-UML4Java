@@ -8,12 +8,7 @@
 		<artifactId>ModelGoon</artifactId>
 		<version>4.4.2</version>
 	</parent>
-	
-	<groupId>org.modelgoon</groupId>
 	<artifactId>org.modelgoon.feature</artifactId>
 	<packaging>eclipse-feature</packaging>
-	<version>4.4.2</version>
-
-	
 </project>
 
